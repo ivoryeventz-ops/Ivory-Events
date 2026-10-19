@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ivory Events &mdash; Gallery</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: #faf9f6;
+  }
+
+  .ivory-embed-container {
+    font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background-color: #faf9f6;
+    color: #2b2b2b;
+    line-height: 1.7;
+    padding: 2.5rem 1.5rem;
+    width: 100%;
+    max-width: 850px;
+    margin: 0 auto;
+    box-sizing: border-box;
+    text-align: center;
+  }
+
+  .ivory-embed-container * {
+    box-sizing: border-box;
+  }
+
+  /* Navigation Bar */
+  .ivory-nav-container {
+    background: #ffffff;
+    border: 1px solid #e8e3dc;
+    border-radius: 10px;
+    padding: 1.25rem 1rem;
+    margin-bottom: 2rem;
+    text-align: center;
+    box-shadow: 0 3px 12px rgba(176, 141, 87, 0.08);
+  }
+
+  .ivory-nav-heading {
+    font-family: 'Georgia', serif;
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #b08d57;
+    font-weight: 700;
+    margin: 0 0 0.85rem 0;
+  }
+
+  .ivory-nav-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .ivory-nav-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #b08d57;
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1.05rem;
+    padding: 0.85rem 1.8rem;
+    border-radius: 8px;
+    box-shadow: 0 3px 10px rgba(176, 141, 87, 0.22);
+    transition: all 0.2s ease;
+    flex: 1 1 140px;
+    min-width: 0;
+    max-width: 220px;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+  }
+
+  .gallery-card {
+    background: #ffffff;
+    border: 1px solid #e8e3dc;
+    border-radius: 12px;
+    padding: 3rem 2rem;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .gallery-badge {
+    display: inline-block;
+    background-color: #f7f4ee;
+    color: #b08d57;
+    padding: 0.35rem 1rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 1.25rem;
+    border: 1px solid #e8e3dc;
+  }
+
+  .gallery-title {
+    font-family: 'Georgia', serif;
+    font-size: 2rem;
+    color: #2b2b2b;
+    margin: 0 0 1rem 0;
+  }
+
+  .gallery-icon {
+    color: #b08d57;
+    font-size: 1.5rem;
+    margin-bottom: 1.25rem;
+    letter-spacing: 4px;
+  }
+
+  .gallery-desc {
+    color: #6e655f;
+    font-size: 1.05rem;
+    max-width: 580px;
+    margin: 0 0 2rem 0;
+  }
+
+  .gallery-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    max-width: 100%;
+    background-color: #b08d57;
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.05rem;
+    padding: 0.9rem 1.8rem;
+    border-radius: 6px;
+    box-shadow: 0 4px 12px rgba(176, 141, 87, 0.25);
+    transition: all 0.2s ease;
+  }
+
+  .gallery-note {
+    margin-top: 1.5rem;
+    font-size: 0.82rem;
+    color: #8c827a;
+  }
+
+  /* Hover effects only on devices that really hover (stops buttons staying "raised" after a tap) */
+  @media (hover: hover) {
+    .ivory-nav-btn:hover {
+      background-color: #9a7846;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(176, 141, 87, 0.32);
+    }
+    .gallery-btn:hover {
+      background-color: #9a7846;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(176, 141, 87, 0.35);
+    }
+  }
+
+  /* Tighter spacing on phones so nothing is squeezed */
+  @media (max-width: 520px) {
+    .ivory-embed-container { padding: 1.5rem 1rem; }
+    .gallery-card { padding: 2rem 1.25rem; }
+    .gallery-title { font-size: 1.6rem; }
+    .gallery-btn { padding: 0.9rem 1.25rem; }
+  }
+</style>
+
+</head>
+<body>
+<div class="ivory-embed-container">
+  <!-- Quick Navigation Bar -->
+  <div class="ivory-nav-container">
+    <div class="ivory-nav-heading">Quick Navigation</div>
+    <div class="ivory-nav-buttons">
+      <a href="https://ivory-intro.netlify.app/" target="_blank" rel="noopener noreferrer" class="ivory-nav-btn">Intro</a>
+      <a href="https://ivory-reviews.netlify.app/" target="_blank" rel="noopener noreferrer" class="ivory-nav-btn">Reviews</a>
+      <a href="https://wedding-packages-october.netlify.app/" target="_blank" rel="noopener noreferrer" class="ivory-nav-btn">Packages</a>
+    </div>
+  </div>
+
+  <div class="gallery-card">
+    <span class="gallery-badge">Photo Portfolio</span>
+    <h1 class="gallery-title">View a Sample of Our Past Events</h1>
+    <div class="gallery-icon" aria-hidden="true">&#10022; &#10022; &#10022;</div>
+    <p class="gallery-desc">
+      Explore our curated collection of stage designs, church ceremonies, bridal entries, and floral setups in high resolution.
+    </p>
+
+    <a href="https://photos.app.goo.gl/G5nyMtNpj78S9HgY9" target="_blank" rel="noopener noreferrer" class="gallery-btn">
+      <span>&#128073; Ivory Events Google Photos Album</span>
+    </a>
+
+    <div class="gallery-note">
+      Opens in Google Photos for full high-resolution viewing
+    </div>
+  </div>
+</div>
+</body>
+</html>
