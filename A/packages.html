@@ -1,0 +1,1456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ivory Events &mdash; Build Your Wedding Package</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  box-sizing: border-box;
+  --bg: #faf9f6;
+  --card: #ffffff;
+  --ink: #2b2b2b;
+  --mute: #6e655f;
+  --gold: #b08d57;
+  --gold-hover: #9a7846;
+  --gold-tint: #f7f4ee;
+  --line: #e8e3dc;
+  --accent: #2b2b2b;
+  --on: #ffffff;
+}
+
+* { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  position: relative; /* lets the photo viewer position itself against the page, not the iframe window */
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  line-height: 1.6;
+}
+
+header {
+  text-align: center;
+  padding: 2.5rem 1rem 1.5rem;
+  background: var(--card);
+  border-bottom: 1px solid var(--line);
+}
+.header-badge {
+  display: inline-block;
+  background-color: var(--gold-tint);
+  color: var(--gold);
+  padding: 0.35rem 1rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 0.75rem;
+  border: 1px solid var(--line);
+}
+header h1 {
+  font-family: 'Georgia', serif;
+  margin: 0;
+  font-size: 2.1rem;
+  color: var(--ink);
+  font-weight: normal;
+}
+header p {
+  margin: 0.5rem 0 0;
+  color: var(--mute);
+  font-size: 0.95rem;
+}
+
+/* Quick Navigation Bar */
+.ivory-nav-container {
+  background: #ffffff;
+  border: 1px solid #e8e3dc;
+  border-radius: 10px;
+  padding: 1.25rem 1rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  box-shadow: 0 3px 12px rgba(176, 141, 87, 0.08);
+}
+.ivory-nav-heading {
+  font-family: 'Georgia', serif;
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: #b08d57;
+  font-weight: 700;
+  margin: 0 0 0.85rem 0;
+}
+.ivory-nav-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.ivory-nav-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #b08d57;
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 1.05rem;
+  padding: 0.85rem 1.8rem;
+  border-radius: 8px;
+  box-shadow: 0 3px 10px rgba(176, 141, 87, 0.22);
+  transition: all 0.2s ease;
+  flex: 1 1 140px;
+  min-width: 0;
+  max-width: 220px;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+}
+
+main {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 2rem 1rem 4rem;
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: minmax(0, 1fr);
+}
+@media (min-width: 900px) {
+  main {
+    grid-template-columns: minmax(0, 1fr) 340px;
+    align-items: start;
+  }
+}
+
+/* Complimentary Management Card */
+.complimentary-box {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--gold);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+}
+.complimentary-title {
+  font-family: 'Georgia', serif;
+  color: var(--ink);
+  font-weight: bold;
+  font-size: 1.15rem;
+  margin-bottom: 0.85rem;
+}
+.complimentary-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.complimentary-list li {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  font-size: 0.9rem;
+  color: var(--mute);
+}
+.complimentary-list li::before {
+  content: "\2714";
+  color: var(--gold);
+  font-size: 0.85rem;
+  font-weight: bold;
+}
+
+h2 {
+  font-family: 'Georgia', serif;
+  font-size: 1.35rem;
+  margin: 2rem 0 0.35rem;
+  color: var(--ink);
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 0.4rem;
+}
+.sub {
+  margin: 0 0 1rem;
+  color: var(--mute);
+  font-size: 0.85rem;
+}
+
+/* Highlighted Package Inclusions Accordion */
+.inclusions-highlight {
+  background: var(--card);
+  border: 1px solid var(--gold);
+  border-radius: 12px;
+  padding: 1rem 1.25rem;
+  margin: 1rem 0 1.5rem;
+  box-shadow: 0 4px 12px rgba(176, 141, 87, 0.08);
+}
+.inclusions-highlight summary {
+  cursor: pointer;
+  color: var(--gold);
+  font-weight: 600;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  list-style: none;
+}
+.inclusions-highlight summary::-webkit-details-marker {
+  display: none;
+}
+.inclusions-highlight summary::after {
+  content: "\25BE";
+  font-size: 1.1rem;
+  color: var(--gold);
+  transition: transform .2s ease;
+}
+.inclusions-highlight[open] summary::after {
+  transform: rotate(180deg);
+}
+.inclusions-highlight ul {
+  margin: 0.75rem 0 0.5rem;
+  padding-left: 1.2rem;
+  columns: 2;
+  color: var(--mute);
+  font-size: 0.88rem;
+}
+@media (max-width: 600px) {
+  .inclusions-highlight ul {
+    columns: 1;
+  }
+}
+
+.grid {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+}
+
+.item {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  transition: all .15s ease;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+}
+.item:hover {
+  border-color: #d8cfc4;
+}
+.item.selected {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 2px var(--gold);
+}
+.item label {
+  display: block;
+  cursor: pointer;
+  flex-grow: 1;
+  margin-top: 6px;
+}
+.item input[type="radio"],
+.item input[type="checkbox"] {
+  float: right;
+  margin: 2px 0 0 8px;
+  accent-color: var(--gold);
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+}
+.item b {
+  display: block;
+  font-size: 0.95rem;
+  color: var(--ink);
+}
+.item small {
+  color: var(--mute);
+  display: block;
+  font-size: 0.8rem;
+  margin-top: 3px;
+}
+.price {
+  display: block;
+  color: var(--gold);
+  font-weight: 600;
+  margin-top: 6px;
+  font-size: 0.95rem;
+}
+
+.gallery {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  scroll-snap-type: x proximity; /* gentler snapping so an up/down swipe on a photo still scrolls the page */
+  touch-action: pan-x pan-y;
+  margin-bottom: 4px;
+  padding-bottom: 4px;
+  -webkit-overflow-scrolling: touch;
+}
+.gallery img {
+  flex: 0 0 100%;
+  height: 140px;
+  object-fit: cover;
+  border-radius: 6px;
+  scroll-snap-align: start;
+  background: var(--line);
+  display: block;
+  cursor: pointer;
+}
+
+.qty {
+  display: none;
+  margin-top: 8px;
+  font-size: 0.85rem;
+}
+.item.selected .qty {
+  display: block;
+}
+.qty input {
+  width: 62px;
+  padding: 4px 6px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--bg);
+  color: var(--ink);
+  font: inherit;
+}
+
+/* Policy & Terms Section */
+.policy-section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 10px;
+}
+.policy-card {
+  padding: 1rem;
+  border-radius: 10px;
+  font-size: 0.88rem;
+  line-height: 1.6;
+  background: var(--card);
+}
+.policy-card b.title {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.95rem;
+  margin-bottom: 6px;
+}
+.policy-card.warning {
+  border: 1px solid var(--gold);
+  border-left: 4px solid var(--gold);
+  background: var(--gold-tint);
+}
+.policy-card.warning b.title {
+  color: var(--gold-hover);
+}
+.policy-card.validity {
+  border: 1px solid var(--line);
+  border-left: 4px solid #8c827a;
+}
+.policy-card.validity b.title {
+  color: var(--ink);
+}
+.policy-card.info {
+  border: 1px solid var(--line);
+}
+.policy-card.info b.title {
+  color: var(--ink);
+}
+.policy-card.payment {
+  border: 1px solid var(--gold);
+  border-left: 4px solid var(--gold);
+  background: var(--card);
+}
+.policy-card.payment b.title {
+  color: var(--gold);
+}
+.policy-bullets {
+  margin: 6px 0 0;
+  padding-left: 1.2rem;
+  color: var(--mute);
+}
+.policy-bullets li {
+  margin-bottom: 4px;
+}
+
+/* Sidebar Estimate Card */
+aside {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+}
+aside h3 {
+  font-family: 'Georgia', serif;
+  margin: 0 0 0.75rem;
+  color: var(--ink);
+  font-size: 1.25rem;
+}
+#lines {
+  list-style: none;
+  margin: 0 0 10px;
+  padding: 0;
+  font-size: 0.88rem;
+}
+#lines li {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 5px 0;
+  border-bottom: 1px dashed var(--line);
+  color: var(--mute);
+}
+.total {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 1rem 0 0.5rem;
+  color: var(--gold);
+  border-top: 1px solid var(--line);
+  padding-top: 0.75rem;
+}
+input[type=text],
+input[type=date],
+input[type=tel],
+textarea {
+  width: 100%;
+  padding: 10px;
+  margin: 4px 0;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--bg);
+  color: var(--ink);
+  font: inherit;
+  font-size: 0.88rem;
+}
+input:focus, textarea:focus {
+  outline: none;
+  border-color: var(--gold);
+}
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  border-radius: 6px;
+  padding: 0.9rem;
+  background-color: var(--gold);
+  color: var(--on);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  margin-top: 8px;
+  border: none;
+  box-shadow: 0 4px 12px rgba(176, 141, 87, 0.25);
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+.note {
+  font-size: 0.78rem;
+  color: var(--mute);
+  margin: 6px 0 0;
+  line-height: 1.4;
+}
+.note.warn {
+  color: var(--gold-hover);
+  font-weight: 600;
+}
+
+/* Photo viewer: stacked photos, placed next to the photo that was tapped */
+.ivory-stack-overlay {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: rgba(18, 15, 12, 0.95);
+  z-index: 999999;
+  padding: 0 1rem 3rem;
+}
+.ivory-stack-overlay.active {
+  display: block;
+}
+.ivory-stack-container {
+  max-width: 820px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+.ivory-stack-header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.6rem 0.25rem;
+}
+.ivory-stack-title {
+  color: var(--gold-tint);
+  font-family: 'Georgia', serif;
+  font-size: 1.15rem;
+  letter-spacing: 0.5px;
+}
+.ivory-stack-close {
+  color: #ffffff;
+  font-family: inherit;
+  font-size: 2.2rem;
+  line-height: 1;
+  cursor: pointer;
+  background: rgba(255, 255, 255, 0.12);
+  border: none;
+  padding: 0;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+.ivory-stack-images {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+.ivory-stack-images img {
+  width: 100%;
+  max-width: 800px;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+  display: block;
+  background: #2b2b2b;
+}
+.ivory-stack-done {
+  background: var(--gold);
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  padding: 0.8rem 2rem;
+  font-family: inherit;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+
+/* Hover effects only on devices that really hover (stops buttons staying "raised" after a tap) */
+@media (hover: hover) {
+  .ivory-nav-btn:hover {
+    background-color: #9a7846;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(176, 141, 87, 0.32);
+  }
+  .btn:hover {
+    background-color: var(--gold-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(176, 141, 87, 0.35);
+  }
+  .ivory-stack-close:hover {
+    background: var(--gold);
+    transform: scale(1.05);
+  }
+}
+
+/* Keep the estimate card in view only when the page is tall enough to hold it */
+@media (min-width: 900px) and (min-height: 820px) {
+  aside {
+    position: sticky;
+    top: 1rem;
+    /* never taller than the visible area, so a tablet can't get stuck unable to reach the form */
+    max-height: calc(100vh - 2rem);
+    max-height: calc(100dvh - 2rem);
+    overflow-y: auto;
+    overscroll-behavior: auto; /* once the card ends, the swipe passes on to the page */
+    -webkit-overflow-scrolling: touch;
+  }
+  #lines {
+    max-height: 22vh;
+    overflow-y: auto;
+  }
+}
+
+/* 16px fields stop iPhones zooming the page when a field is tapped */
+@media (max-width: 900px) {
+  input[type=text],
+  input[type=date],
+  input[type=tel],
+  textarea,
+  .qty input {
+    font-size: 16px;
+  }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <span class="header-badge">Ivory Events</span>
+  <h1>Build Your Wedding Package</h1>
+  <p>Select your package and services &mdash; your estimate updates in real time</p>
+</header>
+
+<main>
+<div>
+  <!-- Quick Navigation Bar -->
+  <div class="ivory-nav-container">
+    <div class="ivory-nav-heading">Quick Navigation</div>
+    <div class="ivory-nav-buttons">
+      <a href="index.html" class="ivory-nav-btn">Intro</a>
+      <a href="reviews.html" class="ivory-nav-btn">Reviews</a>
+      <a href="gallery.html" class="ivory-nav-btn">Gallery</a>
+    </div>
+  </div>
+
+  <!-- Complimentary Section -->
+  <div class="complimentary-box">
+    <div class="complimentary-title">Every package includes complimentary wedding management:</div>
+    <ul class="complimentary-list">
+      <li>Wedding-day timeline</li>
+      <li>Service supervision</li>
+      <li>Final readiness check</li>
+      <li>Church-ceremony assistance</li>
+      <li>Two welcome hostesses except Package 1</li>
+      <li>Stage music coordination</li>
+      <li>Photography assistance</li>
+    </ul>
+  </div>
+
+  <h2>1 &middot; Choose your package</h2>
+
+  <details class="inclusions-highlight">
+    <summary>&#10022; View Package Inclusions (Tap to Expand)</summary>
+    <p class="sub" style="margin-top: 8px;">Packages 2&ndash;13 include scale and design varying by package tier:</p>
+    <ul>
+      <li>White flex or carpet on stage</li>
+      <li>Sofa</li>
+      <li>Welcome drink for couple</li>
+      <li>Single layer fresh cream cake</li>
+      <li>3 candles</li>
+      <li>Fresh leaves on stage</li>
+      <li>Stage floral settings artificial</li>
+      <li>Stage lights and facelights</li>
+      <li>Stage sound system</li>
+      <li>Centre carpet along aisle</li>
+      <li>Hall entrance arch artificial</li>
+      <li>Wedding car decoration fresh</li>
+      <li>Greeting garland and bouquet fresh</li>
+      <li>Wedding signage board</li>
+      <li>2 welcome hostesses</li>
+      <li>Manthrakodi basket and ring box returnable</li>
+    </ul>
+    <p class="sub" style="margin-bottom: 2px;"><em>Package 1 is identical without white flex, facelights and hostesses.</em></p>
+  </details>
+
+  <p class="sub">Choose one, or tap again to deselect</p>
+  <div class="grid">
+    <!-- Package 1 -->
+    <div class="item">
+      <div class="gallery">
+        <img src="https://i.postimg.cc/FfZBb2V2/25.jpg" alt="Package 1 - 1" loading="lazy">
+        <img src="https://i.postimg.cc/hJgYdST5/25-(2).jpg" alt="Package 1 - 2" loading="lazy">
+        <img src="https://i.postimg.cc/GBQ5PZx7/25-(3).jpg" alt="Package 1 - 3" loading="lazy">
+        <img src="https://i.postimg.cc/bGTB0KRc/30-(2).jpg" alt="Package 1 - 4" loading="lazy">
+      </div>
+      <label>
+        <input type="radio" name="pkg" data-name="Package 1" data-price="75000">
+        <b>Package 1</b>
+        <small>Stage, aisle, entrance arch, car, garlands without hostesses</small>
+        <span class="price">&#8377;75,000</span>
+      </label>
+    </div>
+
+    <!-- Package 2 -->
+    <div class="item">
+      <div class="gallery">
+        <img src="https://i.postimg.cc/JG3v9vL0/30.jpg" alt="Package 2 - 1" loading="lazy">
+        <img src="https://i.postimg.cc/6yVgDgXT/30-(1-5).jpg" alt="Package 2 - 2" loading="lazy">
+        <img src="https://i.postimg.cc/TpjFZF63/35-(2)-Copy.jpg" alt="Package 2 - 3" loading="lazy">
+      </div>
+      <label>
+        <input type="radio" name="pkg" data-name="Package 2" data-price="105000">
+        <b>Package 2</b>
+        <span class="price">&#8377;1,05,000</span>
+      </label>
+    </div>
+
+    <!-- Package 3 -->
+    <div class="item">
+      <div class="gallery">
+        <img src="https://i.postimg.cc/Mnd4GBXw/40-(2).jpg" alt="Package 3 - 1" loading="lazy">
+        <img src="https://i.postimg.cc/ppv1YCFx/40.jpg" alt="Package 3 - 2" loading="lazy">
+        <img src="https://i.postimg.cc/56JkqgCf/40.jpg" alt="Package 3 - 3" loading="lazy">
+        <img src="https://i.postimg.cc/D8hYd6Xh/40-(9).jpg" alt="Package 3 - 4" loading="lazy">
+      </div>
+      <label>
+        <input type="radio" name="pkg" data-name="Package 3" data-price="115000">
+        <b>Package 3</b>
+        <span class="price">&#8377;1,15,000</span>
+      </label>
+    </div>
+
+    <!-- Package 4 -->
+    <div class="item">
+      <div class="gallery">
+        <img src="https://i.postimg.cc/t18B1Nj2/45.jpg" alt="Package 4 - 1" loading="lazy">
+        <img src="https://i.postimg.cc/dkd4GZQd/45.jpg" alt="Package 4 - 2" loading="lazy">
+        <img src="https://i.postimg.cc/y3yjbqZ6/40-(7).jpg" alt="Package 4 - 3" loading="lazy">
+        <img src="https://i.postimg.cc/gLHsT9Zk/45-(5).jpg" alt="Package 4 - 4" loading="lazy">
+      </div>
+      <label>
+        <input type="radio" name="pkg" data-name="Package 4" data-price="135000">
+        <b>Package 4</b>
+        <span class="price">&#8377;1,35,000</span>
+      </label>
+    </div>
+
+    <!-- Package 5 -->
+    <div class="item">
+      <div class="gallery">
+        <img src="https://i.postimg.cc/PpmQCGK2/50.jpg" alt="Package 5 - 1" loading="lazy">
+        <img src="https://i.postimg.cc/XGwkrMxs/50-(4).jpg" alt="Package 5 - 2" loading="lazy">
+      </div>
+      <label>
+        <input type="radio" name="pkg" data-name="Package 5" data-price="145000">
+        <b>Package 5</b>
+        <span class="price">&#8377;1,45,000</span>
+      </label>
+    </div>
+
+    <!-- Package 6 -->
+    <div class="item">
+      <div class="gallery">
+        <img src="https://i.postimg.cc/WqNYjbjs/55-(3).jpg" alt="Package 6 - 1" loading="lazy">
+        <img src="https://i.postimg.cc/JHrYm4m8/55-(4).jpg" alt="Package 6 - 2" loading="lazy">
+        <img src="https://i.postimg.cc/V0fZ1L1Y/60-(3).jpg" alt="Package 6 - 3" loading="lazy">
+        <img src="https://i.postimg.cc/FdZGP5Sq/55-(2).jpg" alt="Package 6 - 4" loading="lazy">
+        <img src="https://i.postimg.cc/qhLQmVKF/55-(3).jpg" alt="Package 6 - 5" loading="lazy">
+        <img src="https://i.postimg.cc/cgmTDy32/60.jpg" alt="Package 6 - 6" loading="lazy">
+      </div>
+      <label>
+        <input type="radio" name="pkg" data-name="Package 6" data-price="160000">
+        <b>Package 6</b>
+        <span class="price">&#8377;1,60,000</span>
+      </label>
+    </div>
+
+    <!-- Package 7 -->
+    <div class="item">
+      <div class="gallery">
+        <img src="https://i.postimg.cc/WDcnTbwN/70-(2).jpg" alt="Package 7 - 1" loading="lazy">
+        <img src="https://i.postimg.cc/PPmJ0XJ3/70.jpg" alt="Package 7 - 2" loading="lazy">
+      </div>
+      <label>
+        <input type="radio" name="pkg" data-name="Package 7" data-price="170000">
+        <b>Package 7</b>
+        <span class="price">&#8377;1,70,000</span>
+      </label>
+    </div>
+
+    <!-- Package 8 -->
+    <div class="item">
+      <div class="gallery">
+        <img src="https://i.postimg.cc/JHj7wxrV/75.jpg" alt="Package 8 - 1" loading="lazy">
+        <img src="https://i.postimg.cc/XpJ3knFF/80-(2).jpg" alt="Package 8 - 2" loading="lazy">
+      </div>
+      <label>
+        <input type="radio" name="pkg" data-name="Package 8" data-price="180000">
+        <b>Package 8</b>
+        <span class="price">&#8377;1,80,000</span>
+      </label>
+    </div>
+
+    <!-- Package 9 -->
+    <div class="item">
+      <div class="gallery">
+        <img src="https://i.postimg.cc/VrCmMgbv/85.jpg" alt="Package 9 - 1" loading="lazy">
+        <img src="https://i.postimg.cc/sQhsSmZ1/85-(2).jpg" alt="Package 9 - 2" loading="lazy">
+        <img src="https://i.postimg.cc/w3D9jWpb/60-80.jpg" alt="Package 9 - 3" loading="lazy">
+        <img src="https://i.postimg.cc/9zycQxhg/85-(3).jpg" alt="Package 9 - 4" loading="lazy">
+      </div>
+      <label>
+        <input type="radio" name="pkg" data-name="Package 9" data-price="200000">
+        <b>Package 9</b>
+        <span class="price">&#8377;2,00,000</span>
+      </label>
+    </div>
+
+    <!-- Package 10 -->
+    <div class="item">
+      <div class="gallery">
+        <img src="https://i.postimg.cc/LJ5dLDcX/100.jpg" alt="Package 10 - 1" loading="lazy">
+      </div>
+      <label>
+        <input type="radio" name="pkg" data-name="Package 10" data-price="220000">
+        <b>Package 10</b>
+        <span class="price">&#8377;2,20,000</span>
+      </label>
+    </div>
+
+    <!-- Package 11 -->
+    <div class="item">
+      <div class="gallery">
+        <img src="https://i.postimg.cc/Vry3y8d5/110.jpg" alt="Package 11 - 1" loading="lazy">
+      </div>
+      <label>
+        <input type="radio" name="pkg" data-name="Package 11" data-price="240000">
+        <b>Package 11</b>
+        <span class="price">&#8377;2,40,000</span>
+      </label>
+    </div>
+
+    <!-- Package 12 -->
+    <div class="item">
+      <div class="gallery">
+        <img src="https://i.postimg.cc/jntm546r/140.jpg" alt="Package 12 - 1" loading="lazy">
+        <img src="https://i.postimg.cc/K4Ttvy4T/140-(3).jpg" alt="Package 12 - 2" loading="lazy">
+        <img src="https://i.postimg.cc/G9Dvh19y/140-(4).jpg" alt="Package 12 - 3" loading="lazy">
+      </div>
+      <label>
+        <input type="radio" name="pkg" data-name="Package 12" data-price="280000">
+        <b>Package 12</b>
+        <span class="price">&#8377;2,80,000</span>
+      </label>
+    </div>
+
+    <!-- Package 13 -->
+    <div class="item">
+      <div class="gallery">
+        <img src="https://i.postimg.cc/dk4phT5R/160.jpg" alt="Package 13 - 1" loading="lazy">
+      </div>
+      <label>
+        <input type="radio" name="pkg" data-name="Package 13" data-price="300000">
+        <b>Package 13</b>
+        <span class="price">&#8377;3,00,000</span>
+      </label>
+    </div>
+  </div>
+
+  <h2>2 &middot; Church decoration</h2>
+  <p class="sub">Choose one, or tap again to deselect</p>
+  <div class="grid">
+    <div class="item">
+      <label>
+        <input type="radio" name="church" data-name="Church &mdash; artificial flowers" data-price="15000">
+        <b>Church &mdash; artificial flowers</b>
+        <small>Entrance arch and two stands beside couple</small>
+        <span class="price">&#8377;15,000</span>
+      </label>
+    </div>
+    <div class="item">
+      <label>
+        <input type="radio" name="church" data-name="Church &mdash; fresh flowers" data-price="40000">
+        <b>Church &mdash; fresh flowers</b>
+        <small>Entrance arch, aisle stands roses with gypsophila, couple stands</small>
+        <span class="price">&#8377;40,000</span>
+      </label>
+    </div>
+  </div>
+
+  <h2>3 &middot; Church extras</h2>
+  <div class="grid">
+    <div class="item">
+      <label>
+        <input type="checkbox" data-name="Wedding chair for couple" data-price="1500">
+        <b>Wedding chair for couple</b>
+        <small>With decoration</small>
+        <span class="price">&#8377;1,500</span>
+      </label>
+    </div>
+    <div class="item">
+      <label>
+        <input type="checkbox" data-name="Altar flowers 2 nos" data-price="1500">
+        <b>Altar flowers</b>
+        <small>2 nos.</small>
+        <span class="price">&#8377;1,500</span>
+      </label>
+    </div>
+    <div class="item">
+      <label>
+        <input type="checkbox" data-name="Gypsophila greeting set" data-price="5000">
+        <b>Gypsophila greeting set</b>
+        <small>2 garlands plus 2 bouquets, fresh</small>
+        <span class="price">&#8377;5,000</span>
+      </label>
+    </div>
+  </div>
+
+  <h2>4 &middot; Cake</h2>
+  <p class="sub">Choose one, or tap again to deselect</p>
+  <div class="grid">
+    <div class="item">
+      <label>
+        <input type="radio" name="cake" data-name="Two tier cake" data-price="4500">
+        <b>Two tier cake</b>
+        <small>First tier real, lower dummy, fondant</small>
+        <span class="price">&#8377;4,500</span>
+      </label>
+    </div>
+    <div class="item">
+      <label>
+        <input type="radio" name="cake" data-name="Three tier cake" data-price="6000">
+        <b>Three tier cake</b>
+        <small>First tier real, lower two dummy, fondant</small>
+        <span class="price">&#8377;6,000</span>
+      </label>
+    </div>
+  </div>
+
+  <h2>5 &middot; Special effects</h2>
+  <div class="grid">
+    <div class="item">
+      <label>
+        <input type="checkbox" data-name="Flower confetti" data-price="10000">
+        <b>Flower confetti</b>
+        <small>Flower petals shot from a pressurised cannon</small>
+        <span class="price">&#8377;10,000</span>
+      </label>
+    </div>
+    <div class="item">
+      <label>
+        <input type="checkbox" data-name="Cold spark fountain" data-price="15000">
+        <b>Cold spark fountain</b>
+        <small>Fireworks machine for indoor use</small>
+        <span class="price">&#8377;15,000</span>
+      </label>
+    </div>
+    <div class="item">
+      <label>
+        <input type="checkbox" data-name="Confetti plus cold spark combo" data-price="25000">
+        <b>Flower Confetti plus Cold Spark Fountain combo</b>
+        <small>Combined offer</small>
+        <span class="price">&#8377;25,000</span>
+      </label>
+    </div>
+    <div class="item">
+      <label>
+        <input type="checkbox" data-name="Extra cold spark shots" data-price="500">
+        <b>Extra cold spark shots</b>
+        <small>Per shot, per machine</small>
+        <span class="price">&#8377;500 / shot</span>
+      </label>
+      <div class="qty">Qty <input type="number" min="1" value="1" class="qty-input" inputmode="numeric" aria-label="Quantity"></div>
+    </div>
+    <div class="item">
+      <label>
+        <input type="checkbox" data-name="Cool fire" data-price="5000">
+        <b>Cool fire</b>
+        <small>Smoke and smell, requires hall approval</small>
+        <span class="price">&#8377;5,000</span>
+      </label>
+    </div>
+    <div class="item">
+      <label>
+        <input type="checkbox" data-name="Dry ice fog stage" data-price="15000">
+        <b>Dry ice fog &mdash; stage</b>
+        <small>From both sides of stage</small>
+        <span class="price">&#8377;15,000</span>
+      </label>
+    </div>
+    <div class="item">
+      <label>
+        <input type="checkbox" data-name="Dry ice fog ramp" data-price="15000">
+        <b>Dry ice fog &mdash; ramp</b>
+        <small>For the ramp</small>
+        <span class="price">&#8377;15,000</span>
+      </label>
+    </div>
+  </div>
+
+  <h2>6 &middot; Hall d&eacute;cor</h2>
+  <div class="grid">
+    <div class="item">
+      <label>
+        <input type="radio" name="pathway" data-name="Standard pathway stands" data-price="15000">
+        <b>Standard pathway stands</b>
+        <span class="price">&#8377;15,000</span>
+      </label>
+    </div>
+    <div class="item">
+      <label>
+        <input type="radio" name="pathway" data-name="Premium pathway light stands" data-price="30000">
+        <b>Premium pathway light stands</b>
+        <span class="price">&#8377;30,000</span>
+      </label>
+    </div>
+    <div class="item">
+      <label>
+        <input type="checkbox" data-name="Premium entrance arch" data-price="15000">
+        <b>Premium entrance arch</b>
+        <span class="price">&#8377;15,000</span>
+      </label>
+    </div>
+    <div class="item">
+      <label>
+        <input type="checkbox" data-name="Side curtain for main hall" data-price="30000">
+        <b>Side curtain for main hall</b>
+        <span class="price">&#8377;30,000</span>
+      </label>
+    </div>
+    <div class="item">
+      <label>
+        <input type="checkbox" data-name="Ambient lighting in hall" data-price="35000">
+        <b>Ambient lighting in hall</b>
+        <small>With dedicated power source</small>
+        <span class="price">&#8377;35,000</span>
+      </label>
+    </div>
+    <div class="item">
+      <label>
+        <input type="checkbox" data-name="Premium wedding signage board" data-price="7500">
+        <b>Premium signage board</b>
+        <span class="price">&#8377;7,500</span>
+      </label>
+    </div>
+    <div class="item">
+      <label>
+        <input type="checkbox" data-name="Ramp onto stage with flowers" data-price="30000">
+        <b>Ramp onto stage with flowers</b>
+        <small>20 ft x 8 ft</small>
+        <span class="price">&#8377;30,000</span>
+      </label>
+    </div>
+  </div>
+
+  <h2>7 &middot; Family table</h2>
+  <p class="sub">Choose one, or tap again to deselect</p>
+  <div class="grid">
+    <div class="item">
+      <label>
+        <input type="radio" name="fam" data-name="Wooden family table" data-price="18000">
+        <b>Wooden family table</b>
+        <small>12 wooden chairs, crockery, floral d&eacute;cor</small>
+        <span class="price">&#8377;18,000</span>
+      </label>
+    </div>
+    <div class="item">
+      <label>
+        <input type="radio" name="fam" data-name="Premium family table" data-price="25000">
+        <b>Premium family table</b>
+        <small>S or round shape, golden chairs, crockery, floral d&eacute;cor</small>
+        <span class="price">&#8377;25,000</span>
+      </label>
+    </div>
+    <div class="item">
+      <label>
+        <input type="radio" name="fam" data-name="Family table on hall rectangular tables" data-price="10000">
+        <b>Family table on hall tables</b>
+        <small>12 acrylic chairs, crockery, floral d&eacute;cor</small>
+        <span class="price">&#8377;10,000</span>
+      </label>
+    </div>
+  </div>
+
+  <h2>8 &middot; Guest tables</h2>
+  <div class="grid">
+    <div class="item">
+      <label>
+        <input type="checkbox" data-name="Round tables package" data-price="30000">
+        <b>Round tables package</b>
+        <small>10 round tables, covers, centrepieces, 60 Tiffany chairs</small>
+        <span class="price">&#8377;30,000</span>
+      </label>
+    </div>
+  </div>
+
+  <h2>9 &middot; Parking security</h2>
+  <div class="grid">
+    <div class="item">
+      <label>
+        <input type="checkbox" data-name="Normal security" data-price="1200">
+        <b>Normal security</b>
+        <small>Standard uniform, minimum 2</small>
+        <span class="price">&#8377;1,200 / person</span>
+      </label>
+      <div class="qty">Qty <input type="number" min="2" value="2" class="qty-input" inputmode="numeric" aria-label="Quantity"></div>
+    </div>
+    <div class="item">
+      <label>
+        <input type="checkbox" data-name="Tall men security" data-price="1500">
+        <b>Tall men security</b>
+        <small>Suit, above 6 ft, minimum 2</small>
+        <span class="price">&#8377;1,500 / person</span>
+      </label>
+      <div class="qty">Qty <input type="number" min="2" value="2" class="qty-input" inputmode="numeric" aria-label="Quantity"></div>
+    </div>
+  </div>
+
+  <h2>10 &middot; Live band and anchor</h2>
+  <p class="sub">Choose one live band option if required, plus professional anchor / MC</p>
+  <div class="grid">
+    <div class="item">
+      <label>
+        <input type="radio" name="band" data-name="Standard band" data-price="25000" data-extra="ta">
+        <b>Standard band</b>
+        <small>Prefixed songs, keyboard, rhythm pad, violin, instrumental</small>
+        <span class="price">&#8377;25,000 + TA</span>
+      </label>
+    </div>
+    <div class="item">
+      <label>
+        <input type="radio" name="band" data-name="Premium band" data-price="40000" data-extra="ta">
+        <b>Premium band</b>
+        <small>Interactive, keyboard, rhythm pad, violin, instrumental</small>
+        <span class="price">&#8377;40,000 + TA</span>
+      </label>
+    </div>
+    <div class="item">
+      <label>
+        <input type="radio" name="band" data-name="Band with vocalist" data-price="40000" data-extra="ta">
+        <b>Band with vocalist</b>
+        <small>Keyboard, violin, 4 vocalists, English devotional</small>
+        <span class="price">&#8377;40,000 + TA</span>
+      </label>
+    </div>
+    <div class="item">
+      <label>
+        <input type="checkbox" data-name="Professional anchor or MC" data-price="10000" data-extra="fr">
+        <b>Professional anchor / MC</b>
+        <small>Starting rate based on artist</small>
+        <span class="price">from &#8377;10,000</span>
+      </label>
+    </div>
+  </div>
+
+  <h2>11 &middot; Wedding cars</h2>
+  <p class="sub">80 km / 8 hrs allowance</p>
+  <div class="grid">
+    <div class="item">
+      <label>
+        <input type="checkbox" data-name="Mercedes E / BMW 5 / Audi A6" data-price="10500">
+        <b>Mercedes E / BMW 5 / Audi A6</b>
+        <small>White, BMW also dark green</small>
+        <span class="price">&#8377;10,500</span>
+      </label>
+    </div>
+    <div class="item">
+      <label>
+        <input type="checkbox" data-name="Jaguar XF" data-price="12500">
+        <b>Jaguar XF</b>
+        <small>White</small>
+        <span class="price">&#8377;12,500</span>
+      </label>
+    </div>
+    <div class="item">
+      <label>
+        <input type="checkbox" data-name="BMW 5 Series new model" data-price="18500">
+        <b>BMW 5 Series (new model)</b>
+        <small>White</small>
+        <span class="price">&#8377;18,500</span>
+      </label>
+    </div>
+    <div class="item">
+      <label>
+        <input type="checkbox" data-name="Mercedes S Class" data-price="20500">
+        <b>Mercedes S Class</b>
+        <small>White</small>
+        <span class="price">&#8377;20,500</span>
+      </label>
+    </div>
+    <div class="item">
+      <label>
+        <input type="checkbox" data-name="Land Rover Defender" data-price="45000">
+        <b>Land Rover Defender</b>
+        <small>Black or white</small>
+        <span class="price">&#8377;45,000</span>
+      </label>
+    </div>
+  </div>
+
+  <!-- Policy Section -->
+  <div class="policy-section" style="margin-top: 2rem;">
+    <div class="policy-card warning">
+      <b class="title">&#9889; Mandatory Generator (&#8377;8,000 &mdash; Added Automatically)</b>
+      <div>To guarantee continuous event operations and protect sound, lighting, and stage equipment from voltage drops or venue power cuts, a dedicated generator is compulsory for all events.</div>
+      <ul class="policy-bullets">
+        <li><strong>Coverage:</strong> Exclusively powers our event equipment (it does not power venue lighting, hall fans, or air-conditioning).</li>
+        <li><strong>Higher loads:</strong> LED walls, live band backline setups, or heavy lighting require higher-capacity generator units at additional cost.</li>
+        <li><strong>Evening weddings:</strong> Additional generator fuel running charges apply.</li>
+      </ul>
+    </div>
+
+    <div class="policy-card info">
+      <b class="title">&#10024; Also Available on Request (Priced on discussion)</b>
+      <ul class="policy-bullets">
+        <li>Table &amp; Chair covers for existing tables &amp; chairs @ venue</li>
+        <li>Pagoda or marquee tent for beverage / welcome juice counter</li>
+        <li>Custom raised wooden platform for live band setups</li>
+      </ul>
+    </div>
+
+    <div class="policy-card validity">
+      <b class="title">&#128197; Rate Validity &amp; Cost Policy</b>
+      <div>All quoted package and service prices remain strictly <strong>valid for 6 months</strong> from quotation date. Rates are subject to revision beyond this period or in the event of significant market cost increases outside our operational control.</div>
+    </div>
+
+    <div class="policy-card payment">
+      <b class="title">&#128179; Payment Terms</b>
+      <ul class="policy-bullets">
+        <li><strong>Booking Advance:</strong> &#8377;20,000 to confirm the booking, adjustable against the total amount.</li>
+        <li><strong>Pre-Event Payment:</strong> 50% of the total amount, payable one day before the function.</li>
+        <li><strong>Final Payment:</strong> Remaining balance payable the day after the function.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<aside>
+  <h3>Your selection</h3>
+  <ul id="lines">
+    <li><span>Generator mandatory</span><span>&#8377;8,000</span></li>
+  </ul>
+  <div class="total"><span>Estimated total</span><span id="tot">&#8377;8,000</span></div>
+  <p class="note" id="tanote"></p>
+  <input type="text" id="nm" placeholder="Your name" autocomplete="name">
+  <input type="tel" id="ph" placeholder="Phone or WhatsApp" autocomplete="tel">
+  <input type="date" id="dt" aria-label="Wedding date">
+  <input type="text" id="vn" placeholder="Church / hall and location">
+  <textarea id="msg" rows="2" placeholder="Anything else we should know?"></textarea>
+
+  <a class="btn" id="go" href="https://wa.me/919846116300" target="_blank" rel="noopener noreferrer">Send my selection on WhatsApp</a>
+  <p class="note warn" id="gomsg" role="status"></p>
+
+  <p class="note">Estimate only. Final quote confirmed by Ivory Events after discussion.</p>
+</aside>
+</main>
+
+<!-- Photo viewer: opens next to the photo that was tapped -->
+<div id="ivoryStackOverlay" class="ivory-stack-overlay" role="dialog" aria-modal="true" aria-label="Package photos">
+  <div class="ivory-stack-container">
+    <div class="ivory-stack-header">
+      <div id="ivoryStackTitle" class="ivory-stack-title">Package Photos</div>
+      <button type="button" id="ivoryStackClose" class="ivory-stack-close" aria-label="Close photos">&times;</button>
+    </div>
+    <div id="ivoryStackImages" class="ivory-stack-images"></div>
+    <button type="button" id="ivoryStackDone" class="ivory-stack-done">Close photos</button>
+  </div>
+</div>
+
+<script>
+(function () {
+  var WA_NUM = "919846116300";
+  var GEN = 8000;
+  var lastCheckedRadio = {};
+
+  function each(list, fn) {
+    Array.prototype.forEach.call(list, fn);
+  }
+
+  function formatMoney(amount) {
+    return "\u20B9" + amount.toLocaleString("en-IN");
+  }
+
+  /* Quantity, never below the field's own minimum (security needs at least 2) */
+  function getQty(card) {
+    var q = card.querySelector('.qty-input');
+    if (!q) return 1;
+    var min = parseInt(q.getAttribute('min'), 10) || 1;
+    var v = parseInt(q.value, 10);
+    if (isNaN(v) || v < min) v = min;
+    if (v > 999) v = 999;
+    return v;
+  }
+
+  function collectSelection() {
+    var rows = [];
+    var total = GEN;
+    var hasTA = false;
+    var hasFR = false;
+    each(document.querySelectorAll('.item input[type="radio"], .item input[type="checkbox"]'), function (input) {
+      var card = input.closest('.item');
+      if (!input.checked) {
+        card.classList.remove('selected');
+        return;
+      }
+      card.classList.add('selected');
+      var price = parseInt(input.getAttribute('data-price'), 10) || 0;
+      var qty = getQty(card);
+      var sub = price * qty;
+      total += sub;
+      var extra = input.getAttribute('data-extra');
+      if (extra === 'ta') hasTA = true;
+      if (extra === 'fr') hasFR = true;
+      rows.push({ name: input.getAttribute('data-name'), qty: qty, subtotal: sub });
+    });
+    return { rows: rows, total: total, hasTA: hasTA, hasFR: hasFR };
+  }
+
+  function addLine(list, label, amount) {
+    var li = document.createElement('li');
+    var a = document.createElement('span');
+    var b = document.createElement('span');
+    a.textContent = label;
+    b.textContent = formatMoney(amount);
+    li.appendChild(a);
+    li.appendChild(b);
+    list.appendChild(li);
+  }
+
+  function field(id) {
+    return document.getElementById(id).value.trim();
+  }
+
+  function buildWhatsAppUrl(s) {
+    var lines = s.rows.map(function (r) {
+      return '\u2022 ' + r.name + (r.qty > 1 ? ' \u00D7 ' + r.qty : '') + ' \u2014 ' + formatMoney(r.subtotal);
+    });
+    var text = "Hello Ivory Events, I would like a quote for my wedding.\n\n"
+      + "Name: " + (field('nm') || '-') + "\n"
+      + "Phone: " + (field('ph') || '-') + "\n"
+      + "Date: " + (field('dt') || '-') + "\n"
+      + "Venue: " + (field('vn') || '-') + "\n\n"
+      + "Selected:\n" + lines.join("\n") + "\n"
+      + "\u2022 Generator mandatory \u2014 " + formatMoney(GEN) + "\n\n"
+      + "Estimated total: " + formatMoney(s.total);
+    var notes = field('msg');
+    if (notes) text += "\n\nNotes: " + notes;
+    return "https://wa.me/" + WA_NUM + "?text=" + encodeURIComponent(text);
+  }
+
+  var go = document.getElementById('go');
+  var goMsg = document.getElementById('gomsg');
+
+  function render() {
+    var s = collectSelection();
+    var list = document.getElementById('lines');
+    list.innerHTML = '';
+    addLine(list, 'Generator mandatory', GEN);
+    s.rows.forEach(function (r) {
+      addLine(list, r.name + (r.qty > 1 ? ' \u00D7 ' + r.qty : ''), r.subtotal);
+    });
+    document.getElementById('tot').textContent = formatMoney(s.total);
+
+    var note = '';
+    if (s.hasTA) note += 'Band travel allowance is extra. ';
+    if (s.hasFR) note += 'Anchor price is a starting rate. ';
+    document.getElementById('tanote').textContent = note;
+
+    if (s.rows.length > 0) goMsg.textContent = '';
+    go.href = buildWhatsAppUrl(s); /* always ready, even for long-press or open-in-new-tab */
+    return s;
+  }
+
+  /* Radios: tap again to deselect */
+  each(document.querySelectorAll('input[type="radio"]'), function (radio) {
+    radio.addEventListener('click', function () {
+      if (lastCheckedRadio[this.name] === this) {
+        this.checked = false;
+        lastCheckedRadio[this.name] = null;
+      } else {
+        lastCheckedRadio[this.name] = this;
+      }
+      render();
+    });
+  });
+
+  each(document.querySelectorAll('input[type="checkbox"]'), function (cb) {
+    cb.addEventListener('change', render);
+  });
+
+  each(document.querySelectorAll('.qty-input'), function (q) {
+    q.addEventListener('input', render);
+    q.addEventListener('change', function () {
+      q.value = getQty(q.closest('.item'));
+      render();
+    });
+  });
+
+  each(document.querySelectorAll('#nm, #ph, #dt, #vn, #msg'), function (el) {
+    el.addEventListener('input', render);
+    el.addEventListener('change', render);
+  });
+
+  /* WhatsApp: a real link; only blocks the tap when nothing is chosen */
+  go.addEventListener('click', function (e) {
+    var s = render();
+    if (s.rows.length === 0) {
+      e.preventDefault();
+      goMsg.textContent = 'Please select at least one package or service first.';
+    }
+  });
+
+  /* Photo viewer */
+  var overlay = document.getElementById('ivoryStackOverlay');
+  var stackImages = document.getElementById('ivoryStackImages');
+  var stackTitle = document.getElementById('ivoryStackTitle');
+  var stackClose = document.getElementById('ivoryStackClose');
+  var stackDone = document.getElementById('ivoryStackDone');
+
+  function closeStackView(e) {
+    if (e) { e.preventDefault(); e.stopPropagation(); }
+    overlay.classList.remove('active');
+    overlay.style.paddingTop = '';
+    overlay.style.minHeight = '';
+    stackImages.innerHTML = '';
+  }
+
+  function openStackView(gallery, clicked, pkgName) {
+    var scrollY = window.pageYOffset || document.documentElement.scrollTop || 0;
+    var rect = clicked.getBoundingClientRect();
+    /* start the stack just above the tapped photo, so it appears where the visitor is looking */
+    var top = scrollY + Math.max(rect.top - 90, 0);
+    var pageHeight = Math.max(document.documentElement.scrollHeight, document.body.scrollHeight);
+
+    stackImages.innerHTML = '';
+    stackTitle.textContent = pkgName;
+    each(gallery.querySelectorAll('img'), function (img) {
+      var big = document.createElement('img');
+      big.src = img.src;
+      big.alt = img.alt || pkgName;
+      stackImages.appendChild(big);
+    });
+
+    overlay.style.paddingTop = top + 'px';
+    overlay.style.minHeight = pageHeight + 'px';
+    overlay.classList.add('active');
+    try { stackClose.focus({ preventScroll: true }); } catch (err) {}
+  }
+
+  each(document.querySelectorAll('.gallery'), function (gallery) {
+    var card = gallery.closest('.item');
+    var nameEl = card ? card.querySelector('label b') : null;
+    var pkgName = nameEl ? nameEl.textContent : 'Package photos';
+
+    each(gallery.querySelectorAll('img'), function (img) {
+      img.setAttribute('tabindex', '0');
+      img.setAttribute('role', 'button');
+      img.addEventListener('click', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        openStackView(gallery, img, pkgName);
+      });
+      img.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          openStackView(gallery, img, pkgName);
+        }
+      });
+    });
+  });
+
+  stackClose.addEventListener('click', closeStackView);
+  stackDone.addEventListener('click', closeStackView);
+  overlay.addEventListener('click', function (e) {
+    if (e.target === overlay) closeStackView(e);
+  });
+  window.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && overlay.classList.contains('active')) closeStackView();
+  });
+
+  render();
+})();
+</script>
+</body>
+</html>
