@@ -28,7 +28,7 @@ html { -webkit-text-size-adjust: 100%; }
 
 body {
   margin: 0;
-  position: relative; /* lets the photo viewer position itself against the page, not the iframe window */
+  position: relative;
   background: var(--bg);
   color: var(--ink);
   font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -227,14 +227,14 @@ h2 {
 .grid {
   display: grid;
   gap: 12px;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
 }
 
 .item {
   background: var(--card);
   border: 1px solid var(--line);
   border-radius: 10px;
-  padding: 12px;
+  padding: 14px;
   display: flex;
   flex-direction: column;
   position: relative;
@@ -252,7 +252,7 @@ h2 {
   display: block;
   cursor: pointer;
   flex-grow: 1;
-  margin-top: 6px;
+  margin-top: 4px;
 }
 .item input[type="radio"],
 .item input[type="checkbox"] {
@@ -265,30 +265,32 @@ h2 {
 }
 .item b {
   display: block;
-  font-size: 0.95rem;
+  font-size: 0.98rem;
   color: var(--ink);
+  line-height: 1.35;
 }
 .item small {
   color: var(--mute);
   display: block;
-  font-size: 0.8rem;
-  margin-top: 3px;
+  font-size: 0.82rem;
+  margin-top: 6px;
+  line-height: 1.45;
 }
 .price {
   display: block;
   color: var(--gold);
-  font-weight: 600;
-  margin-top: 6px;
-  font-size: 0.95rem;
+  font-weight: 700;
+  margin-top: 8px;
+  font-size: 0.98rem;
 }
 
 .gallery {
   display: flex;
   gap: 6px;
   overflow-x: auto;
-  scroll-snap-type: x proximity; /* gentler snapping so an up/down swipe on a photo still scrolls the page */
+  scroll-snap-type: x proximity;
   touch-action: pan-x pan-y;
-  margin-bottom: 4px;
+  margin-bottom: 6px;
   padding-bottom: 4px;
   -webkit-overflow-scrolling: touch;
 }
@@ -305,20 +307,30 @@ h2 {
 
 .qty {
   display: none;
-  margin-top: 8px;
+  margin-top: 10px;
+  padding-top: 8px;
+  border-top: 1px dashed var(--line);
   font-size: 0.85rem;
 }
 .item.selected .qty {
   display: block;
 }
 .qty input {
-  width: 62px;
-  padding: 4px 6px;
+  width: 65px;
+  padding: 5px 8px;
   border: 1px solid var(--line);
   border-radius: 6px;
   background: var(--bg);
   color: var(--ink);
   font: inherit;
+  font-weight: 600;
+}
+.calc-subnote {
+  font-size: 0.78rem;
+  color: var(--gold);
+  font-weight: 600;
+  margin-top: 4px;
+  display: block;
 }
 
 /* Policy & Terms Section */
@@ -466,7 +478,7 @@ input:focus, textarea:focus {
   font-weight: 600;
 }
 
-/* Photo viewer: stacked photos, placed next to the photo that was tapped */
+/* Photo viewer overlay */
 .ivory-stack-overlay {
   display: none;
   position: absolute;
@@ -546,7 +558,6 @@ input:focus, textarea:focus {
   cursor: pointer;
 }
 
-/* Hover effects only on devices that really hover (stops buttons staying "raised" after a tap) */
 @media (hover: hover) {
   .ivory-nav-btn:hover {
     background-color: #9a7846;
@@ -564,16 +575,14 @@ input:focus, textarea:focus {
   }
 }
 
-/* Keep the estimate card in view only when the page is tall enough to hold it */
 @media (min-width: 900px) and (min-height: 820px) {
   aside {
     position: sticky;
     top: 1rem;
-    /* never taller than the visible area, so a tablet can't get stuck unable to reach the form */
     max-height: calc(100vh - 2rem);
     max-height: calc(100dvh - 2rem);
     overflow-y: auto;
-    overscroll-behavior: auto; /* once the card ends, the swipe passes on to the page */
+    overscroll-behavior: auto;
     -webkit-overflow-scrolling: touch;
   }
   #lines {
@@ -582,7 +591,6 @@ input:focus, textarea:focus {
   }
 }
 
-/* 16px fields stop iPhones zooming the page when a field is tapped */
 @media (max-width: 900px) {
   input[type=text],
   input[type=date],
@@ -843,17 +851,25 @@ input:focus, textarea:focus {
   <div class="grid">
     <div class="item">
       <label>
-        <input type="radio" name="church" data-name="Church &mdash; artificial flowers" data-price="15000">
-        <b>Church &mdash; artificial flowers</b>
-        <small>Entrance arch and two stands beside couple</small>
+        <input type="radio" name="church" data-name="Church &mdash; Artificial flowers setup" data-price="15000">
+        <b>Church &mdash; Artificial flowers</b>
+        <small>Entrance arch for church in artificial floral styling &amp; two dedicated flower stands beside the bride &amp; groom.</small>
         <span class="price">&#8377;15,000</span>
       </label>
     </div>
     <div class="item">
       <label>
-        <input type="radio" name="church" data-name="Church &mdash; fresh flowers" data-price="40000">
-        <b>Church &mdash; fresh flowers</b>
-        <small>Entrance arch, aisle stands roses with gypsophila, couple stands</small>
+        <input type="radio" name="church" data-name="Church &mdash; Hybrid (Artificial Arch + Fresh Stands)" data-price="25000">
+        <b>Church &mdash; Hybrid (Fresh + Artificial)</b>
+        <small>Entrance arch for church in artificial flowers, aisle stands in church with fresh flowers (Roses &amp; Gypsophila), and two fresh floral stands on either side of bride &amp; groom.</small>
+        <span class="price">&#8377;25,000</span>
+      </label>
+    </div>
+    <div class="item">
+      <label>
+        <input type="radio" name="church" data-name="Church &mdash; All Fresh flowers setup" data-price="40000">
+        <b>Church &mdash; All Fresh flowers</b>
+        <small>Full premium fresh floral arrangement: fresh flower church entrance arch, aisle pathway stands crafted with fresh roses &amp; gypsophila, plus two fresh floral stands beside couple.</small>
         <span class="price">&#8377;40,000</span>
       </label>
     </div>
@@ -863,17 +879,17 @@ input:focus, textarea:focus {
   <div class="grid">
     <div class="item">
       <label>
-        <input type="checkbox" data-name="Wedding chair for couple" data-price="1500">
-        <b>Wedding chair for couple</b>
-        <small>With decoration</small>
+        <input type="checkbox" data-name="Wedding chairs for couple" data-price="1500">
+        <b>Wedding chairs for couple</b>
+        <small>Elegantly decorated church seating pair for the bride and groom with floral accents and pristine fabric tie-backs.</small>
         <span class="price">&#8377;1,500</span>
       </label>
     </div>
     <div class="item">
       <label>
-        <input type="checkbox" data-name="Altar flowers 2 nos" data-price="1500">
-        <b>Altar flowers</b>
-        <small>2 nos.</small>
+        <input type="checkbox" data-name="Altar flowers (2 nos)" data-price="1500">
+        <b>Altar flowers (2 nos.)</b>
+        <small>Two sacred altar table arrangements created with fresh seasonal blooms and coordinated ceremonial greenery.</small>
         <span class="price">&#8377;1,500</span>
       </label>
     </div>
@@ -881,7 +897,7 @@ input:focus, textarea:focus {
       <label>
         <input type="checkbox" data-name="Gypsophila greeting set" data-price="5000">
         <b>Gypsophila greeting set</b>
-        <small>2 garlands plus 2 bouquets, fresh</small>
+        <small>Delicate baby's breath fresh flower collection: 2 greeting garlands for couple reception plus 2 matching bridal bouquets.</small>
         <span class="price">&#8377;5,000</span>
       </label>
     </div>
@@ -894,7 +910,7 @@ input:focus, textarea:focus {
       <label>
         <input type="radio" name="cake" data-name="Two tier cake" data-price="4500">
         <b>Two tier cake</b>
-        <small>First tier real, lower dummy, fondant</small>
+        <small>Structured ceremonial display: top tier real fresh-baked cake, lower tier dummy for elevated presentation, finished in smooth fondant styling.</small>
         <span class="price">&#8377;4,500</span>
       </label>
     </div>
@@ -902,7 +918,7 @@ input:focus, textarea:focus {
       <label>
         <input type="radio" name="cake" data-name="Three tier cake" data-price="6000">
         <b>Three tier cake</b>
-        <small>First tier real, lower two dummy, fondant</small>
+        <small>Grand statement tier: top tier real edible cake, bottom two tiers structural dummy for maximum height, wrapped in handcrafted fondant work.</small>
         <span class="price">&#8377;6,000</span>
       </label>
     </div>
@@ -913,8 +929,8 @@ input:focus, textarea:focus {
     <div class="item">
       <label>
         <input type="checkbox" data-name="Flower confetti" data-price="10000">
-        <b>Flower confetti</b>
-        <small>Flower petals shot from a pressurised cannon</small>
+        <b>Flower confetti blast</b>
+        <small>High-pressure pneumatic cannon firing a cascading shower of natural fresh rose petals over the couple during cake cutting or entry.</small>
         <span class="price">&#8377;10,000</span>
       </label>
     </div>
@@ -922,15 +938,15 @@ input:focus, textarea:focus {
       <label>
         <input type="checkbox" data-name="Cold spark fountain" data-price="15000">
         <b>Cold spark fountain</b>
-        <small>Fireworks machine for indoor use</small>
+        <small>Pyrotechnic display machines producing cold-to-the-touch luminous spark geysers. Completely indoor-safe, smokeless, and non-hazardous.</small>
         <span class="price">&#8377;15,000</span>
       </label>
     </div>
     <div class="item">
       <label>
         <input type="checkbox" data-name="Confetti plus cold spark combo" data-price="25000">
-        <b>Flower Confetti plus Cold Spark Fountain combo</b>
-        <small>Combined offer</small>
+        <b>Flower Confetti + Cold Spark Combo</b>
+        <small>Synchronized celebration package combining real petal cannons and indoor cold spark fountains for the grand couple highlight moments.</small>
         <span class="price">&#8377;25,000</span>
       </label>
     </div>
@@ -938,7 +954,7 @@ input:focus, textarea:focus {
       <label>
         <input type="checkbox" data-name="Extra cold spark shots" data-price="500">
         <b>Extra cold spark shots</b>
-        <small>Per shot, per machine</small>
+        <small>Additional spark charges per machine for extended sequences during couple dance, toast, or grand stage exit.</small>
         <span class="price">&#8377;500 / shot</span>
       </label>
       <div class="qty">Qty <input type="number" min="1" value="1" class="qty-input" inputmode="numeric" aria-label="Quantity"></div>
@@ -946,24 +962,24 @@ input:focus, textarea:focus {
     <div class="item">
       <label>
         <input type="checkbox" data-name="Cool fire" data-price="5000">
-        <b>Cool fire</b>
-        <small>Smoke and smell, requires hall approval</small>
+        <b>Cool fire effects</b>
+        <small>Flamboyant low-heat stage fire flare effects. Note: emits minor smoke and aroma; subject to auditorium/venue clearance.</small>
         <span class="price">&#8377;5,000</span>
       </label>
     </div>
     <div class="item">
       <label>
         <input type="checkbox" data-name="Dry ice fog stage" data-price="15000">
-        <b>Dry ice fog &mdash; stage</b>
-        <small>From both sides of stage</small>
+        <b>Dry ice low-fog &mdash; stage</b>
+        <small>Dense, floor-hugging pure white cloud canopy released from both sides of the stage for a dramatic floating-on-clouds appearance.</small>
         <span class="price">&#8377;15,000</span>
       </label>
     </div>
     <div class="item">
       <label>
         <input type="checkbox" data-name="Dry ice fog ramp" data-price="15000">
-        <b>Dry ice fog &mdash; ramp</b>
-        <small>For the ramp</small>
+        <b>Dry ice low-fog &mdash; ramp</b>
+        <small>Immersive low-lying cloud rolling down the entrance ramp as the couple makes their formal reception walk-in.</small>
         <span class="price">&#8377;15,000</span>
       </label>
     </div>
@@ -975,6 +991,7 @@ input:focus, textarea:focus {
       <label>
         <input type="radio" name="pathway" data-name="Standard pathway stands" data-price="15000">
         <b>Standard pathway stands</b>
+        <small>Symmetrically aligned aisle pillars flanking the carpet walkway, dressed with artificial floral clusters.</small>
         <span class="price">&#8377;15,000</span>
       </label>
     </div>
@@ -982,43 +999,47 @@ input:focus, textarea:focus {
       <label>
         <input type="radio" name="pathway" data-name="Premium pathway light stands" data-price="30000">
         <b>Premium pathway light stands</b>
+        <small>Architectural illuminated crystal and warm-light pillars paired with floral arrangements lining the central walkway.</small>
         <span class="price">&#8377;30,000</span>
       </label>
     </div>
     <div class="item">
       <label>
         <input type="checkbox" data-name="Premium entrance arch" data-price="15000">
-        <b>Premium entrance arch</b>
+        <b>Premium hall entrance arch</b>
+        <small>Expanded structural entry portal with heavy floral density, structured foliage framing, and custom backdrop drapes at the auditorium foyer.</small>
         <span class="price">&#8377;15,000</span>
       </label>
     </div>
     <div class="item">
       <label>
         <input type="checkbox" data-name="Side curtain for main hall" data-price="30000">
-        <b>Side curtain for main hall</b>
+        <b>Side curtain draping for main hall</b>
+        <small>Full wall-masking premium pleat drapes covering plain banquet hall walls to create an unbroken, luxurious ballroom ambiance.</small>
         <span class="price">&#8377;30,000</span>
       </label>
     </div>
     <div class="item">
       <label>
         <input type="checkbox" data-name="Ambient lighting in hall" data-price="35000">
-        <b>Ambient lighting in hall</b>
-        <small>With dedicated power source</small>
+        <b>Ambient mood lighting in hall</b>
+        <small>Comprehensive color wash LED PAR wall uplighters with dedicated high-output power control unit to elevate room atmosphere.</small>
         <span class="price">&#8377;35,000</span>
       </label>
     </div>
     <div class="item">
       <label>
         <input type="checkbox" data-name="Premium wedding signage board" data-price="7500">
-        <b>Premium signage board</b>
+        <b>Premium wedding signage board</b>
+        <small>Bespoke personalized welcome easel board featuring custom couple calligraphy, laser detailing, and fresh flower framing.</small>
         <span class="price">&#8377;7,500</span>
       </label>
     </div>
     <div class="item">
       <label>
         <input type="checkbox" data-name="Ramp onto stage with flowers" data-price="30000">
-        <b>Ramp onto stage with flowers</b>
-        <small>20 ft x 8 ft</small>
+        <b>Ramp onto stage with flowers (20 ft x 8 ft)</b>
+        <small>Elevated heavy-duty ramp extending from floor onto stage with matching carpet trim and continuous fresh floral side borders.</small>
         <span class="price">&#8377;30,000</span>
       </label>
     </div>
@@ -1029,17 +1050,9 @@ input:focus, textarea:focus {
   <div class="grid">
     <div class="item">
       <label>
-        <input type="radio" name="fam" data-name="Wooden family table" data-price="18000">
-        <b>Wooden family table</b>
-        <small>12 wooden chairs, crockery, floral d&eacute;cor</small>
-        <span class="price">&#8377;18,000</span>
-      </label>
-    </div>
-    <div class="item">
-      <label>
         <input type="radio" name="fam" data-name="Premium family table" data-price="25000">
         <b>Premium family table</b>
-        <small>S or round shape, golden chairs, crockery, floral d&eacute;cor</small>
+        <small>Designer curved S-shape or large circular banqueting layout, 12 luxury golden chairs, premium fine glassware, porcelain crockery, linen runners, and full floral arrangements.</small>
         <span class="price">&#8377;25,000</span>
       </label>
     </div>
@@ -1047,7 +1060,7 @@ input:focus, textarea:focus {
       <label>
         <input type="radio" name="fam" data-name="Family table on hall rectangular tables" data-price="10000">
         <b>Family table on hall tables</b>
-        <small>12 acrylic chairs, crockery, floral d&eacute;cor</small>
+        <small>Configured over venue's rectangular banquet tables, supplied with 12 stylish acrylic chairs, formal crockery service setting, runners, and curated floral styling.</small>
         <span class="price">&#8377;10,000</span>
       </label>
     </div>
@@ -1055,13 +1068,18 @@ input:focus, textarea:focus {
 
   <h2>8 &middot; Guest tables</h2>
   <div class="grid">
-    <div class="item">
+    <div class="item" id="roundTableCard">
       <label>
-        <input type="checkbox" data-name="Round tables package" data-price="30000">
+        <input type="checkbox" id="roundTableToggle" data-name="Round tables package" data-is-round-table="true">
         <b>Round tables package</b>
-        <small>10 round tables, covers, centrepieces, 60 Tiffany chairs</small>
-        <span class="price">&#8377;30,000</span>
+        <small id="roundTableDesc">10 round banquet tables with luxury floor-length covers, signature table centrepieces, and 60 Tiffany chairs.</small>
+        <span class="price" id="roundTablePriceLabel">&#8377;18,900</span>
       </label>
+      <div class="qty" id="roundTableQtyBox">
+        <label for="roundTableQty" style="font-weight: 600; font-size: 0.85rem; margin-bottom: 3px;">Number of round tables (Min: 6):</label>
+        Qty <input type="number" id="roundTableQty" min="6" value="6" class="qty-input" inputmode="numeric" aria-label="Number of round tables">
+        <span class="calc-subnote" id="roundTableBreakdown">&#10003; 6 round tables + 36 Tiffany chairs</span>
+      </div>
     </div>
   </div>
 
@@ -1071,7 +1089,7 @@ input:focus, textarea:focus {
       <label>
         <input type="checkbox" data-name="Normal security" data-price="1200">
         <b>Normal security</b>
-        <small>Standard uniform, minimum 2</small>
+        <small>Professional disciplined ground marshals in smart security uniform managing vehicular entry, valet coordination, and lot parking (min 2 personnel).</small>
         <span class="price">&#8377;1,200 / person</span>
       </label>
       <div class="qty">Qty <input type="number" min="2" value="2" class="qty-input" inputmode="numeric" aria-label="Quantity"></div>
@@ -1079,8 +1097,8 @@ input:focus, textarea:focus {
     <div class="item">
       <label>
         <input type="checkbox" data-name="Tall men security" data-price="1500">
-        <b>Tall men security</b>
-        <small>Suit, above 6 ft, minimum 2</small>
+        <b>Tall men security / bouncers</b>
+        <small>Executive security marshals above 6 ft height in tailored business suits for VIP protocol, entrance security, and crowd marshaling (min 2 personnel).</small>
         <span class="price">&#8377;1,500 / person</span>
       </label>
       <div class="qty">Qty <input type="number" min="2" value="2" class="qty-input" inputmode="numeric" aria-label="Quantity"></div>
@@ -1094,7 +1112,7 @@ input:focus, textarea:focus {
       <label>
         <input type="radio" name="band" data-name="Standard band" data-price="25000" data-extra="ta">
         <b>Standard band</b>
-        <small>Prefixed songs, keyboard, rhythm pad, violin, instrumental</small>
+        <small>Curated acoustic &amp; instrumental ensemble performing a prefixed repertoire: live keyboard, electronic rhythm pad, and violin.</small>
         <span class="price">&#8377;25,000 + TA</span>
       </label>
     </div>
@@ -1102,7 +1120,7 @@ input:focus, textarea:focus {
       <label>
         <input type="radio" name="band" data-name="Premium band" data-price="40000" data-extra="ta">
         <b>Premium band</b>
-        <small>Interactive, keyboard, rhythm pad, violin, instrumental</small>
+        <small>High-energy interactive live performance ensemble adapting real-time to the audience vibe: keyboard, rhythm pad, acoustic violin, and dynamic leads.</small>
         <span class="price">&#8377;40,000 + TA</span>
       </label>
     </div>
@@ -1110,7 +1128,7 @@ input:focus, textarea:focus {
       <label>
         <input type="radio" name="band" data-name="Band with vocalist" data-price="40000" data-extra="ta">
         <b>Band with vocalist</b>
-        <small>Keyboard, violin, 4 vocalists, English devotional</small>
+        <small>Specialized musical presentation including keyboard, violin, and 4 trained vocalists performing English devotional, classical praise, and soft ballads.</small>
         <span class="price">&#8377;40,000 + TA</span>
       </label>
     </div>
@@ -1118,20 +1136,20 @@ input:focus, textarea:focus {
       <label>
         <input type="checkbox" data-name="Professional anchor or MC" data-price="10000" data-extra="fr">
         <b>Professional anchor / MC</b>
-        <small>Starting rate based on artist</small>
+        <small>Experienced wedding master of ceremonies fluent in Malayalam &amp; English to command the stage, conduct guest games, and lead schedule transitions.</small>
         <span class="price">from &#8377;10,000</span>
       </label>
     </div>
   </div>
 
   <h2>11 &middot; Wedding cars</h2>
-  <p class="sub">80 km / 8 hrs allowance</p>
+  <p class="sub">Standard 80 km / 8 hours chauffeured bridal allowance</p>
   <div class="grid">
     <div class="item">
       <label>
         <input type="checkbox" data-name="Mercedes E / BMW 5 / Audi A6" data-price="10500">
         <b>Mercedes E / BMW 5 / Audi A6</b>
-        <small>White, BMW also dark green</small>
+        <small>Luxury chauffeur-driven sedan in pristine white finish (BMW also available in signature dark green).</small>
         <span class="price">&#8377;10,500</span>
       </label>
     </div>
@@ -1139,23 +1157,23 @@ input:focus, textarea:focus {
       <label>
         <input type="checkbox" data-name="Jaguar XF" data-price="12500">
         <b>Jaguar XF</b>
-        <small>White</small>
+        <small>Distinctive British luxury sedan in pearl white with full leather interior and premium styling.</small>
         <span class="price">&#8377;12,500</span>
       </label>
     </div>
     <div class="item">
       <label>
         <input type="checkbox" data-name="BMW 5 Series new model" data-price="18500">
-        <b>BMW 5 Series (new model)</b>
-        <small>White</small>
+        <b>BMW 5 Series (Latest Model)</b>
+        <small>Latest generation executive luxury sedan in alpine white featuring modern digital cockpit and enhanced rear comfort.</small>
         <span class="price">&#8377;18,500</span>
       </label>
     </div>
     <div class="item">
       <label>
         <input type="checkbox" data-name="Mercedes S Class" data-price="20500">
-        <b>Mercedes S Class</b>
-        <small>White</small>
+        <b>Mercedes-Benz S-Class</b>
+        <small>The flagship luxury saloon in glistening white delivering the ultimate status, reclining rear loungers, and unmatched ride quality.</small>
         <span class="price">&#8377;20,500</span>
       </label>
     </div>
@@ -1163,7 +1181,7 @@ input:focus, textarea:focus {
       <label>
         <input type="checkbox" data-name="Land Rover Defender" data-price="45000">
         <b>Land Rover Defender</b>
-        <small>Black or white</small>
+        <small>Commanding luxury SUV presence available in striking black or white finish with immense road presence.</small>
         <span class="price">&#8377;45,000</span>
       </label>
     </div>
@@ -1226,7 +1244,7 @@ input:focus, textarea:focus {
 </aside>
 </main>
 
-<!-- Photo viewer: opens next to the photo that was tapped -->
+<!-- Photo viewer overlay -->
 <div id="ivoryStackOverlay" class="ivory-stack-overlay" role="dialog" aria-modal="true" aria-label="Package photos">
   <div class="ivory-stack-container">
     <div class="ivory-stack-header">
@@ -1244,6 +1262,10 @@ input:focus, textarea:focus {
   var GEN = 8000;
   var lastCheckedRadio = {};
 
+  /* Base unit rate for round table package: 6 tables + 36 Tiffany chairs = 18,900 (₹3,150 per table + 6 chairs) */
+  var RT_MIN_TABLES = 6;
+  var RT_RATE_PER_TABLE = 3150;
+
   function each(list, fn) {
     Array.prototype.forEach.call(list, fn);
   }
@@ -1252,7 +1274,6 @@ input:focus, textarea:focus {
     return "\u20B9" + amount.toLocaleString("en-IN");
   }
 
-  /* Quantity, never below the field's own minimum (security needs at least 2) */
   function getQty(card) {
     var q = card.querySelector('.qty-input');
     if (!q) return 1;
@@ -1268,6 +1289,8 @@ input:focus, textarea:focus {
     var total = GEN;
     var hasTA = false;
     var hasFR = false;
+
+    /* Handle standard inputs */
     each(document.querySelectorAll('.item input[type="radio"], .item input[type="checkbox"]'), function (input) {
       var card = input.closest('.item');
       if (!input.checked) {
@@ -1275,6 +1298,30 @@ input:focus, textarea:focus {
         return;
       }
       card.classList.add('selected');
+
+      /* Custom calculation logic for Round Tables package */
+      if (input.getAttribute('data-is-round-table') === 'true') {
+        var numTables = getQty(card);
+        var chairs = numTables * 6;
+        var sub = numTables * RT_RATE_PER_TABLE;
+        total += sub;
+
+        /* update card dynamic labels */
+        var descEl = document.getElementById('roundTableDesc');
+        var priceEl = document.getElementById('roundTablePriceLabel');
+        var breakdownEl = document.getElementById('roundTableBreakdown');
+        if (descEl) descEl.textContent = numTables + " round tables with covers, centrepieces, and " + chairs + " Tiffany chairs.";
+        if (priceEl) priceEl.textContent = formatMoney(sub);
+        if (breakdownEl) breakdownEl.textContent = "\u2713 " + numTables + " tables + " + chairs + " Tiffany chairs";
+
+        rows.push({
+          name: "Round tables package (" + numTables + " tables + " + chairs + " Tiffany chairs)",
+          qty: 1,
+          subtotal: sub
+        });
+        return;
+      }
+
       var price = parseInt(input.getAttribute('data-price'), 10) || 0;
       var qty = getQty(card);
       var sub = price * qty;
@@ -1284,6 +1331,7 @@ input:focus, textarea:focus {
       if (extra === 'fr') hasFR = true;
       rows.push({ name: input.getAttribute('data-name'), qty: qty, subtotal: sub });
     });
+
     return { rows: rows, total: total, hasTA: hasTA, hasFR: hasFR };
   }
 
@@ -1338,11 +1386,11 @@ input:focus, textarea:focus {
     document.getElementById('tanote').textContent = note;
 
     if (s.rows.length > 0) goMsg.textContent = '';
-    go.href = buildWhatsAppUrl(s); /* always ready, even for long-press or open-in-new-tab */
+    go.href = buildWhatsAppUrl(s);
     return s;
   }
 
-  /* Radios: tap again to deselect */
+  /* Radio uncheck-on-tap handling */
   each(document.querySelectorAll('input[type="radio"]'), function (radio) {
     radio.addEventListener('click', function () {
       if (lastCheckedRadio[this.name] === this) {
@@ -1372,7 +1420,6 @@ input:focus, textarea:focus {
     el.addEventListener('change', render);
   });
 
-  /* WhatsApp: a real link; only blocks the tap when nothing is chosen */
   go.addEventListener('click', function (e) {
     var s = render();
     if (s.rows.length === 0) {
@@ -1399,7 +1446,6 @@ input:focus, textarea:focus {
   function openStackView(gallery, clicked, pkgName) {
     var scrollY = window.pageYOffset || document.documentElement.scrollTop || 0;
     var rect = clicked.getBoundingClientRect();
-    /* start the stack just above the tapped photo, so it appears where the visitor is looking */
     var top = scrollY + Math.max(rect.top - 90, 0);
     var pageHeight = Math.max(document.documentElement.scrollHeight, document.body.scrollHeight);
 
