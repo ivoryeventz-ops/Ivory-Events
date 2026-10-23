@@ -4,14 +4,6 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Ivory Events &mdash; Build Your Wedding Package</title>
-<meta name="description" content="Choose a décor package and optional services and get a live estimate from Ivory Events.">
-<meta property="og:site_name" content="Ivory Events">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Build Your Wedding Package | Ivory Events">
-<meta property="og:description" content="Choose a décor package and optional services and get a live estimate from Ivory Events.">
-<meta property="og:image" content="https://ivoryevents.pages.dev/logo.png">
-<meta name="twitter:card" content="summary">
-<link rel="icon" href="logo.png" type="image/png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
@@ -36,7 +28,7 @@ html { -webkit-text-size-adjust: 100%; }
 
 body {
   margin: 0;
-  position: relative; /* lets the photo viewer position itself against the page, not the iframe window */
+  position: relative;
   background: var(--bg);
   color: var(--ink);
   font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -235,14 +227,14 @@ h2 {
 .grid {
   display: grid;
   gap: 12px;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
 }
 
 .item {
   background: var(--card);
   border: 1px solid var(--line);
   border-radius: 10px;
-  padding: 12px;
+  padding: 14px;
   display: flex;
   flex-direction: column;
   position: relative;
@@ -260,7 +252,7 @@ h2 {
   display: block;
   cursor: pointer;
   flex-grow: 1;
-  margin-top: 6px;
+  margin-top: 4px;
 }
 .item input[type="radio"],
 .item input[type="checkbox"] {
@@ -273,36 +265,38 @@ h2 {
 }
 .item b {
   display: block;
-  font-size: 0.95rem;
+  font-size: 0.98rem;
   color: var(--ink);
+  line-height: 1.35;
 }
 .item small {
   color: var(--mute);
   display: block;
-  font-size: 0.8rem;
-  margin-top: 3px;
+  font-size: 0.82rem;
+  margin-top: 4px;
+  line-height: 1.4;
 }
 .price {
   display: block;
   color: var(--gold);
-  font-weight: 600;
+  font-weight: 700;
   margin-top: 6px;
-  font-size: 0.95rem;
+  font-size: 0.98rem;
 }
 
 .gallery {
   display: flex;
   gap: 6px;
   overflow-x: auto;
-  overscroll-behavior-x: contain; /* a sideways swipe never hands over to the page */
-  scroll-snap-type: x mandatory;
-  margin-bottom: 4px;
+  scroll-snap-type: x proximity;
+  touch-action: pan-x pan-y;
+  margin-bottom: 6px;
   padding-bottom: 4px;
   -webkit-overflow-scrolling: touch;
 }
 .gallery img {
   flex: 0 0 100%;
-  height: 140px;
+  height: 180px;
   object-fit: cover;
   border-radius: 6px;
   scroll-snap-align: start;
@@ -313,20 +307,30 @@ h2 {
 
 .qty {
   display: none;
-  margin-top: 8px;
+  margin-top: 10px;
+  padding-top: 8px;
+  border-top: 1px dashed var(--line);
   font-size: 0.85rem;
 }
 .item.selected .qty {
   display: block;
 }
 .qty input {
-  width: 62px;
-  padding: 4px 6px;
+  width: 65px;
+  padding: 5px 8px;
   border: 1px solid var(--line);
   border-radius: 6px;
   background: var(--bg);
   color: var(--ink);
   font: inherit;
+  font-weight: 600;
+}
+.calc-subnote {
+  font-size: 0.8rem;
+  color: var(--gold);
+  font-weight: 600;
+  margin-top: 5px;
+  display: block;
 }
 
 /* Policy & Terms Section */
@@ -474,7 +478,7 @@ input:focus, textarea:focus {
   font-weight: 600;
 }
 
-/* Photo viewer: stacked photos, placed next to the photo that was tapped */
+/* Photo viewer overlay */
 .ivory-stack-overlay {
   display: none;
   position: absolute;
@@ -554,7 +558,6 @@ input:focus, textarea:focus {
   cursor: pointer;
 }
 
-/* Hover effects only on devices that really hover (stops buttons staying "raised" after a tap) */
 @media (hover: hover) {
   .ivory-nav-btn:hover {
     background-color: #9a7846;
@@ -572,19 +575,22 @@ input:focus, textarea:focus {
   }
 }
 
-/* Keep the estimate card in view only when the embed is tall enough to hold it */
 @media (min-width: 900px) and (min-height: 820px) {
   aside {
     position: sticky;
     top: 1rem;
+    max-height: calc(100vh - 2rem);
+    max-height: calc(100dvh - 2rem);
+    overflow-y: auto;
+    overscroll-behavior: auto;
+    -webkit-overflow-scrolling: touch;
   }
   #lines {
-    max-height: 28vh;
+    max-height: 22vh;
     overflow-y: auto;
   }
 }
 
-/* 16px fields stop iPhones zooming the page when a field is tapped */
 @media (max-width: 900px) {
   input[type=text],
   input[type=date],
@@ -663,10 +669,11 @@ input:focus, textarea:focus {
     <!-- Package 1 -->
     <div class="item">
       <div class="gallery">
-        <img src="https://i.postimg.cc/FfZBb2V2/25.jpg" alt="Package 1 - 1" loading="lazy">
-        <img src="https://i.postimg.cc/hJgYdST5/25-(2).jpg" alt="Package 1 - 2" loading="lazy">
-        <img src="https://i.postimg.cc/GBQ5PZx7/25-(3).jpg" alt="Package 1 - 3" loading="lazy">
-        <img src="https://i.postimg.cc/bGTB0KRc/30-(2).jpg" alt="Package 1 - 4" loading="lazy">
+        <img src="../A/upload-2-thumbs/thumbs/pkg-1-1.jpg" data-full="../A/upload-1-images/images/pkg-1-1.jpg" alt="Package 1 - photo 1" loading="lazy" decoding="async">
+        <img src="../A/upload-2-thumbs/thumbs/pkg-1-2.jpg" data-full="../A/upload-1-images/images/pkg-1-2.jpg" alt="Package 1 - photo 2" loading="lazy" decoding="async">
+        <img src="../A/upload-2-thumbs/thumbs/pkg-1-3.jpg" data-full="../A/upload-1-images/images/pkg-1-3.jpg" alt="Package 1 - photo 3" loading="lazy" decoding="async">
+        <img src="../A/upload-2-thumbs/thumbs/pkg-1-4.jpg" data-full="../A/upload-1-images/images/pkg-1-4.jpg" alt="Package 1 - photo 4" loading="lazy" decoding="async">
+        <img src="../A/upload-2-thumbs/thumbs/pkg-1-5.jpg" data-full="../A/upload-1-images/images/pkg-1-5.jpg" alt="Package 1 - photo 5" loading="lazy" decoding="async">
       </div>
       <label>
         <input type="radio" name="pkg" data-name="Package 1" data-price="75000">
@@ -679,9 +686,10 @@ input:focus, textarea:focus {
     <!-- Package 2 -->
     <div class="item">
       <div class="gallery">
-        <img src="https://i.postimg.cc/JG3v9vL0/30.jpg" alt="Package 2 - 1" loading="lazy">
-        <img src="https://i.postimg.cc/6yVgDgXT/30-(1-5).jpg" alt="Package 2 - 2" loading="lazy">
-        <img src="https://i.postimg.cc/TpjFZF63/35-(2)-Copy.jpg" alt="Package 2 - 3" loading="lazy">
+        <img src="../A/upload-2-thumbs/thumbs/pkg-2-1.jpg" data-full="../A/upload-1-images/images/pkg-2-1.jpg" alt="Package 2 - photo 1" loading="lazy" decoding="async">
+        <img src="../A/upload-2-thumbs/thumbs/pkg-2-2.jpg" data-full="../A/upload-1-images/images/pkg-2-2.jpg" alt="Package 2 - photo 2" loading="lazy" decoding="async">
+        <img src="../A/upload-2-thumbs/thumbs/pkg-2-3.jpg" data-full="../A/upload-1-images/images/pkg-2-3.jpg" alt="Package 2 - photo 3" loading="lazy" decoding="async">
+        <img src="../A/upload-2-thumbs/thumbs/pkg-2-4.jpg" data-full="../A/upload-1-images/images/pkg-2-4.jpg" alt="Package 2 - photo 4" loading="lazy" decoding="async">
       </div>
       <label>
         <input type="radio" name="pkg" data-name="Package 2" data-price="105000">
@@ -693,10 +701,10 @@ input:focus, textarea:focus {
     <!-- Package 3 -->
     <div class="item">
       <div class="gallery">
-        <img src="https://i.postimg.cc/Mnd4GBXw/40-(2).jpg" alt="Package 3 - 1" loading="lazy">
-        <img src="https://i.postimg.cc/ppv1YCFx/40.jpg" alt="Package 3 - 2" loading="lazy">
-        <img src="https://i.postimg.cc/56JkqgCf/40.jpg" alt="Package 3 - 3" loading="lazy">
-        <img src="https://i.postimg.cc/D8hYd6Xh/40-(9).jpg" alt="Package 3 - 4" loading="lazy">
+        <img src="../A/upload-2-thumbs/thumbs/pkg-3-1.jpg" data-full="../A/upload-1-images/images/pkg-3-1.jpg" alt="Package 3 - photo 1" loading="lazy" decoding="async">
+        <img src="../A/upload-2-thumbs/thumbs/pkg-3-2.jpg" data-full="../A/upload-1-images/images/pkg-3-2.jpg" alt="Package 3 - photo 2" loading="lazy" decoding="async">
+        <img src="../A/upload-2-thumbs/thumbs/pkg-3-3.jpg" data-full="../A/upload-1-images/images/pkg-3-3.jpg" alt="Package 3 - photo 3" loading="lazy" decoding="async">
+        <img src="../A/upload-2-thumbs/thumbs/pkg-3-4.jpg" data-full="../A/upload-1-images/images/pkg-3-4.jpg" alt="Package 3 - photo 4" loading="lazy" decoding="async">
       </div>
       <label>
         <input type="radio" name="pkg" data-name="Package 3" data-price="115000">
@@ -708,10 +716,11 @@ input:focus, textarea:focus {
     <!-- Package 4 -->
     <div class="item">
       <div class="gallery">
-        <img src="https://i.postimg.cc/t18B1Nj2/45.jpg" alt="Package 4 - 1" loading="lazy">
-        <img src="https://i.postimg.cc/dkd4GZQd/45.jpg" alt="Package 4 - 2" loading="lazy">
-        <img src="https://i.postimg.cc/y3yjbqZ6/40-(7).jpg" alt="Package 4 - 3" loading="lazy">
-        <img src="https://i.postimg.cc/gLHsT9Zk/45-(5).jpg" alt="Package 4 - 4" loading="lazy">
+        <img src="../A/upload-2-thumbs/thumbs/pkg-4-1.jpg" data-full="../A/upload-1-images/images/pkg-4-1.jpg" alt="Package 4 - photo 1" loading="lazy" decoding="async">
+        <img src="../A/upload-2-thumbs/thumbs/pkg-4-2.jpg" data-full="../A/upload-1-images/images/pkg-4-2.jpg" alt="Package 4 - photo 2" loading="lazy" decoding="async">
+        <img src="../A/upload-2-thumbs/thumbs/pkg-4-3.jpg" data-full="../A/upload-1-images/images/pkg-4-3.jpg" alt="Package 4 - photo 3" loading="lazy" decoding="async">
+        <img src="../A/upload-2-thumbs/thumbs/pkg-4-4.jpg" data-full="../A/upload-1-images/images/pkg-4-4.jpg" alt="Package 4 - photo 4" loading="lazy" decoding="async">
+        <img src="../A/upload-2-thumbs/thumbs/pkg-4-5.jpg" data-full="../A/upload-1-images/images/pkg-4-5.jpg" alt="Package 4 - photo 5" loading="lazy" decoding="async">
       </div>
       <label>
         <input type="radio" name="pkg" data-name="Package 4" data-price="135000">
@@ -723,8 +732,9 @@ input:focus, textarea:focus {
     <!-- Package 5 -->
     <div class="item">
       <div class="gallery">
-        <img src="https://i.postimg.cc/PpmQCGK2/50.jpg" alt="Package 5 - 1" loading="lazy">
-        <img src="https://i.postimg.cc/XGwkrMxs/50-(4).jpg" alt="Package 5 - 2" loading="lazy">
+        <img src="../A/upload-2-thumbs/thumbs/pkg-5-1.jpg" data-full="../A/upload-1-images/images/pkg-5-1.jpg" alt="Package 5 - photo 1" loading="lazy" decoding="async">
+        <img src="../A/upload-2-thumbs/thumbs/pkg-5-2.jpg" data-full="../A/upload-1-images/images/pkg-5-2.jpg" alt="Package 5 - photo 2" loading="lazy" decoding="async">
+        <img src="../A/upload-2-thumbs/thumbs/pkg-5-3.jpg" data-full="../A/upload-1-images/images/pkg-5-3.jpg" alt="Package 5 - photo 3" loading="lazy" decoding="async">
       </div>
       <label>
         <input type="radio" name="pkg" data-name="Package 5" data-price="145000">
@@ -736,12 +746,10 @@ input:focus, textarea:focus {
     <!-- Package 6 -->
     <div class="item">
       <div class="gallery">
-        <img src="https://i.postimg.cc/WqNYjbjs/55-(3).jpg" alt="Package 6 - 1" loading="lazy">
-        <img src="https://i.postimg.cc/JHrYm4m8/55-(4).jpg" alt="Package 6 - 2" loading="lazy">
-        <img src="https://i.postimg.cc/V0fZ1L1Y/60-(3).jpg" alt="Package 6 - 3" loading="lazy">
-        <img src="https://i.postimg.cc/FdZGP5Sq/55-(2).jpg" alt="Package 6 - 4" loading="lazy">
-        <img src="https://i.postimg.cc/qhLQmVKF/55-(3).jpg" alt="Package 6 - 5" loading="lazy">
-        <img src="https://i.postimg.cc/cgmTDy32/60.jpg" alt="Package 6 - 6" loading="lazy">
+        <img src="../A/upload-2-thumbs/thumbs/pkg-6-1.jpg" data-full="../A/upload-1-images/images/pkg-6-1.jpg" alt="Package 6 - photo 1" loading="lazy" decoding="async">
+        <img src="../A/upload-2-thumbs/thumbs/pkg-6-2.jpg" data-full="../A/upload-1-images/images/pkg-6-2.jpg" alt="Package 6 - photo 2" loading="lazy" decoding="async">
+        <img src="../A/upload-2-thumbs/thumbs/pkg-6-3.jpg" data-full="../A/upload-1-images/images/pkg-6-3.jpg" alt="Package 6 - photo 3" loading="lazy" decoding="async">
+        <img src="../A/upload-2-thumbs/thumbs/pkg-6-4.jpg" data-full="../A/upload-1-images/images/pkg-6-4.jpg" alt="Package 6 - photo 4" loading="lazy" decoding="async">
       </div>
       <label>
         <input type="radio" name="pkg" data-name="Package 6" data-price="160000">
@@ -753,8 +761,9 @@ input:focus, textarea:focus {
     <!-- Package 7 -->
     <div class="item">
       <div class="gallery">
-        <img src="https://i.postimg.cc/WDcnTbwN/70-(2).jpg" alt="Package 7 - 1" loading="lazy">
-        <img src="https://i.postimg.cc/PPmJ0XJ3/70.jpg" alt="Package 7 - 2" loading="lazy">
+        <img src="../A/upload-2-thumbs/thumbs/pkg-7-2.jpg" data-full="../A/upload-1-images/images/pkg-7-2.jpg" alt="Package 7 - photo 2" loading="lazy" decoding="async">
+        <img src="../A/upload-2-thumbs/thumbs/pkg-7-3.jpg" data-full="../A/upload-1-images/images/pkg-7-3.jpg" alt="Package 7 - photo 3" loading="lazy" decoding="async">
+        <img src="../A/upload-2-thumbs/thumbs/pkg-7-4.jpg" data-full="../A/upload-1-images/images/pkg-7-4.jpg" alt="Package 7 - photo 4" loading="lazy" decoding="async">
       </div>
       <label>
         <input type="radio" name="pkg" data-name="Package 7" data-price="170000">
@@ -766,9 +775,10 @@ input:focus, textarea:focus {
     <!-- Package 8 -->
     <div class="item">
       <div class="gallery">
-        <img src="https://i.postimg.cc/JHj7wxrV/75.jpg" alt="Package 8 - 1" loading="lazy">
-        <img src="https://i.postimg.cc/XpJ3knFF/80-(2).jpg" alt="Package 8 - 2" loading="lazy">
-        <img src="https://i.postimg.cc/RNF9Lvfn/80-(4).jpg" alt="Package 8 - 3" loading="lazy">
+        <img src="../A/upload-2-thumbs/thumbs/pkg-8-1.jpg" data-full="../A/upload-1-images/images/pkg-8-1.jpg" alt="Package 8 - photo 1" loading="lazy" decoding="async">
+        <img src="../A/upload-2-thumbs/thumbs/pkg-8-2.jpg" data-full="../A/upload-1-images/images/pkg-8-2.jpg" alt="Package 8 - photo 2" loading="lazy" decoding="async">
+        <img src="../A/upload-2-thumbs/thumbs/pkg-8-3.jpg" data-full="../A/upload-1-images/images/pkg-8-3.jpg" alt="Package 8 - photo 3" loading="lazy" decoding="async">
+        <img src="../A/upload-2-thumbs/thumbs/pkg-8-4.jpg" data-full="../A/upload-1-images/images/pkg-8-4.jpg" alt="Package 8 - photo 4" loading="lazy" decoding="async">
       </div>
       <label>
         <input type="radio" name="pkg" data-name="Package 8" data-price="180000">
@@ -780,10 +790,9 @@ input:focus, textarea:focus {
     <!-- Package 9 -->
     <div class="item">
       <div class="gallery">
-        <img src="https://i.postimg.cc/VrCmMgbv/85.jpg" alt="Package 9 - 1" loading="lazy">
-        <img src="https://i.postimg.cc/sQhsSmZ1/85-(2).jpg" alt="Package 9 - 2" loading="lazy">
-        <img src="https://i.postimg.cc/w3D9jWpb/60-80.jpg" alt="Package 9 - 3" loading="lazy">
-        <img src="https://i.postimg.cc/9zycQxhg/85-(3).jpg" alt="Package 9 - 4" loading="lazy">
+        <img src="../A/upload-2-thumbs/thumbs/pkg-9-2.jpg" data-full="../A/upload-1-images/images/pkg-9-2.jpg" alt="Package 9 - photo 2" loading="lazy" decoding="async">
+        <img src="../A/upload-2-thumbs/thumbs/pkg-9-3.jpg" data-full="../A/upload-1-images/images/pkg-9-3.jpg" alt="Package 9 - photo 3" loading="lazy" decoding="async">
+        <img src="../A/upload-2-thumbs/thumbs/pkg-9-4.jpg" data-full="../A/upload-1-images/images/pkg-9-4.jpg" alt="Package 9 - photo 4" loading="lazy" decoding="async">
       </div>
       <label>
         <input type="radio" name="pkg" data-name="Package 9" data-price="200000">
@@ -795,7 +804,10 @@ input:focus, textarea:focus {
     <!-- Package 10 -->
     <div class="item">
       <div class="gallery">
-        <img src="https://i.postimg.cc/LJ5dLDcX/100.jpg" alt="Package 10 - 1" loading="lazy">
+        <img src="../A/upload-2-thumbs/thumbs/pkg-10-1.jpg" data-full="../A/upload-1-images/images/pkg-10-1.jpg" alt="Package 10 - photo 1" loading="lazy" decoding="async">
+        <img src="../A/upload-2-thumbs/thumbs/pkg-10-2.jpg" data-full="../A/upload-1-images/images/pkg-10-2.jpg" alt="Package 10 - photo 2" loading="lazy" decoding="async">
+        <img src="../A/upload-2-thumbs/thumbs/pkg-10-3.jpg" data-full="../A/upload-1-images/images/pkg-10-3.jpg" alt="Package 10 - photo 3" loading="lazy" decoding="async">
+        <img src="../A/upload-2-thumbs/thumbs/pkg-10-4.jpg" data-full="../A/upload-1-images/images/pkg-10-4.jpg" alt="Package 10 - photo 4" loading="lazy" decoding="async">
       </div>
       <label>
         <input type="radio" name="pkg" data-name="Package 10" data-price="220000">
@@ -807,7 +819,10 @@ input:focus, textarea:focus {
     <!-- Package 11 -->
     <div class="item">
       <div class="gallery">
-        <img src="https://i.postimg.cc/Vry3y8d5/110.jpg" alt="Package 11 - 1" loading="lazy">
+        <img src="../A/upload-2-thumbs/thumbs/pkg-11-1.jpg" data-full="../A/upload-1-images/images/pkg-11-1.jpg" alt="Package 11 - photo 1" loading="lazy" decoding="async">
+        <img src="../A/upload-2-thumbs/thumbs/pkg-11-2.jpg" data-full="../A/upload-1-images/images/pkg-11-2.jpg" alt="Package 11 - photo 2" loading="lazy" decoding="async">
+        <img src="../A/upload-2-thumbs/thumbs/pkg-11-3.jpg" data-full="../A/upload-1-images/images/pkg-11-3.jpg" alt="Package 11 - photo 3" loading="lazy" decoding="async">
+        <img src="../A/upload-2-thumbs/thumbs/pkg-11-4.jpg" data-full="../A/upload-1-images/images/pkg-11-4.jpg" alt="Package 11 - photo 4" loading="lazy" decoding="async">
       </div>
       <label>
         <input type="radio" name="pkg" data-name="Package 11" data-price="240000">
@@ -819,9 +834,10 @@ input:focus, textarea:focus {
     <!-- Package 12 -->
     <div class="item">
       <div class="gallery">
-        <img src="https://i.postimg.cc/jntm546r/140.jpg" alt="Package 12 - 1" loading="lazy">
-        <img src="https://i.postimg.cc/K4Ttvy4T/140-(3).jpg" alt="Package 12 - 2" loading="lazy">
-        <img src="https://i.postimg.cc/G9Dvh19y/140-(4).jpg" alt="Package 12 - 3" loading="lazy">
+        <img src="../A/upload-2-thumbs/thumbs/pkg-12-1.jpg" data-full="../A/upload-1-images/images/pkg-12-1.jpg" alt="Package 12 - photo 1" loading="lazy" decoding="async">
+        <img src="../A/upload-2-thumbs/thumbs/pkg-12-2.jpg" data-full="../A/upload-1-images/images/pkg-12-2.jpg" alt="Package 12 - photo 2" loading="lazy" decoding="async">
+        <img src="../A/upload-2-thumbs/thumbs/pkg-12-3.jpg" data-full="../A/upload-1-images/images/pkg-12-3.jpg" alt="Package 12 - photo 3" loading="lazy" decoding="async">
+        <img src="../A/upload-2-thumbs/thumbs/pkg-12-4.jpg" data-full="../A/upload-1-images/images/pkg-12-4.jpg" alt="Package 12 - photo 4" loading="lazy" decoding="async">
       </div>
       <label>
         <input type="radio" name="pkg" data-name="Package 12" data-price="280000">
@@ -833,7 +849,8 @@ input:focus, textarea:focus {
     <!-- Package 13 -->
     <div class="item">
       <div class="gallery">
-        <img src="https://i.postimg.cc/dk4phT5R/160.jpg" alt="Package 13 - 1" loading="lazy">
+        <img src="../A/upload-2-thumbs/thumbs/pkg-13-1.jpg" data-full="../A/upload-1-images/images/pkg-13-1.jpg" alt="Package 13 - photo 1" loading="lazy" decoding="async">
+        <img src="../A/upload-2-thumbs/thumbs/pkg-13-2.jpg" data-full="../A/upload-1-images/images/pkg-13-2.jpg" alt="Package 13 - photo 2" loading="lazy" decoding="async">
       </div>
       <label>
         <input type="radio" name="pkg" data-name="Package 13" data-price="300000">
@@ -985,14 +1002,6 @@ input:focus, textarea:focus {
   <div class="grid">
     <div class="item">
       <label>
-        <input type="radio" name="fam" data-name="Wooden family table" data-price="18000">
-        <b>Wooden family table</b>
-        <small>12 wooden chairs, crockery, floral d&eacute;cor</small>
-        <span class="price">&#8377;18,000</span>
-      </label>
-    </div>
-    <div class="item">
-      <label>
         <input type="radio" name="fam" data-name="Premium family table" data-price="25000">
         <b>Premium family table</b>
         <small>S or round shape, golden chairs, crockery, floral d&eacute;cor</small>
@@ -1011,13 +1020,18 @@ input:focus, textarea:focus {
 
   <h2>6 &middot; Guest tables</h2>
   <div class="grid">
-    <div class="item">
+    <div class="item" id="roundTableCard">
       <label>
-        <input type="checkbox" data-name="Round tables package" data-price="30000">
+        <input type="checkbox" id="roundTableToggle" data-name="Round tables package" data-is-round-table="true">
         <b>Round tables package</b>
-        <small>10 round tables, covers, centrepieces, 60 Tiffany chairs</small>
-        <span class="price">&#8377;30,000</span>
+        <small id="roundTableDesc">6 round tables with table covers, centerpieces, and 36 Tiffany chairs.</small>
+        <span class="price" id="roundTablePriceLabel">&#8377;18,900</span>
       </label>
+      <div class="qty" id="roundTableQtyBox">
+        <label for="roundTableQty" style="font-weight: 600; font-size: 0.85rem; margin-bottom: 3px;">Number of tables (Min: 6):</label>
+        Qty <input type="number" id="roundTableQty" min="6" value="6" class="qty-input" inputmode="numeric" aria-label="Number of round tables">
+        <span class="calc-subnote" id="roundTableBreakdown">&#10003; 6 round tables + 36 Tiffany chairs</span>
+      </div>
     </div>
   </div>
 
@@ -1129,11 +1143,11 @@ input:focus, textarea:focus {
   <div class="policy-section" style="margin-top: 2rem;">
     <div class="policy-card warning">
       <b class="title">&#9889; Mandatory Generator (&#8377;8,000 &mdash; Added Automatically)</b>
-      <div>To guarantee continuous event operations and protect sound, lighting, and stage equipment from voltage drops or venue power cuts, a dedicated generator is compulsory for all events.</div>
+      <div>To prevent power interruptions and protect stage sound &amp; lighting equipment, a dedicated generator is compulsory for all events.</div>
       <ul class="policy-bullets">
-        <li><strong>Coverage:</strong> Exclusively powers our event equipment (it does not power venue lighting, hall fans, or air-conditioning).</li>
-        <li><strong>Higher loads:</strong> LED walls, live band backline setups, or heavy lighting require higher-capacity generator units at additional cost.</li>
-        <li><strong>Evening weddings:</strong> Additional generator fuel running charges apply.</li>
+        <li><strong>Coverage:</strong> Powers event sound and stage equipment only (does not power venue AC or hall lights).</li>
+        <li><strong>Extra loads:</strong> Live bands, heavy lights, or LED walls require a larger generator at extra cost.</li>
+        <li><strong>Evening events:</strong> Additional generator fuel running charges apply.</li>
       </ul>
     </div>
 
@@ -1148,15 +1162,15 @@ input:focus, textarea:focus {
 
     <div class="policy-card validity">
       <b class="title">&#128197; Rate Validity &amp; Cost Policy</b>
-      <div>All quoted package and service prices remain strictly <strong>valid for 6 months</strong> from quotation date. Rates are subject to revision beyond this period or in the event of significant market cost increases outside our operational control.</div>
+      <div>Quoted prices are <strong>valid for 6 months</strong> from quote date. Rates may be revised after 6 months or in case of market cost increases.</div>
     </div>
 
     <div class="policy-card payment">
       <b class="title">&#128179; Payment Terms</b>
       <ul class="policy-bullets">
-        <li><strong>Booking Advance:</strong> &#8377;20,000 to confirm the booking, adjustable against the total amount.</li>
-        <li><strong>Pre-Event Payment:</strong> 50% of the total amount, payable one day before the function.</li>
-        <li><strong>Final Payment:</strong> Remaining balance payable the day after the function.</li>
+        <li><strong>Advance:</strong> &#8377;20,000 to confirm date (adjusted in total bill).</li>
+        <li><strong>Pre-Event:</strong> 50% paid 1 day before the function.</li>
+        <li><strong>Final Payment:</strong> Remaining balance paid the day after the function.</li>
       </ul>
     </div>
   </div>
@@ -1182,7 +1196,7 @@ input:focus, textarea:focus {
 </aside>
 </main>
 
-<!-- Photo viewer: opens next to the photo that was tapped -->
+<!-- Photo viewer overlay -->
 <div id="ivoryStackOverlay" class="ivory-stack-overlay" role="dialog" aria-modal="true" aria-label="Package photos">
   <div class="ivory-stack-container">
     <div class="ivory-stack-header">
@@ -1200,6 +1214,9 @@ input:focus, textarea:focus {
   var GEN = 8000;
   var lastCheckedRadio = {};
 
+  var RT_MIN_TABLES = 6;
+  var RT_RATE_PER_TABLE = 3150;
+
   function each(list, fn) {
     Array.prototype.forEach.call(list, fn);
   }
@@ -1208,7 +1225,6 @@ input:focus, textarea:focus {
     return "\u20B9" + amount.toLocaleString("en-IN");
   }
 
-  /* Quantity, never below the field's own minimum (security needs at least 2) */
   function getQty(card) {
     var q = card.querySelector('.qty-input');
     if (!q) return 1;
@@ -1224,6 +1240,7 @@ input:focus, textarea:focus {
     var total = GEN;
     var hasTA = false;
     var hasFR = false;
+
     each(document.querySelectorAll('.item input[type="radio"], .item input[type="checkbox"]'), function (input) {
       var card = input.closest('.item');
       if (!input.checked) {
@@ -1231,6 +1248,28 @@ input:focus, textarea:focus {
         return;
       }
       card.classList.add('selected');
+
+      if (input.getAttribute('data-is-round-table') === 'true') {
+        var numTables = getQty(card);
+        var chairs = numTables * 6;
+        var sub = numTables * RT_RATE_PER_TABLE;
+        total += sub;
+
+        var descEl = document.getElementById('roundTableDesc');
+        var priceEl = document.getElementById('roundTablePriceLabel');
+        var breakdownEl = document.getElementById('roundTableBreakdown');
+        if (descEl) descEl.textContent = numTables + " round tables with covers, centerpieces, and " + chairs + " Tiffany chairs.";
+        if (priceEl) priceEl.textContent = formatMoney(sub);
+        if (breakdownEl) breakdownEl.textContent = "\u2713 " + numTables + " round tables + " + chairs + " Tiffany chairs";
+
+        rows.push({
+          name: "Round tables (" + numTables + " tables + " + chairs + " Tiffany chairs)",
+          qty: 1,
+          subtotal: sub
+        });
+        return;
+      }
+
       var price = parseInt(input.getAttribute('data-price'), 10) || 0;
       var qty = getQty(card);
       var sub = price * qty;
@@ -1240,6 +1279,7 @@ input:focus, textarea:focus {
       if (extra === 'fr') hasFR = true;
       rows.push({ name: input.getAttribute('data-name'), qty: qty, subtotal: sub });
     });
+
     return { rows: rows, total: total, hasTA: hasTA, hasFR: hasFR };
   }
 
@@ -1294,11 +1334,10 @@ input:focus, textarea:focus {
     document.getElementById('tanote').textContent = note;
 
     if (s.rows.length > 0) goMsg.textContent = '';
-    go.href = buildWhatsAppUrl(s); /* always ready, even for long-press or open-in-new-tab */
+    go.href = buildWhatsAppUrl(s);
     return s;
   }
 
-  /* Radios: tap again to deselect */
   each(document.querySelectorAll('input[type="radio"]'), function (radio) {
     radio.addEventListener('click', function () {
       if (lastCheckedRadio[this.name] === this) {
@@ -1328,7 +1367,6 @@ input:focus, textarea:focus {
     el.addEventListener('change', render);
   });
 
-  /* WhatsApp: a real link (works in sandboxed embeds); only blocks the tap when nothing is chosen */
   go.addEventListener('click', function (e) {
     var s = render();
     if (s.rows.length === 0) {
@@ -1337,7 +1375,6 @@ input:focus, textarea:focus {
     }
   });
 
-  /* Photo viewer */
   var overlay = document.getElementById('ivoryStackOverlay');
   var stackImages = document.getElementById('ivoryStackImages');
   var stackTitle = document.getElementById('ivoryStackTitle');
@@ -1355,7 +1392,6 @@ input:focus, textarea:focus {
   function openStackView(gallery, clicked, pkgName) {
     var scrollY = window.pageYOffset || document.documentElement.scrollTop || 0;
     var rect = clicked.getBoundingClientRect();
-    /* start the stack just above the tapped photo, so it appears where the visitor is looking */
     var top = scrollY + Math.max(rect.top - 90, 0);
     var pageHeight = Math.max(document.documentElement.scrollHeight, document.body.scrollHeight);
 
@@ -1363,7 +1399,7 @@ input:focus, textarea:focus {
     stackTitle.textContent = pkgName;
     each(gallery.querySelectorAll('img'), function (img) {
       var big = document.createElement('img');
-      big.src = img.src;
+      big.src = img.getAttribute('data-full') || img.src;
       big.alt = img.alt || pkgName;
       stackImages.appendChild(big);
     });
@@ -1378,23 +1414,61 @@ input:focus, textarea:focus {
     var card = gallery.closest('.item');
     var nameEl = card ? card.querySelector('label b') : null;
     var pkgName = nameEl ? nameEl.textContent : 'Package photos';
-
-    each(gallery.querySelectorAll('img'), function (img) {
-      img.setAttribute('tabindex', '0');
-      img.setAttribute('role', 'button');
-      img.addEventListener('click', function (e) {
+    gallery.addEventListener('click', function (e) {
+      var img = e.target.closest ? e.target.closest('img') : null;
+      if (!img) return;
+      e.preventDefault();
+      e.stopPropagation();
+      openStackView(gallery, img, pkgName);
+    });
+    gallery.addEventListener('keydown', function (e) {
+      var img = e.target;
+      if (img && img.tagName === 'IMG' && (e.key === 'Enter' || e.key === ' ')) {
         e.preventDefault();
-        e.stopPropagation();
         openStackView(gallery, img, pkgName);
-      });
-      img.addEventListener('keydown', function (e) {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          openStackView(gallery, img, pkgName);
-        }
-      });
+      }
     });
   });
+
+  /* Keep package photos in step with folder A: pull each package's gallery from A/packages.html.
+     If that page can't be fetched (e.g. opened as a local file), the photos already in this page stay. */
+  function syncGalleriesFromA() {
+    if (!window.fetch || !window.DOMParser) return;
+    fetch('../A/packages.html', { cache: 'no-cache' })
+      .then(function (r) { if (!r.ok) throw new Error('A not found'); return r.text(); })
+      .then(function (html) {
+        var doc = new DOMParser().parseFromString(html, 'text/html');
+        var aGalleries = {};
+        each(doc.querySelectorAll('.item'), function (item) {
+          var g = item.querySelector('.gallery');
+          var b = item.querySelector('label b');
+          if (g && b) aGalleries[b.textContent.trim()] = g;
+        });
+        each(document.querySelectorAll('.item'), function (item) {
+          var g = item.querySelector('.gallery');
+          var b = item.querySelector('label b');
+          var src = g && b ? aGalleries[b.textContent.trim()] : null;
+          if (!src) return;
+          var imgs = src.querySelectorAll('img');
+          if (!imgs.length) return;
+          g.innerHTML = '';
+          each(imgs, function (img) {
+            var c = document.createElement('img');
+            c.src = '../A/' + img.getAttribute('src');
+            var full = img.getAttribute('data-full');
+            if (full) c.setAttribute('data-full', '../A/' + full);
+            c.alt = img.alt;
+            c.loading = 'lazy';
+            c.decoding = 'async';
+            c.setAttribute('tabindex', '0');
+            c.setAttribute('role', 'button');
+            g.appendChild(c);
+          });
+        });
+      })
+      .catch(function () {});
+  }
+  syncGalleriesFromA();
 
   stackClose.addEventListener('click', closeStackView);
   stackDone.addEventListener('click', closeStackView);
