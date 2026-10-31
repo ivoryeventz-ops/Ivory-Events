@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Enquiry Funnel</title>
+<style>
+:root{
+  --bg:#faf8f5; --surface:#ffffff; --ink:#1f1b16; --muted:#6f675d; --line:#e8e2d9;
+  --accent:#8a6a3b;
+  --enquiry:#9aa5b1; --costing:#d9a441; --pending:#e07b39; --confirmed:#3f8f6b;
+  --blocked:#7a6fa8; --postponed:#4f8fb8; --cancelled:#b5524f; --nostatus:#b9b2a6;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#16130f; --surface:#1f1b16; --ink:#f1ece4; --muted:#a39a8d; --line:#332d25;
+    --accent:#d3a966;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#16130f; --surface:#1f1b16; --ink:#f1ece4; --muted:#a39a8d; --line:#332d25; --accent:#d3a966;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.wrap{max-width:1100px;margin:0 auto;padding:24px 16px 64px}
+header{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;flex-wrap:wrap;margin-bottom:20px}
+h1{font-size:26px;margin:0;letter-spacing:-.01em}
+.sub{color:var(--muted);font-size:13px}
+button,select,input{font:inherit;color:var(--ink)}
+.theme{background:none;border:1px solid var(--line);border-radius:8px;padding:6px 10px;cursor:pointer}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:16px}
+.kpi .v{font-size:26px;font-weight:650;letter-spacing:-.02em}
+.kpi .l{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+h2{font-size:15px;margin:0 0 12px}
+.funnel{display:grid;gap:8px}
+.frow{display:grid;grid-template-columns:90px 1fr 56px;align-items:center;gap:10px;cursor:pointer}
+.frow .bar{height:30px;border-radius:6px;min-width:3px;transition:width .3s}
+.frow .n{text-align:right;font-variant-numeric:tabular-nums;font-weight:600}
+.frow .t{font-size:13px}
+.frow:hover .t{text-decoration:underline}
+.conv{font-size:12px;color:var(--muted);margin:8px 0 0}
+.side{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px;padding-top:12px;border-top:1px dashed var(--line)}
+.pill{display:inline-flex;gap:6px;align-items:center;border:1px solid var(--line);border-radius:999px;padding:3px 10px;font-size:12px;cursor:pointer;background:var(--surface)}
+.pill i{width:8px;height:8px;border-radius:50%;display:inline-block}
+.pill.on{border-color:var(--ink);font-weight:600}
+.grid2{display:grid;grid-template-columns:1fr;gap:16px;margin-bottom:16px}
+@media(min-width:860px){.grid2{grid-template-columns:1fr 1.4fr}}
+.months{display:grid;gap:6px}
+.mrow{display:grid;grid-template-columns:64px 1fr 28px;gap:8px;align-items:center;font-size:12px}
+.mrow .stack{display:flex;height:16px;border-radius:4px;overflow:hidden;background:var(--line)}
+.mrow .stack span{display:block;height:100%}
+.mrow .lab{color:var(--muted)}
+.mrow .c{text-align:right;font-variant-numeric:tabular-nums}
+.mrow.cur .lab{color:var(--accent);font-weight:700}
+.controls{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:12px}
+.controls input,.controls select{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:7px 10px}
+.controls input{flex:1;min-width:160px}
+.legend{display:flex;gap:10px;flex-wrap:wrap;font-size:12px;color:var(--muted);margin-top:10px}
+.legend i{display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:4px}
+.tablewrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);white-space:nowrap}
+td.wrapcell{white-space:normal;min-width:140px}
+th{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;cursor:pointer;user-select:none}
+td.num{text-align:right;font-variant-numeric:tabular-nums}
+.badge{display:inline-block;padding:2px 9px;border-radius:999px;font-size:12px;font-weight:600;color:#fff}
+tr.past td{opacity:.6}
+tr.today td{background:color-mix(in srgb,var(--accent) 12%,transparent)}
+.empty{padding:24px;text-align:center;color:var(--muted)}
+.foot{color:var(--muted);font-size:12px;margin-top:16px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div>
+      <h1>Enquiry Funnel</h1>
+      <div class="sub" id="asof"></div>
+    </div>
+    <button class="theme" id="theme" aria-label="Toggle theme">Theme</button>
+  </header>
+
+  <section class="kpis" id="kpis"></section>
+
+  <section class="grid2">
+    <div class="card">
+      <h2>Funnel <span class="sub" id="scopeLabel"></span></h2>
+      <div class="funnel" id="funnel"></div>
+      <p class="conv" id="conv"></p>
+      <div class="side" id="side"></div>
+    </div>
+    <div class="card">
+      <h2>By month</h2>
+      <div class="months" id="months"></div>
+      <div class="legend" id="legend"></div>
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="controls">
+      <input id="q" type="search" placeholder="Search name, venue, decorator…">
+      <select id="period">
+        <option value="upcoming">Upcoming</option>
+        <option value="all">All dates</option>
+        <option value="past">Past</option>
+      </select>
+      <select id="dec"><option value="">All decorators</option></select>
+    </div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr>
+          <th data-k="date">Date</th><th data-k="name">Name</th><th data-k="venue">Venue</th>
+          <th data-k="status">Status</th><th data-k="decorator">Decorator</th>
+        </tr></thead>
+        <tbody id="rows"></tbody>
+      </table>
+    </div>
+    <div id="empty" class="empty" hidden>No matching enquiries.</div>
+  </section>
+
+  <p class="foot">Source: the Enquiry Funnel Google Sheet (Sheet1). Data is in <code>data.json</code>; rebuild with <code>python3 build.py</code> after refreshing it.</p>
+</div>
+
+<script>
+const DATA = [{"date": "2025-12-21", "venue": "Kalalayam, Ayroor", "name": "Sreejith", "status": "Confirmed", "decorator": "Sujith", "note": ""}, {"date": "2025-12-29", "venue": "Evengilical church, Thiruvalla", "name": "Ansu", "status": "Confirmed", "decorator": "Bougainvillae", "note": ""}, {"date": "2025-12-29", "venue": "Anjali Auditorium", "name": "Arya Mohan", "status": "Confirmed", "decorator": "Sujith", "note": ""}, {"date": "2025-12-30", "venue": "Parumala", "name": "Alan sister Baptism", "status": "Confirmed", "decorator": "Paradise", "note": ""}, {"date": "2025-12-31", "venue": "Maniyattu", "name": "Roney Ref Sunila", "status": "Confirmed", "decorator": "Sujith", "note": ""}, {"date": "2026-01-03", "venue": "Dr. Bevin - Linta Eng", "name": "CSI Mavelikara", "status": "Confirmed", "decorator": "Sujith", "note": ""}, {"date": "2026-01-05", "venue": "ST Johns Cathedral AC Hall", "name": "Alexander", "status": "Confirmed", "decorator": "Sujith", "note": ""}, {"date": "2026-01-10", "venue": "Marthoma Hall, Chengannur", "name": "Alan's sister Eng - Australia", "status": "Confirmed", "decorator": "Sujith", "note": ""}, {"date": "2026-01-17", "venue": "St Andrews Marthoma Mallapally", "name": "Shilpa", "status": "Confirmed", "decorator": "Paradise", "note": ""}, {"date": "2026-01-22", "venue": "SC", "name": "Sunita", "status": "Confirmed", "decorator": "", "note": ""}, {"date": "2026-03-19", "venue": "Niranam Orthodox", "name": "Linto", "status": "Pending", "decorator": "", "note": ""}, {"date": "2026-03-21", "venue": "Anaparambal", "name": "Kochumon", "status": "Pending", "decorator": "", "note": ""}, {"date": "2026-04-06", "venue": "Believers - Evening", "name": "Jacob c/o Gigi Contour", "status": "Pending", "decorator": "Paradise", "note": ""}, {"date": "2026-04-11", "venue": "Vijaya", "name": "Moncy Ref Anil Alanis", "status": "Cancelled", "decorator": "Paradise", "note": ""}, {"date": "2026-04-11", "venue": "Mavelikara", "name": "Sanjay", "status": "Confirmed", "decorator": "Paradise", "note": ""}, {"date": "2026-04-18", "venue": "Vijaya", "name": "Dr. Binu", "status": "Postponed", "decorator": "Paradise", "note": ""}, {"date": "2026-04-20", "venue": "DMCC, Kottayam", "name": "Pushpa", "status": "Confirmed", "decorator": "Paradise", "note": ""}, {"date": "2026-04-25", "venue": "Niranam", "name": "Eldho Eng", "status": "Pending", "decorator": "", "note": ""}, {"date": "2026-04-25", "venue": "Thadiyoor Salem", "name": "Joyson", "status": "Confirmed", "decorator": "Paradise", "note": ""}, {"date": "2026-04-27", "venue": "NIranam", "name": "Jeeba", "status": "Pending", "decorator": "", "note": ""}, {"date": "2026-05-04", "venue": "Mavelikara Crown", "name": "Eldho", "status": "Confirmed", "decorator": "Paradise", "note": ""}, {"date": "2026-05-04", "venue": "Mavelikara Crown", "name": "Nikhil", "status": "Confirmed", "decorator": "Paradise", "note": ""}, {"date": "2026-05-10", "venue": "Parumala & Believers", "name": "Dr. Jake", "status": "Costing", "decorator": "", "note": ""}, {"date": "2026-05-11", "venue": "Mallapally", "name": "Kris", "status": "Costing", "decorator": "", "note": "End of Feb"}, {"date": "2026-05-15", "venue": "Maniyattu Evening", "name": "Vyshak", "status": "Confirmed", "decorator": "Paradise", "note": ""}, {"date": "2026-05-18", "venue": "SC", "name": "John Thomas Kalloopara", "status": "Confirmed", "decorator": "Paradise", "note": ""}, {"date": "2026-05-27", "venue": "Kurunthottickal", "name": "Dona - Vakkurapikkal", "status": "Blocked", "decorator": "", "note": ""}, {"date": "2026-05-31", "venue": "Ranny", "name": "(no name)", "status": "Pending", "decorator": "", "note": ""}, {"date": "2026-06-01", "venue": "Loyal", "name": "Anushka Ref Robin", "status": "Confirmed", "decorator": "", "note": ""}, {"date": "2026-06-08", "venue": "yahir", "name": "jomy", "status": "Blocked", "decorator": "", "note": ""}, {"date": "2026-06-09", "venue": "yahir", "name": "jomy", "status": "Blocked", "decorator": "", "note": ""}, {"date": "2026-06-14", "venue": "Kalloopara & Maniyattu", "name": "Renu", "status": "Confirmed", "decorator": "Paradise", "note": ""}, {"date": "2026-06-19", "venue": "International Hall, Thiruvalla", "name": "Mili - Madhuramveppu", "status": "No status", "decorator": "", "note": ""}, {"date": "2026-06-20", "venue": "Kuttapuzha", "name": "Mili", "status": "Blocked", "decorator": "Paradise", "note": ""}, {"date": "2026-07-04", "venue": "Aithousia", "name": "Sanjeev Chandy", "status": "Confirmed", "decorator": "Paradise", "note": ""}, {"date": "2026-07-06", "venue": "St Ignatious, Kaipatoor", "name": "George Ref Jimmy BNI", "status": "Confirmed", "decorator": "", "note": ""}, {"date": "2026-07-06", "venue": "SC, Thiruvalla", "name": "Varghese South Africa", "status": "Confirmed", "decorator": "", "note": ""}, {"date": "2026-07-09", "venue": "Kozhencherry", "name": "Anu", "status": "Confirmed", "decorator": "Paradise", "note": ""}, {"date": "2026-07-25", "venue": "Ranny", "name": "Happy Baptism", "status": "Confirmed", "decorator": "", "note": ""}, {"date": "2026-08-03", "venue": "Kozhencherry", "name": "Christie", "status": "Blocked", "decorator": "", "note": ""}, {"date": "2026-08-19", "venue": "St Pauls, Othera", "name": "Justin", "status": "Confirmed", "decorator": "", "note": ""}, {"date": "2026-08-20", "venue": "Kozhencherry", "name": "Jerrin Kzy East", "status": "Blocked", "decorator": "Paradise", "note": ""}, {"date": "2026-08-20", "venue": "M Convention Centre", "name": "Shaji Varghese", "status": "Confirmed", "decorator": "", "note": ""}, {"date": "2026-08-27", "venue": "Maniyat", "name": "Ramachandran - Evening", "status": "Confirmed", "decorator": "", "note": ""}, {"date": "2026-08-29", "venue": "Kozhencherry", "name": "Harry - Richard", "status": "Confirmed", "decorator": "", "note": ""}, {"date": "2026-09-12", "venue": "M Convention Centre", "name": "Neethu", "status": "Confirmed", "decorator": "", "note": ""}, {"date": "2026-09-16", "venue": "Vijaya", "name": "Dr. Binu", "status": "Confirmed", "decorator": "", "note": ""}, {"date": "2026-09-26", "venue": "St Ignatius", "name": "Swapna - Baptism", "status": "Confirmed", "decorator": "", "note": ""}, {"date": "2026-09-30", "venue": "Eden Gardens", "name": "Biji - Sajichayan cousin", "status": "Blocked", "decorator": "", "note": ""}, {"date": "2026-10-17", "venue": "Manarcad", "name": "Rhea", "status": "Blocked", "decorator": "", "note": ""}, {"date": "2026-10-22", "venue": "Puliyoor - Chengannur", "name": "Sajan", "status": "Confirmed", "decorator": "", "note": ""}, {"date": "2026-10-24", "venue": "Loyal", "name": "Christy", "status": "Confirmed", "decorator": "", "note": ""}, {"date": "2026-11-07", "venue": "Contour - Green Court", "name": "Susan", "status": "Confirmed", "decorator": "Punyalan", "note": ""}, {"date": "2026-11-12", "venue": "Grand Arena", "name": "Dr. Samuel", "status": "Blocked", "decorator": "", "note": ""}, {"date": "2026-11-13", "venue": "Windsor Castle - Evening", "name": "Dr. Samuel - After Party", "status": "Blocked", "decorator": "", "note": ""}, {"date": "2026-11-14", "venue": "Believers", "name": "Rebecca", "status": "Blocked", "decorator": "", "note": ""}, {"date": "2026-11-19", "venue": "Thottabhagom - Sleeba", "name": "Aswin", "status": "Costing", "decorator": "", "note": ""}, {"date": "2026-11-25", "venue": "SC", "name": "Rev Samson son", "status": "Blocked", "decorator": "", "note": ""}, {"date": "2026-11-28", "venue": "Maniyatt", "name": "Gijo - Pentecost", "status": "Costing", "decorator": "", "note": ""}, {"date": "2026-12-26", "venue": "Maniyattu - Evening", "name": "Shreya", "status": "Confirmed", "decorator": "", "note": ""}, {"date": "2026-12-28", "venue": "Kozhencherry", "name": "Abraham", "status": "Confirmed", "decorator": "", "note": ""}, {"date": "2026-12-28", "venue": "Loyal - Lunch", "name": "Charles", "status": "Confirmed", "decorator": "", "note": ""}, {"date": "2026-12-29", "venue": "Maniyatt", "name": "Christy - Kzy/Maniyattu", "status": "Confirmed", "decorator": "", "note": ""}, {"date": "2026-12-30", "venue": "Anaparambal", "name": "Ginu", "status": "Blocked", "decorator": "Punyalan", "note": ""}, {"date": "2026-12-30", "venue": "Kozhencherry", "name": "Jaison", "status": "Blocked", "decorator": "", "note": ""}, {"date": "2026-12-31", "venue": "Kuttapuzha", "name": "Rueben", "status": "Confirmed", "decorator": "", "note": ""}, {"date": "2027-01-02", "venue": "Kozhencherry", "name": "Rejin Sam'", "status": "Confirmed", "decorator": "", "note": ""}, {"date": "2027-01-04", "venue": "Kozhencherry", "name": "Sony", "status": "Confirmed", "decorator": "", "note": ""}, {"date": "2027-01-07", "venue": "SC", "name": "Manoj", "status": "Confirmed", "decorator": "", "note": ""}, {"date": "2027-01-10", "venue": "Mathapara - Orthodox", "name": "Jane", "status": "Costing", "decorator": "", "note": ""}, {"date": "2027-01-11", "venue": "Parumala", "name": "Joju", "status": "Confirmed", "decorator": "", "note": ""}, {"date": "2027-01-11", "venue": "Umayatukara/Kallisery Knanaya", "name": "Shone", "status": "Confirmed", "decorator": "", "note": ""}, {"date": "2027-01-20", "venue": "Maniyatt", "name": "Reji", "status": "Costing", "decorator": "", "note": ""}, {"date": "2027-01-21", "venue": "Maniyatt", "name": "Joice", "status": "Confirmed", "decorator": "", "note": ""}, {"date": "2027-01-25", "venue": "Pandalam", "name": "Nixon", "status": "Blocked", "decorator": "", "note": ""}, {"date": "2027-01-27", "venue": "Balakrishna", "name": "Dr. Libin - Pentecost", "status": "Costing", "decorator": "", "note": ""}, {"date": "2027-03-27", "venue": "Kozhencherry", "name": "Viji Zachariah", "status": "Enquiry", "decorator": "", "note": ""}, {"date": "2027-04-03", "venue": "Maniyattu", "name": "Simon UK", "status": "Blocked", "decorator": "", "note": ""}, {"date": "2027-05-20", "venue": "Karungapally", "name": "Amal Brother", "status": "Blocked", "decorator": "", "note": ""}, {"date": "2027-05-22", "venue": "St Johns", "name": "Aswin", "status": "Costing", "decorator": "", "note": ""}];
+const TODAY = new Date().toISOString().slice(0,10);
+const STAGES = ["Enquiry","Costing","Pending","Confirmed"];
+const SIDE = ["Blocked","Postponed","Cancelled","No status"];
+const COLORS = {Enquiry:"var(--enquiry)",Costing:"var(--costing)",Pending:"var(--pending)",Confirmed:"var(--confirmed)",
+  Blocked:"var(--blocked)",Postponed:"var(--postponed)",Cancelled:"var(--cancelled)","No status":"var(--nostatus)"};
+const ALL = [...STAGES,...SIDE];
+const $ = id => document.getElementById(id);
+const inr = n => "₹" + n.toLocaleString("en-IN");
+const fmtDate = s => new Date(s+"T00:00:00").toLocaleDateString("en-GB",{weekday:"short",day:"numeric",month:"short",year:"numeric"});
+const monthKey = s => s.slice(0,7);
+const monthLabel = k => new Date(k+"-01T00:00:00").toLocaleDateString("en-GB",{month:"short",year:"2-digit"});
+
+const state = {status:null, sort:{k:"date",dir:1}};
+
+// decorators
+[...new Set(DATA.map(r=>r.decorator).filter(Boolean))].sort().forEach(d=>{
+  const o=document.createElement("option");o.value=d;o.textContent=d;$("dec").appendChild(o);
+});
+$("period").value = "upcoming";
+
+$("asof").textContent = "As of " + fmtDate(TODAY) + " · " + DATA.length + " entries";
+
+function scoped(){
+  const p=$("period").value, dec=$("dec").value;
+  return DATA.filter(r=>{
+    if(p==="upcoming" && r.date<TODAY) return false;
+    if(p==="past" && r.date>=TODAY) return false;
+    if(dec && r.decorator!==dec) return false;
+    return true;
+  });
+}
+function filtered(){
+  const q=$("q").value.trim().toLowerCase();
+  return scoped().filter(r=>{
+    if(state.status && r.status!==state.status) return false;
+    if(q && !(r.name+" "+r.venue+" "+r.decorator+" "+r.note).toLowerCase().includes(q)) return false;
+    return true;
+  });
+}
+const count = (rows,s)=>rows.filter(r=>r.status===s).length;
+
+function renderKpis(rows){
+  const conf=rows.filter(r=>r.status==="Confirmed");
+  const open=rows.filter(r=>["Enquiry","Costing","Pending"].includes(r.status)).length;
+  const k=[
+    ["Entries",rows.length],["Confirmed",conf.length],["Open enquiries",open],
+    ["Dates blocked",count(rows,"Blocked")]
+  ];
+  $("kpis").innerHTML=k.map(([l,v])=>`<div class="card kpi"><div class="v">${v}</div><div class="l">${l}</div></div>`).join("");
+}
+function renderFunnel(rows){
+  const max=Math.max(1,...STAGES.map(s=>count(rows,s)));
+  $("funnel").innerHTML=STAGES.map(s=>{
+    const n=count(rows,s);
+    return `<div class="frow" data-s="${s}"><span class="t">${s}</span>
+      <div><div class="bar" style="width:${n/max*100}%;background:${COLORS[s]}"></div></div>
+      <span class="n">${n}</span></div>`;
+  }).join("");
+  const pipeline=STAGES.reduce((a,s)=>a+count(rows,s),0);
+  const conf=count(rows,"Confirmed");
+  $("conv").textContent = pipeline ? `${Math.round(conf/pipeline*100)}% of pipeline entries (${conf} of ${pipeline}) are confirmed.` : "";
+  $("side").innerHTML=SIDE.map(s=>`<span class="pill ${state.status===s?"on":""}" data-s="${s}"><i style="background:${COLORS[s]}"></i>${s} ${count(rows,s)}</span>`).join("");
+  document.querySelectorAll("[data-s]").forEach(el=>el.onclick=()=>{
+    state.status = state.status===el.dataset.s ? null : el.dataset.s; render();
+  });
+  $("scopeLabel").textContent = state.status ? "· filtered: "+state.status+" (click again to clear)" : "";
+}
+function renderMonths(rows){
+  const by={};
+  rows.forEach(r=>{(by[monthKey(r.date)] ||= []).push(r)});
+  const keys=Object.keys(by).sort();
+  const max=Math.max(1,...keys.map(k=>by[k].length));
+  const cur=monthKey(TODAY);
+  $("months").innerHTML=keys.map(k=>{
+    const segs=ALL.map(s=>{const n=count(by[k],s);return n?`<span style="width:${n/max*100}%;background:${COLORS[s]}" title="${s}: ${n}"></span>`:""}).join("");
+    return `<div class="mrow ${k===cur?"cur":""}"><span class="lab">${monthLabel(k)}</span><div class="stack">${segs}</div><span class="c">${by[k].length}</span></div>`;
+  }).join("") || `<div class="empty">Nothing in this view.</div>`;
+  $("legend").innerHTML=ALL.map(s=>`<span><i style="background:${COLORS[s]}"></i>${s}</span>`).join("");
+}
+function renderTable(rows){
+  const {k,dir}=state.sort;
+  rows=[...rows].sort((a,b)=>{
+    const x=a[k],y=b[k];
+    const c = typeof x==="number" ? x-y : String(x).localeCompare(String(y));
+    return (c||a.date.localeCompare(b.date))*dir;
+  });
+  $("rows").innerHTML=rows.map(r=>{
+    const cls=r.date<TODAY?"past":(r.date===TODAY?"today":"");
+    return `<tr class="${cls}"><td>${fmtDate(r.date)}</td><td>${esc(r.name)}</td><td class="wrapcell">${esc(r.venue)}</td>
+      <td><span class="badge" style="background:${COLORS[r.status]||"var(--nostatus)"}">${r.status}</span></td>
+      <td>${esc(r.decorator)}</td></tr>`;
+  }).join("");
+  $("empty").hidden = rows.length>0;
+}
+function esc(s){return String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))}
+
+function render(){
+  const base=scoped();
+  renderKpis(base); renderFunnel(base); renderMonths(base); renderTable(filtered());
+}
+["q","period","dec"].forEach(id=>$(id).addEventListener("input",render));
+document.querySelectorAll("th[data-k]").forEach(th=>th.onclick=()=>{
+  const k=th.dataset.k;
+  state.sort = state.sort.k===k ? {k,dir:-state.sort.dir} : {k,dir:1};
+  renderTable(filtered());
+});
+$("theme").onclick=()=>{
+  const r=document.documentElement;
+  const dark = r.dataset.theme==="dark" || (!r.dataset.theme && matchMedia("(prefers-color-scheme:dark)").matches);
+  r.dataset.theme = dark ? "light" : "dark";
+};
+render();
+</script>
+</body>
+</html>
