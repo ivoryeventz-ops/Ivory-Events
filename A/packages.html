@@ -280,6 +280,22 @@ h2 {
   margin-top: 4px;
   line-height: 1.4;
 }
+
+/* Subtle gold pill badge to highlight key note without heavy bolding */
+.pkg-exclusion-note {
+  display: inline-block;
+  color: var(--gold-hover);
+  background: var(--gold-tint);
+  border: 1px solid #ebdccb;
+  border-radius: 4px;
+  padding: 3px 7px;
+  margin-top: 4px;
+  font-size: 0.8rem;
+  line-height: 1.35;
+  font-weight: 500;
+  font-style: italic;
+}
+
 .price {
   display: block;
   color: var(--gold);
@@ -716,7 +732,6 @@ input:focus, textarea:focus {
       <li>2 welcome hostesses</li>
       <li>Manthrakodi basket and ring box returnable</li>
     </ul>
-    <p class="sub" style="margin-top: 6px; margin-bottom: 0;"><em>Package 1 excludes white flex, facelights, and hostesses.</em></p>
   </div>
 
   <p class="sub">Click to explore stage options in each package.</p>
@@ -733,7 +748,7 @@ input:focus, textarea:focus {
       <label>
         <input type="radio" name="pkg" data-name="Package 1" data-price="75000">
         <b>Package 1</b>
-        <small>Stage, aisle, entrance arch, car, garlands without hostesses</small>
+        <span class="pkg-exclusion-note">Note: Package 1 excludes white flex, facelights, and hostesses.</span>
         <span class="price">&#8377;75,000</span>
       </label>
     </div>
@@ -921,14 +936,14 @@ input:focus, textarea:focus {
       <label>
         <input type="radio" name="church" data-name="Church &mdash; Artificial flowers" data-price="15000">
         <b>Church &mdash; Artificial flowers</b>
-        <small>Entrance arch and 2 stands beside couple (artificial flowers)</small>
+        <small>Entrance arch (Artificial ) and 2 fresh flower stands beside couple</small>
         <span class="price">&#8377;15,000</span>
       </label>
     </div>
     <div class="item">
       <label>
         <input type="radio" name="church" data-name="Church &mdash; Hybrid setup" data-price="25000">
-        <b>Church &mdash; Artificial arch + Fresh stands</b>
+        <b>Church &mdash; Artificial arch + Fresh flower stands</b>
         <small>Entrance arch (artificial), aisle stands (fresh roses &amp; gypsophila), and 2 stands beside couple (fresh)</small>
         <span class="price">&#8377;25,000</span>
       </label>
@@ -978,7 +993,7 @@ input:focus, textarea:focus {
       <label>
         <input type="radio" name="cake" data-name="Two tier cake" data-price="4500">
         <b>Two tier cake</b>
-        <small>Top layer real cake, bottom dummy layer, fondant icing</small>
+        <small>Top tier real cake, bottom dummy tier, fondant icing</small>
         <span class="price">&#8377;4,500</span>
       </label>
     </div>
@@ -986,7 +1001,7 @@ input:focus, textarea:focus {
       <label>
         <input type="radio" name="cake" data-name="Three tier cake" data-price="6000">
         <b>Three tier cake</b>
-        <small>Top layer real cake, bottom two dummy layers, fondant icing</small>
+        <small>Top tier real cake, bottom two dummy layers, fondant icing</small>
         <span class="price">&#8377;6,000</span>
       </label>
     </div>
@@ -1006,7 +1021,7 @@ input:focus, textarea:focus {
       <label>
         <input type="checkbox" data-name="Cold spark fountain" data-price="15000">
         <b>Cold spark fountain</b>
-        <small>Indoor-safe spark fountains (no heat, no smoke)</small>
+        <small>Indoor-safe fire sparkler fountains (no heat, no smoke)</small>
         <span class="price">&#8377;15,000</span>
       </label>
     </div>
@@ -1031,7 +1046,7 @@ input:focus, textarea:focus {
       <label>
         <input type="checkbox" data-name="Cool fire" data-price="5000">
         <b>Cool fire</b>
-        <small>Low-heat flame effects (has minor smoke/smell; needs hall approval)</small>
+        <small>Low-heat flame effects (not recommended; may produce minor smoke and odour, and require prior hall approval).</small>
         <span class="price">&#8377;5,000</span>
       </label>
     </div>
@@ -1047,7 +1062,7 @@ input:focus, textarea:focus {
       <label>
         <input type="checkbox" data-name="Dry ice fog ramp" data-price="15000">
         <b>Dry ice fog &mdash; ramp</b>
-        <small>Low-lying cloud fog along the entrance ramp</small>
+        <small>Low-lying cloud fog along the ramp onto stage</small>
         <span class="price">&#8377;15,000</span>
       </label>
     </div>
@@ -1067,7 +1082,7 @@ input:focus, textarea:focus {
       <label>
         <input type="radio" name="pathway" data-name="Premium pathway light stands" data-price="30000">
         <b>Premium pathway light stands</b>
-        <small>Warm-lit pillar stands with flowers along the aisle</small>
+        <small>Pillar stands with flowers along the aisle with lights or candles</small>
         <span class="price">&#8377;30,000</span>
       </label>
     </div>
@@ -1091,7 +1106,7 @@ input:focus, textarea:focus {
       <label>
         <input type="checkbox" data-name="Ambient lighting in hall" data-price="35000">
         <b>Ambient lighting in hall</b>
-        <small>Color mood lights along the hall walls with extra power support</small>
+        <small>Color mood ambiance lights in hall with additional power support as required.</small>
         <span class="price">&#8377;35,000</span>
       </label>
     </div>
@@ -1099,7 +1114,7 @@ input:focus, textarea:focus {
       <label>
         <input type="checkbox" data-name="Premium wedding signage board" data-price="7500">
         <b>Premium signage board</b>
-        <small>Custom welcome board on easel with name design and fresh flowers</small>
+        <small>Large custom-designed welcome board featuring the couple names/photo</small>
         <span class="price">&#8377;7,500</span>
       </label>
     </div>
@@ -1278,7 +1293,7 @@ input:focus, textarea:focus {
 
     <div class="policy-card validity">
       <b class="title">&#128197; Rate Validity &amp; Cost Policy</b>
-      <div>Quoted prices are <strong>valid for 6 months</strong> from quote date. Rates may be revised after 6 months or in case of market cost increases.</div>
+      <div>Quoted prices are valid for 6 months from the date of quotation and are subject to revision based on market conditions and fluctuations in associated costs.</div>
     </div>
 
     <div class="policy-card payment">
