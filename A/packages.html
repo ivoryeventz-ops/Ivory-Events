@@ -7,6 +7,7 @@
 
 <!-- WhatsApp & Social Media Preview Meta Tags -->
 <meta property="og:type" content="website">
+<meta property="og:site_name" content="Ivory Events">
 <meta property="og:url" content="https://ivory-events.pages.dev/A/packages">
 <meta property="og:title" content="Ivory Events &mdash; Build Your Wedding Package">
 <meta property="og:description" content="Select your package and services &mdash; your estimate updates in real time.">
@@ -198,36 +199,21 @@ h2 {
   font-size: 0.85rem;
 }
 
-/* Highlighted Package Inclusions Accordion */
+/* Always-Visible Package Inclusions Box */
 .inclusions-highlight {
   background: var(--card);
   border: 1px solid var(--gold);
   border-radius: 12px;
-  padding: 1rem 1.25rem;
+  padding: 1.25rem;
   margin: 1rem 0 1.5rem;
   box-shadow: 0 4px 12px rgba(176, 141, 87, 0.08);
 }
-.inclusions-highlight summary {
-  cursor: pointer;
+.inclusions-title {
   color: var(--gold);
-  font-weight: 600;
-  font-size: 0.95rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  list-style: none;
-}
-.inclusions-highlight summary::-webkit-details-marker {
-  display: none;
-}
-.inclusions-highlight summary::after {
-  content: "\25BE";
-  font-size: 1.1rem;
-  color: var(--gold);
-  transition: transform .2s ease;
-}
-.inclusions-highlight[open] summary::after {
-  transform: rotate(180deg);
+  font-weight: 700;
+  font-size: 1rem;
+  margin: 0 0 0.25rem 0;
+  font-family: 'Georgia', serif;
 }
 .inclusions-highlight ul {
   margin: 0.75rem 0 0.5rem;
@@ -400,6 +386,14 @@ h2 {
 }
 .policy-card.payment b.title {
   color: var(--gold);
+}
+.policy-card.cancellation {
+  border: 1px solid var(--line);
+  border-left: 4px solid #c97a7e;
+  background: var(--card);
+}
+.policy-card.cancellation b.title {
+  color: #a84247;
 }
 .policy-bullets {
   margin: 6px 0 0;
@@ -656,9 +650,10 @@ input:focus, textarea:focus {
 
   <h2>1 &middot; Choose your package</h2>
 
-  <details class="inclusions-highlight">
-    <summary>&#10022; View Package Inclusions (Tap to Expand)</summary>
-    <p class="sub" style="margin-top: 8px;">Packages 2&ndash;13 include scale and design varying by package tier:</p>
+  <!-- Full List of Package Inclusions (Always Visible) -->
+  <div class="inclusions-highlight">
+    <div class="inclusions-title">&#10022; Package Inclusions</div>
+    <p class="sub" style="margin-top: 4px; margin-bottom: 8px;">Packages 2&ndash;13 include scale and design varying by package tier:</p>
     <ul>
       <li>White flex or carpet on stage</li>
       <li>Sofa</li>
@@ -677,10 +672,10 @@ input:focus, textarea:focus {
       <li>2 welcome hostesses</li>
       <li>Manthrakodi basket and ring box returnable</li>
     </ul>
-    <p class="sub" style="margin-bottom: 2px;"><em>Package 1 is identical without white flex, facelights and hostesses.</em></p>
-  </details>
+    <p class="sub" style="margin-top: 6px; margin-bottom: 0;"><em>Package 1 is identical without white flex, facelights and hostesses.</em></p>
+  </div>
 
-  <p class="sub">Choose one, or tap again to deselect</p>
+  <p class="sub">Click to explore stage options in each package.</p>
   <div class="grid">
     <!-- Package 1 -->
     <div class="item">
@@ -924,8 +919,8 @@ input:focus, textarea:focus {
     </div>
     <div class="item">
       <label>
-        <input type="checkbox" data-name="Gypsophila greeting set" data-price="5000">
-        <b>Gypsophila greeting set</b>
+        <input type="checkbox" data-name="Premium Garland &amp; Bouquet" data-price="5000">
+        <b>Premium Garland &amp; Bouquet</b>
         <small>2 greeting garlands + 2 bouquets (fresh baby's breath)</small>
         <span class="price">&#8377;5,000</span>
       </label>
@@ -957,8 +952,8 @@ input:focus, textarea:focus {
   <div class="grid">
     <div class="item">
       <label>
-        <input type="checkbox" data-name="Flower confetti" data-price="10000">
-        <b>Flower confetti blast</b>
+        <input type="checkbox" data-name="Flower Confetti" data-price="10000">
+        <b>Flower Confetti</b>
         <small>Fresh rose petals shot from a cannon during entry or cake cutting</small>
         <span class="price">&#8377;10,000</span>
       </label>
@@ -1081,7 +1076,7 @@ input:focus, textarea:focus {
       <label>
         <input type="radio" name="fam" data-name="Premium family table" data-price="25000">
         <b>Premium family table</b>
-        <small>Curved or round VIP table, 12 gold chairs, dinnerware, and flower setup</small>
+        <small>Curved or round VIP table, 12 gold chairs, dinnerware, and table centrepieces</small>
         <span class="price">&#8377;25,000</span>
       </label>
     </div>
@@ -1089,7 +1084,7 @@ input:focus, textarea:focus {
       <label>
         <input type="radio" name="fam" data-name="Family table on hall tables" data-price="10000">
         <b>Family table on hall tables</b>
-        <small>Setup on hall tables, 12 acrylic chairs, dinnerware, and flower setup</small>
+        <small>Setup on hall tables, 12 acrylic chairs, dinnerware, and table centrepieces</small>
         <span class="price">&#8377;10,000</span>
       </label>
     </div>
@@ -1141,7 +1136,7 @@ input:focus, textarea:focus {
       <label>
         <input type="radio" name="band" data-name="Standard band" data-price="25000" data-extra="ta">
         <b>Standard band</b>
-        <small>Fixed song list: keyboard, rhythm pad, violin (instrumental)</small>
+        <small>Fixed song list: keyboard, rhythm pad, violin (instrumental) plus sound system</small>
         <span class="price">&#8377;25,000 + TA</span>
       </label>
     </div>
@@ -1149,7 +1144,7 @@ input:focus, textarea:focus {
       <label>
         <input type="radio" name="band" data-name="Premium band" data-price="40000" data-extra="ta">
         <b>Premium band</b>
-        <small>Interactive performance: keyboard, rhythm pad, violin (instrumental)</small>
+        <small>Interactive performance: keyboard, rhythm pad, violin (instrumental) plus sound system</small>
         <span class="price">&#8377;40,000 + TA</span>
       </label>
     </div>
@@ -1157,7 +1152,7 @@ input:focus, textarea:focus {
       <label>
         <input type="radio" name="band" data-name="Band with vocalist" data-price="40000" data-extra="ta">
         <b>Band with vocalist</b>
-        <small>Keyboard, violin, and 4 singers (English devotional &amp; worship)</small>
+        <small>Keyboard, violin, and 4 singers (English devotional &amp; worship) plus sound system</small>
         <span class="price">&#8377;40,000 + TA</span>
       </label>
     </div>
@@ -1249,6 +1244,11 @@ input:focus, textarea:focus {
         <li><strong>Pre-Event:</strong> 50% paid 1 day before the function.</li>
         <li><strong>Final Payment:</strong> Remaining balance paid the day after the function.</li>
       </ul>
+    </div>
+
+    <div class="policy-card cancellation">
+      <b class="title">&#128683; Cancellation Policy</b>
+      <div>Cancellations made within 30 days of the scheduled event date are non-refundable.</div>
     </div>
   </div>
 </div>
