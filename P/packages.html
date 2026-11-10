@@ -4,172 +4,276 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Ivory Events &mdash; Build Your Wedding Package</title>
+<!-- WhatsApp & Social Media Preview Meta Tags -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Ivory Events">
+<meta property="og:url" content="https://ivory-events.pages.dev/P/packages">
+<meta property="og:title" content="Ivory Events &mdash; Build Your Wedding Package">
+<meta property="og:description" content="Select your package and services &mdash; your estimate updates in real time.">
+<meta property="og:image" content="https://ivory-events.pages.dev/P/logo.png">
+<meta property="og:image:secure_url" content="https://ivory-events.pages.dev/P/logo.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="300">
+<meta property="og:image:height" content="300">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Ivory Events &mdash; Build Your Wedding Package">
+<meta name="twitter:description" content="Select your package and services &mdash; your estimate updates in real time.">
+<meta name="twitter:image" content="https://ivory-events.pages.dev/P/logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
+:root { --w: 1100px; }
+
 :root {
-  box-sizing: border-box;
-  --bg: #faf9f6;
+  --bg: #faf8f4;
   --card: #ffffff;
-  --ink: #2b2b2b;
-  --mute: #6e655f;
+  --ink: #2a2623;
+  --mute: #6b625b;
   --gold: #b08d57;
   --gold-hover: #9a7846;
-  --gold-tint: #f7f4ee;
-  --line: #e8e3dc;
-  --accent: #2b2b2b;
+  --gold-deep: #8f6f3d;
+  --gold-tint: #f6f1e8;
+  --gold-soft: #e6d6b8;
+  --line: #e9e2d6;
   --on: #ffffff;
+  --serif: 'Cormorant Garamond', 'Georgia', serif;
+  --sans: 'Montserrat', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --shadow: 0 4px 18px rgba(60, 45, 20, 0.05);
 }
-
 * { box-sizing: border-box; }
-
 html { -webkit-text-size-adjust: 100%; }
-
 body {
   margin: 0;
   position: relative;
   background: var(--bg);
   color: var(--ink);
-  font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  line-height: 1.6;
+  font-family: var(--sans);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
 }
 
-header {
+/* Header */
+.site-header {
   text-align: center;
-  padding: 2.5rem 1rem 1.5rem;
-  background: var(--card);
+  padding: 2.25rem 1rem 1.6rem;
+  background: linear-gradient(180deg, #ffffff 0%, #fdfbf7 100%);
   border-bottom: 1px solid var(--line);
+}
+.logo {
+  width: 84px;
+  height: 84px;
+  border-radius: 50%;
+  display: block;
+  margin: 0 auto 1rem;
+  box-shadow: 0 0 0 3px #fff, 0 0 0 4px var(--gold-soft);
 }
 .header-badge {
   display: inline-block;
-  background-color: var(--gold-tint);
-  color: var(--gold);
-  padding: 0.35rem 1rem;
+  background: var(--gold-tint);
+  color: var(--gold-deep);
+  padding: 0.3rem 1.1rem;
   border-radius: 20px;
-  font-size: 0.8rem;
+  font-size: 0.72rem;
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 1px;
-  margin-bottom: 0.75rem;
-  border: 1px solid var(--line);
+  letter-spacing: 0.18em;
+  margin-bottom: 0.8rem;
+  border: 1px solid var(--gold-soft);
 }
-header h1 {
-  font-family: 'Georgia', serif;
+.site-header h1 {
+  font-family: var(--serif);
   margin: 0;
-  font-size: 2.1rem;
+  font-size: clamp(2rem, 5.5vw, 2.8rem);
+  line-height: 1.15;
+  font-weight: 600;
+  letter-spacing: 0.01em;
   color: var(--ink);
-  font-weight: normal;
 }
-header p {
-  margin: 0.5rem 0 0;
+.site-header p {
+  margin: 0.6rem auto 0;
+  max-width: 560px;
   color: var(--mute);
-  font-size: 0.95rem;
+  font-size: 0.92rem;
 }
-
-/* Quick Navigation Bar */
-.ivory-nav-container {
-  background: #ffffff;
-  border: 1px solid #e8e3dc;
-  border-radius: 10px;
-  padding: 1.25rem 1rem;
-  margin-bottom: 1.5rem;
-  text-align: center;
-  box-shadow: 0 3px 12px rgba(176, 141, 87, 0.08);
-}
-.ivory-nav-heading {
-  font-family: 'Georgia', serif;
-  font-size: 0.95rem;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  color: #b08d57;
-  font-weight: 700;
-  margin: 0 0 0.85rem 0;
-}
-.ivory-nav-buttons {
+.orn {
   display: flex;
+  align-items: center;
   justify-content: center;
-  gap: 12px;
-  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin: 1rem auto 0;
+  color: var(--gold);
+  font-size: 0.8rem;
+  letter-spacing: 0.4em;
 }
-.ivory-nav-btn {
+.orn::before, .orn::after {
+  content: "";
+  height: 1px;
+  width: 56px;
+  background: linear-gradient(90deg, transparent, var(--gold-soft));
+}
+.orn::after { transform: scaleX(-1); }
+
+/* Quick navigation */
+.ivory-nav {
+  max-width: var(--w, 1100px);
+  margin: 1.5rem auto 0;
+  padding: 0 1rem;
+}
+.nav-inner {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 1rem 1rem 1.1rem;
+  text-align: center;
+  box-shadow: var(--shadow);
+}
+.nav-label {
+  font-family: var(--serif);
+  text-transform: uppercase;
+  letter-spacing: 0.28em;
+  font-size: 0.8rem;
+  color: var(--gold-deep);
+  font-weight: 700;
+  margin: 0 0 0.75rem;
+}
+.nav-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+}
+.nav-link {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background-color: #b08d57;
-  color: #ffffff;
+  padding: 0.6rem 1.25rem;
+  border-radius: 999px;
+  border: 1px solid var(--gold-soft);
+  background: #fff;
+  color: var(--gold-deep);
   text-decoration: none;
-  font-weight: 700;
-  font-size: 1.05rem;
-  padding: 0.85rem 1.8rem;
-  border-radius: 8px;
-  box-shadow: 0 3px 10px rgba(176, 141, 87, 0.22);
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
   transition: all 0.2s ease;
-  flex: 1 1 140px;
-  min-width: 0;
-  max-width: 220px;
-  letter-spacing: 0.5px;
-  cursor: pointer;
+  white-space: nowrap;
+}
+.nav-link.active {
+  background: var(--gold);
+  border-color: var(--gold);
+  color: var(--on);
+  box-shadow: 0 4px 12px rgba(176, 141, 87, 0.28);
+}
+@media (hover: hover) {
+  .nav-link:not(.active):hover {
+    background: var(--gold-tint);
+    border-color: var(--gold);
+    transform: translateY(-1px);
+  }
+}
+@media (max-width: 520px) {
+  .nav-link { padding: 0.55rem 1rem; font-size: 0.76rem; }
 }
 
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  border-radius: 8px;
+  padding: 0.95rem;
+  background-color: var(--gold);
+  color: var(--on);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.92rem;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+  margin-top: 8px;
+  border: none;
+  box-shadow: 0 5px 14px rgba(176, 141, 87, 0.28);
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+@media (hover: hover) {
+  .btn:hover {
+    background-color: var(--gold-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 18px rgba(176, 141, 87, 0.34);
+  }
+}
+
+footer {
+  text-align: center;
+  padding: 2rem 1rem 2.5rem;
+  color: var(--mute);
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+}
+footer .orn { margin-bottom: 0.9rem; }
+
+
 main {
-  max-width: 1100px;
+  max-width: var(--w);
   margin: 0 auto;
-  padding: 2rem 1rem 4rem;
+  padding: 1.5rem 1rem 1rem;
   display: grid;
   gap: 2rem;
   grid-template-columns: minmax(0, 1fr);
 }
 @media (min-width: 900px) {
-  main {
-    grid-template-columns: minmax(0, 1fr) 340px;
-    align-items: start;
-  }
+  main { grid-template-columns: minmax(0, 1fr) 340px; align-items: start; }
 }
 
 /* Complimentary Management Card */
 .complimentary-box {
   background: var(--card);
   border: 1px solid var(--line);
-  border-left: 4px solid var(--gold);
+  border-left: 3px solid var(--gold);
   border-radius: 12px;
   padding: 1.5rem;
   margin-bottom: 1.5rem;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+  box-shadow: var(--shadow);
 }
 .complimentary-title {
-  font-family: 'Georgia', serif;
+  font-family: var(--serif);
   color: var(--ink);
-  font-weight: bold;
-  font-size: 1.15rem;
+  font-weight: 600;
+  font-size: 1.35rem;
   margin-bottom: 0.85rem;
 }
 .complimentary-list {
   list-style: none;
   padding: 0;
   margin: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 0.5rem 1.25rem;
 }
 .complimentary-list li {
   display: flex;
   align-items: baseline;
   gap: 0.6rem;
-  font-size: 0.9rem;
+  font-size: 0.88rem;
   color: var(--mute);
 }
 .complimentary-list li::before {
   content: "\2714";
   color: var(--gold);
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   font-weight: bold;
 }
 
 h2 {
-  font-family: 'Georgia', serif;
-  font-size: 1.35rem;
-  margin: 2rem 0 0.35rem;
+  font-family: var(--serif);
+  font-size: 1.7rem;
+  font-weight: 600;
+  margin: 2.2rem 0 0.4rem;
   color: var(--ink);
   border-bottom: 1px solid var(--line);
   padding-bottom: 0.4rem;
@@ -180,73 +284,56 @@ h2 {
   font-size: 0.85rem;
 }
 
-/* Highlighted Package Inclusions Accordion */
+/* Always-Visible Package Inclusions Box */
 .inclusions-highlight {
-  background: var(--card);
-  border: 1px solid var(--gold);
-  border-radius: 12px;
-  padding: 1rem 1.25rem;
+  background: linear-gradient(180deg, #ffffff 0%, #fdfbf7 100%);
+  border: 1px solid var(--gold-soft);
+  border-radius: 14px;
+  padding: 1.35rem 1.4rem;
   margin: 1rem 0 1.5rem;
-  box-shadow: 0 4px 12px rgba(176, 141, 87, 0.08);
+  box-shadow: 0 4px 16px rgba(176, 141, 87, 0.09);
 }
-.inclusions-highlight summary {
-  cursor: pointer;
-  color: var(--gold);
+.inclusions-title {
+  color: var(--gold-deep);
   font-weight: 600;
-  font-size: 0.95rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  list-style: none;
-}
-.inclusions-highlight summary::-webkit-details-marker {
-  display: none;
-}
-.inclusions-highlight summary::after {
-  content: "\25BE";
-  font-size: 1.1rem;
-  color: var(--gold);
-  transition: transform .2s ease;
-}
-.inclusions-highlight[open] summary::after {
-  transform: rotate(180deg);
+  font-size: 1.4rem;
+  margin: 0 0 0.25rem 0;
+  font-family: var(--serif);
 }
 .inclusions-highlight ul {
   margin: 0.75rem 0 0.5rem;
   padding-left: 1.2rem;
   columns: 2;
   color: var(--mute);
-  font-size: 0.88rem;
+  font-size: 0.87rem;
 }
+.inclusions-highlight li::marker { color: var(--gold); }
 @media (max-width: 600px) {
-  .inclusions-highlight ul {
-    columns: 1;
-  }
+  .inclusions-highlight ul { columns: 1; }
 }
 
 .grid {
   display: grid;
-  gap: 12px;
+  gap: 14px;
   grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
 }
 
 .item {
   background: var(--card);
   border: 1px solid var(--line);
-  border-radius: 10px;
-  padding: 14px;
+  border-radius: 12px;
+  padding: 14px 16px;
   display: flex;
   flex-direction: column;
   position: relative;
   transition: all .15s ease;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+  box-shadow: 0 2px 8px rgba(60, 45, 20, 0.03);
 }
-.item:hover {
-  border-color: #d8cfc4;
-}
+.item:hover { border-color: var(--gold-soft); }
 .item.selected {
   border-color: var(--gold);
   box-shadow: 0 0 0 2px var(--gold);
+  background: #fffdf9;
 }
 .item label {
   display: block;
@@ -265,23 +352,41 @@ h2 {
 }
 .item b {
   display: block;
-  font-size: 0.98rem;
+  font-size: 0.96rem;
+  font-weight: 600;
   color: var(--ink);
-  line-height: 1.35;
+  line-height: 1.4;
 }
 .item small {
   color: var(--mute);
   display: block;
-  font-size: 0.82rem;
+  font-size: 0.81rem;
   margin-top: 4px;
-  line-height: 1.4;
+  line-height: 1.45;
 }
+
+/* Subtle gold pill badge to highlight key note without heavy bolding */
+.pkg-exclusion-note {
+  display: inline-block;
+  color: var(--gold-deep);
+  background: var(--gold-tint);
+  border: 1px solid var(--gold-soft);
+  border-radius: 6px;
+  padding: 3px 8px;
+  margin-top: 4px;
+  font-size: 0.79rem;
+  line-height: 1.35;
+  font-weight: 500;
+  font-style: italic;
+}
+
 .price {
   display: block;
-  color: var(--gold);
+  color: var(--gold-deep);
   font-weight: 700;
-  margin-top: 6px;
-  font-size: 0.98rem;
+  margin-top: 8px;
+  font-size: 1rem;
+  letter-spacing: 0.01em;
 }
 
 .gallery {
@@ -290,15 +395,15 @@ h2 {
   overflow-x: auto;
   scroll-snap-type: x proximity;
   touch-action: pan-x pan-y;
-  margin-bottom: 6px;
+  margin-bottom: 8px;
   padding-bottom: 4px;
   -webkit-overflow-scrolling: touch;
 }
 .gallery img {
   flex: 0 0 100%;
-  height: 180px;
+  height: 190px;
   object-fit: cover;
-  border-radius: 6px;
+  border-radius: 8px;
   scroll-snap-align: start;
   background: var(--line);
   display: block;
@@ -312,9 +417,7 @@ h2 {
   border-top: 1px dashed var(--line);
   font-size: 0.85rem;
 }
-.item.selected .qty {
-  display: block;
-}
+.item.selected .qty { display: block; }
 .qty input {
   width: 65px;
   padding: 5px 8px;
@@ -327,7 +430,7 @@ h2 {
 }
 .calc-subnote {
   font-size: 0.8rem;
-  color: var(--gold);
+  color: var(--gold-deep);
   font-weight: 600;
   margin-top: 5px;
   display: block;
@@ -341,11 +444,12 @@ h2 {
   margin-top: 10px;
 }
 .policy-card {
-  padding: 1rem;
-  border-radius: 10px;
-  font-size: 0.88rem;
+  padding: 1.05rem 1.2rem;
+  border-radius: 12px;
+  font-size: 0.87rem;
   line-height: 1.6;
   background: var(--card);
+  color: var(--mute);
 }
 .policy-card b.title {
   display: flex;
@@ -355,62 +459,55 @@ h2 {
   margin-bottom: 6px;
 }
 .policy-card.warning {
-  border: 1px solid var(--gold);
-  border-left: 4px solid var(--gold);
+  border: 1px solid var(--gold-soft);
+  border-left: 3px solid var(--gold);
   background: var(--gold-tint);
 }
-.policy-card.warning b.title {
-  color: var(--gold-hover);
-}
+.policy-card.warning b.title { color: var(--gold-deep); }
 .policy-card.validity {
   border: 1px solid var(--line);
-  border-left: 4px solid #8c827a;
+  border-left: 3px solid #8c827a;
 }
-.policy-card.validity b.title {
-  color: var(--ink);
-}
-.policy-card.info {
-  border: 1px solid var(--line);
-}
-.policy-card.info b.title {
-  color: var(--ink);
-}
+.policy-card.validity b.title { color: var(--ink); }
+.policy-card.info { border: 1px solid var(--line); }
+.policy-card.info b.title { color: var(--ink); }
 .policy-card.payment {
-  border: 1px solid var(--gold);
-  border-left: 4px solid var(--gold);
-  background: var(--card);
+  border: 1px solid var(--gold-soft);
+  border-left: 3px solid var(--gold);
 }
-.policy-card.payment b.title {
-  color: var(--gold);
+.policy-card.payment b.title { color: var(--gold-deep); }
+.policy-card.cancellation {
+  border: 1px solid var(--line);
+  border-left: 3px solid #c97a7e;
 }
+.policy-card.cancellation b.title { color: #a84247; }
 .policy-bullets {
   margin: 6px 0 0;
   padding-left: 1.2rem;
   color: var(--mute);
 }
-.policy-bullets li {
-  margin-bottom: 4px;
-}
+.policy-bullets li { margin-bottom: 4px; }
 
 /* Sidebar Estimate Card */
 aside {
   background: var(--card);
   border: 1px solid var(--line);
-  border-radius: 12px;
+  border-radius: 14px;
   padding: 1.5rem;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+  box-shadow: 0 6px 22px rgba(60, 45, 20, 0.06);
 }
 aside h3 {
-  font-family: 'Georgia', serif;
+  font-family: var(--serif);
   margin: 0 0 0.75rem;
   color: var(--ink);
-  font-size: 1.25rem;
+  font-size: 1.6rem;
+  font-weight: 600;
 }
 #lines {
   list-style: none;
   margin: 0 0 10px;
   padding: 0;
-  font-size: 0.88rem;
+  font-size: 0.86rem;
 }
 #lines li {
   display: flex;
@@ -423,60 +520,37 @@ aside h3 {
 .total {
   display: flex;
   justify-content: space-between;
-  font-size: 1.25rem;
-  font-weight: 600;
+  align-items: baseline;
+  font-family: var(--serif);
+  font-size: 1.6rem;
+  font-weight: 700;
   margin: 1rem 0 0.5rem;
-  color: var(--gold);
+  color: var(--gold-deep);
   border-top: 1px solid var(--line);
-  padding-top: 0.75rem;
+  padding-top: 0.7rem;
 }
 input[type=text],
 input[type=date],
 input[type=tel],
 textarea {
   width: 100%;
-  padding: 10px;
+  padding: 10px 12px;
   margin: 4px 0;
   border: 1px solid var(--line);
-  border-radius: 6px;
+  border-radius: 8px;
   background: var(--bg);
   color: var(--ink);
   font: inherit;
   font-size: 0.88rem;
 }
-input:focus, textarea:focus {
-  outline: none;
-  border-color: var(--gold);
-}
-.btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  border-radius: 6px;
-  padding: 0.9rem;
-  background-color: var(--gold);
-  color: var(--on);
-  text-decoration: none;
-  font-weight: 600;
-  font-size: 0.95rem;
-  cursor: pointer;
-  margin-top: 8px;
-  border: none;
-  box-shadow: 0 4px 12px rgba(176, 141, 87, 0.25);
-  transition: all 0.2s ease;
-  font-family: inherit;
-}
+input:focus, textarea:focus { outline: none; border-color: var(--gold); background: #fff; }
 .note {
-  font-size: 0.78rem;
+  font-size: 0.76rem;
   color: var(--mute);
   margin: 6px 0 0;
   line-height: 1.4;
 }
-.note.warn {
-  color: var(--gold-hover);
-  font-weight: 600;
-}
+.note.warn { color: var(--gold-hover); font-weight: 600; }
 
 /* Photo viewer overlay */
 .ivory-stack-overlay {
@@ -489,28 +563,35 @@ input:focus, textarea:focus {
   z-index: 999999;
   padding: 0 1rem 3rem;
 }
-.ivory-stack-overlay.active {
-  display: block;
-}
+.ivory-stack-overlay.active { display: block; }
 .ivory-stack-container {
   max-width: 820px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 20px;
+  gap: 16px;
 }
 .ivory-stack-header {
   width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0.6rem 0.25rem;
+  padding: 0.6rem 0.25rem 0.2rem;
+}
+.ivory-stack-title-box { display: flex; flex-direction: column; }
+.ivory-stack-instruction {
+  color: var(--gold);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  font-size: 0.85rem;
+  margin-bottom: 2px;
 }
 .ivory-stack-title {
   color: var(--gold-tint);
-  font-family: 'Georgia', serif;
-  font-size: 1.15rem;
+  font-family: var(--serif);
+  font-size: 1.5rem;
   letter-spacing: 0.5px;
 }
 .ivory-stack-close {
@@ -537,42 +618,56 @@ input:focus, textarea:focus {
   align-items: center;
   gap: 20px;
 }
-.ivory-stack-images img {
+.ivory-stage-card {
   width: 100%;
   max-width: 800px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  position: relative;
+  transition: transform 0.2s ease;
+}
+.ivory-stage-card:hover { transform: scale(1.01); }
+.ivory-stage-card img {
+  width: 100%;
   height: auto;
   border-radius: 10px;
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
   display: block;
   background: #2b2b2b;
+  border: 3px solid transparent;
+  transition: border-color 0.2s ease;
+}
+.ivory-stage-card.selected-stage img { border-color: var(--gold); }
+.ivory-stage-tag {
+  margin-top: 8px;
+  color: #ffffff;
+  background: rgba(176, 141, 87, 0.85);
+  padding: 4px 14px;
+  border-radius: 20px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+.ivory-stage-card.selected-stage .ivory-stage-tag {
+  background: var(--gold);
+  box-shadow: 0 0 10px rgba(176, 141, 87, 0.6);
 }
 .ivory-stack-done {
   background: var(--gold);
   color: #ffffff;
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
   padding: 0.8rem 2rem;
   font-family: inherit;
   font-weight: 600;
   font-size: 0.95rem;
   cursor: pointer;
+  margin-top: 10px;
 }
-
 @media (hover: hover) {
-  .ivory-nav-btn:hover {
-    background-color: #9a7846;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 16px rgba(176, 141, 87, 0.32);
-  }
-  .btn:hover {
-    background-color: var(--gold-hover);
-    transform: translateY(-2px);
-    box-shadow: 0 6px 16px rgba(176, 141, 87, 0.35);
-  }
-  .ivory-stack-close:hover {
-    background: var(--gold);
-    transform: scale(1.05);
-  }
+  .ivory-stack-close:hover { background: var(--gold); transform: scale(1.05); }
 }
 
 @media (min-width: 900px) and (min-height: 820px) {
@@ -585,10 +680,7 @@ input:focus, textarea:focus {
     overscroll-behavior: auto;
     -webkit-overflow-scrolling: touch;
   }
-  #lines {
-    max-height: 22vh;
-    overflow-y: auto;
-  }
+  #lines { max-height: 22vh; overflow-y: auto; }
 }
 
 @media (max-width: 900px) {
@@ -596,32 +688,34 @@ input:focus, textarea:focus {
   input[type=date],
   input[type=tel],
   textarea,
-  .qty input {
-    font-size: 16px;
-  }
+  .qty input { font-size: 16px; }
 }
+
 </style>
 </head>
 <body>
-
-<header>
+<header class="site-header">
+  <img class="logo" src="logo.png" alt="Ivory Events logo">
   <span class="header-badge">Ivory Events</span>
   <h1>Build Your Wedding Package</h1>
   <p>Select your package and services &mdash; your estimate updates in real time</p>
+  <div class="orn" aria-hidden="true">&#10022;</div>
 </header>
+<nav class="ivory-nav" aria-label="Quick navigation">
+  <div class="nav-inner">
+    <div class="nav-label">Quick Navigation</div>
+    <div class="nav-links">
+      <a href="index.html" class="nav-link">Intro</a>
+      <a href="reviews.html" class="nav-link">Reviews</a>
+      <a href="gallery.html" class="nav-link">Gallery</a>
+      <a href="packages.html" class="nav-link active" aria-current="page">Packages</a>
+      <a href="checklist.html" class="nav-link">Service Checklist</a>
+    </div>
+  </div>
+</nav>
 
 <main>
 <div>
-  <!-- Quick Navigation Bar -->
-  <div class="ivory-nav-container">
-    <div class="ivory-nav-heading">Quick Navigation</div>
-    <div class="ivory-nav-buttons">
-      <a href="index.html" class="ivory-nav-btn">Intro</a>
-      <a href="reviews.html" class="ivory-nav-btn">Reviews</a>
-      <a href="gallery.html" class="ivory-nav-btn">Gallery</a>
-    </div>
-  </div>
-
   <!-- Complimentary Section -->
   <div class="complimentary-box">
     <div class="complimentary-title">Every package includes complimentary wedding management:</div>
@@ -629,7 +723,7 @@ input:focus, textarea:focus {
       <li>Wedding-day timeline</li>
       <li>Service supervision</li>
       <li>Final readiness check</li>
-      <li>Bridal procession assistance</li>
+      <li>Church-ceremony assistance</li>
       <li>Two welcome hostesses except Package 1</li>
       <li>Stage music coordination</li>
       <li>Photography assistance</li>
@@ -638,47 +732,43 @@ input:focus, textarea:focus {
 
   <h2>1 &middot; Choose your package</h2>
 
-  <details class="inclusions-highlight">
-    <summary>&#10022; View Package Inclusions (Tap to Expand)</summary>
-    <p class="sub" style="margin-top: 8px;">Packages 2&ndash;13 include scale and design varying by package tier:</p>
+  <!-- Full List of Package Inclusions (Always Visible) -->
+  <div class="inclusions-highlight">
+    <div class="inclusions-title">&#10022; Package Inclusions</div>
+    <p class="sub" style="margin-top: 4px; margin-bottom: 8px;">All Packages except Package 1 Include the Same Services; Only the Stage Designs Vary</p>
     <ul>
-      <li>White flex on stage/carpet on stage</li>
+      <li>White flex or carpet on stage</li>
       <li>Sofa</li>
       <li>Welcome drink for couple</li>
       <li>Single layer fresh cream cake</li>
-      <li>Podium</li>
-      <li>Table for pastors</li>
-      <li>Chair for pastors</li>
       <li>Fresh leaves on stage</li>
-      <li>Floral Settings on stage - Artificial flowers</li>
-      <li>Lights on stage</li>
-      <li>On stage sound system for announcements</li>
-      <li>Facelights</li>
-      <li>Centre carpet along the aisle</li>
-      <li>Entrance Arch for hall - Artificial flowers</li>
-      <li>Wedding Car Decoration - Fresh flowers</li>
-      <li>Greeting Bouquet - Fresh flowers</li>
+      <li>Stage floral settings artificial</li>
+      <li>Stage lights and facelights</li>
+      <li>Stage sound system</li>
+      <li>Centre carpet along aisle</li>
+      <li>Hall entrance arch artificial</li>
+      <li>Wedding car decoration fresh</li>
+      <li>Greeting bouquet - 2 nos. - fresh flowers</li>
       <li>Wedding signage board</li>
-      <li>Welcome Girls/Hostess - 2 No.s for assistance on stage &amp; coordinating photosession</li>
+      <li>2 welcome hostesses</li>
     </ul>
-    <p class="sub" style="margin-bottom: 2px;"><em>Package 1 is identical without white flex, facelights and hostesses.</em></p>
-  </details>
+  </div>
 
-  <p class="sub">Choose one, or tap again to deselect</p>
+  <p class="sub">Click to explore stage options in each package.</p>
   <div class="grid">
     <!-- Package 1 -->
     <div class="item">
       <div class="gallery">
-        <img src="../A/upload-2-thumbs/thumbs/pkg-1-1.jpg" data-full="../A/upload-1-images/images/pkg-1-1.jpg" alt="Package 1 - photo 1" loading="lazy" decoding="async">
-        <img src="../A/upload-2-thumbs/thumbs/pkg-1-2.jpg" data-full="../A/upload-1-images/images/pkg-1-2.jpg" alt="Package 1 - photo 2" loading="lazy" decoding="async">
-        <img src="../A/upload-2-thumbs/thumbs/pkg-1-3.jpg" data-full="../A/upload-1-images/images/pkg-1-3.jpg" alt="Package 1 - photo 3" loading="lazy" decoding="async">
-        <img src="../A/upload-2-thumbs/thumbs/pkg-1-4.jpg" data-full="../A/upload-1-images/images/pkg-1-4.jpg" alt="Package 1 - photo 4" loading="lazy" decoding="async">
-        <img src="../A/upload-2-thumbs/thumbs/pkg-1-5.jpg" data-full="../A/upload-1-images/images/pkg-1-5.jpg" alt="Package 1 - photo 5" loading="lazy" decoding="async">
+        <img src="upload-2-thumbs/thumbs/pkg-1-1.jpg" data-full="upload-1-images/images/pkg-1-1.jpg" data-filename="Pkg 1 - 1.jpg" alt="Package 1 - photo 1" loading="lazy" decoding="async">
+        <img src="upload-2-thumbs/thumbs/pkg-1-2.jpg" data-full="upload-1-images/images/pkg-1-2.jpg" data-filename="Pkg 1 - 2.jpg" alt="Package 1 - photo 2" loading="lazy" decoding="async">
+        <img src="upload-2-thumbs/thumbs/pkg-1-3.jpg" data-full="upload-1-images/images/pkg-1-3.jpg" data-filename="Pkg 1 - 3.jpg" alt="Package 1 - photo 3" loading="lazy" decoding="async">
+        <img src="upload-2-thumbs/thumbs/pkg-1-4.jpg" data-full="upload-1-images/images/pkg-1-4.jpg" data-filename="Pkg 1 - 4.jpg" alt="Package 1 - photo 4" loading="lazy" decoding="async">
+        <img src="upload-2-thumbs/thumbs/pkg-1-5.jpg" data-full="upload-1-images/images/pkg-1-5.jpg" data-filename="Pkg 1 - 5.jpg" alt="Package 1 - photo 5" loading="lazy" decoding="async">
       </div>
       <label>
         <input type="radio" name="pkg" data-name="Package 1" data-price="75000">
         <b>Package 1</b>
-        <small>Stage, aisle, entrance arch, car, bouquet without hostesses</small>
+        <span class="pkg-exclusion-note">Note: Package 1 excludes white flex, facelights, and hostesses.</span>
         <span class="price">&#8377;75,000</span>
       </label>
     </div>
@@ -686,10 +776,9 @@ input:focus, textarea:focus {
     <!-- Package 2 -->
     <div class="item">
       <div class="gallery">
-        <img src="../A/upload-2-thumbs/thumbs/pkg-2-1.jpg" data-full="../A/upload-1-images/images/pkg-2-1.jpg" alt="Package 2 - photo 1" loading="lazy" decoding="async">
-        <img src="../A/upload-2-thumbs/thumbs/pkg-2-2.jpg" data-full="../A/upload-1-images/images/pkg-2-2.jpg" alt="Package 2 - photo 2" loading="lazy" decoding="async">
-        <img src="../A/upload-2-thumbs/thumbs/pkg-2-3.jpg" data-full="../A/upload-1-images/images/pkg-2-3.jpg" alt="Package 2 - photo 3" loading="lazy" decoding="async">
-        <img src="../A/upload-2-thumbs/thumbs/pkg-2-4.jpg" data-full="../A/upload-1-images/images/pkg-2-4.jpg" alt="Package 2 - photo 4" loading="lazy" decoding="async">
+        <img src="upload-2-thumbs/thumbs/pkg-2-1.jpg" data-full="upload-1-images/images/pkg-2-1.jpg" data-filename="Pkg 2 - 1.jpg" alt="Package 2 - photo 1" loading="lazy" decoding="async">
+        <img src="upload-2-thumbs/thumbs/pkg-2-2.jpg" data-full="upload-1-images/images/pkg-2-2.jpg" data-filename="Pkg 2 - 2.jpg" alt="Package 2 - photo 2" loading="lazy" decoding="async">
+        <img src="upload-2-thumbs/thumbs/pkg-2-3.jpg" data-full="upload-1-images/images/pkg-2-3.jpg" data-filename="Pkg 2 - 3.jpg" alt="Package 2 - photo 3" loading="lazy" decoding="async">
       </div>
       <label>
         <input type="radio" name="pkg" data-name="Package 2" data-price="105000">
@@ -701,10 +790,10 @@ input:focus, textarea:focus {
     <!-- Package 3 -->
     <div class="item">
       <div class="gallery">
-        <img src="../A/upload-2-thumbs/thumbs/pkg-3-1.jpg" data-full="../A/upload-1-images/images/pkg-3-1.jpg" alt="Package 3 - photo 1" loading="lazy" decoding="async">
-        <img src="../A/upload-2-thumbs/thumbs/pkg-3-2.jpg" data-full="../A/upload-1-images/images/pkg-3-2.jpg" alt="Package 3 - photo 2" loading="lazy" decoding="async">
-        <img src="../A/upload-2-thumbs/thumbs/pkg-3-3.jpg" data-full="../A/upload-1-images/images/pkg-3-3.jpg" alt="Package 3 - photo 3" loading="lazy" decoding="async">
-        <img src="../A/upload-2-thumbs/thumbs/pkg-3-4.jpg" data-full="../A/upload-1-images/images/pkg-3-4.jpg" alt="Package 3 - photo 4" loading="lazy" decoding="async">
+        <img src="upload-2-thumbs/thumbs/pkg-3-1.jpg" data-full="upload-1-images/images/pkg-3-1.jpg" data-filename="Pkg 3 - 1.jpg" alt="Package 3 - photo 1" loading="lazy" decoding="async">
+        <img src="upload-2-thumbs/thumbs/pkg-3-2.jpg" data-full="upload-1-images/images/pkg-3-2.jpg" data-filename="Pkg 3 - 2.jpg" alt="Package 3 - photo 2" loading="lazy" decoding="async">
+        <img src="upload-2-thumbs/thumbs/pkg-3-3.jpg" data-full="upload-1-images/images/pkg-3-3.jpg" data-filename="Pkg 3 - 3.jpg" alt="Package 3 - photo 3" loading="lazy" decoding="async">
+        <img src="upload-2-thumbs/thumbs/pkg-3-4.jpg" data-full="upload-1-images/images/pkg-3-4.jpg" data-filename="Pkg 3 - 4.jpg" alt="Package 3 - photo 4" loading="lazy" decoding="async">
       </div>
       <label>
         <input type="radio" name="pkg" data-name="Package 3" data-price="115000">
@@ -716,11 +805,11 @@ input:focus, textarea:focus {
     <!-- Package 4 -->
     <div class="item">
       <div class="gallery">
-        <img src="../A/upload-2-thumbs/thumbs/pkg-4-1.jpg" data-full="../A/upload-1-images/images/pkg-4-1.jpg" alt="Package 4 - photo 1" loading="lazy" decoding="async">
-        <img src="../A/upload-2-thumbs/thumbs/pkg-4-2.jpg" data-full="../A/upload-1-images/images/pkg-4-2.jpg" alt="Package 4 - photo 2" loading="lazy" decoding="async">
-        <img src="../A/upload-2-thumbs/thumbs/pkg-4-3.jpg" data-full="../A/upload-1-images/images/pkg-4-3.jpg" alt="Package 4 - photo 3" loading="lazy" decoding="async">
-        <img src="../A/upload-2-thumbs/thumbs/pkg-4-4.jpg" data-full="../A/upload-1-images/images/pkg-4-4.jpg" alt="Package 4 - photo 4" loading="lazy" decoding="async">
-        <img src="../A/upload-2-thumbs/thumbs/pkg-4-5.jpg" data-full="../A/upload-1-images/images/pkg-4-5.jpg" alt="Package 4 - photo 5" loading="lazy" decoding="async">
+        <img src="upload-2-thumbs/thumbs/pkg-4-1.jpg" data-full="upload-1-images/images/pkg-4-1.jpg" data-filename="Pkg 4 - 1.jpg" alt="Package 4 - photo 1" loading="lazy" decoding="async">
+        <img src="upload-2-thumbs/thumbs/pkg-4-2.jpg" data-full="upload-1-images/images/pkg-4-2.jpg" data-filename="Pkg 4 - 2.jpg" alt="Package 4 - photo 2" loading="lazy" decoding="async">
+        <img src="upload-2-thumbs/thumbs/pkg-4-3.jpg" data-full="upload-1-images/images/pkg-4-3.jpg" data-filename="Pkg 4 - 3.jpg" alt="Package 4 - photo 3" loading="lazy" decoding="async">
+        <img src="upload-2-thumbs/thumbs/pkg-4-4.jpg" data-full="upload-1-images/images/pkg-4-4.jpg" data-filename="Pkg 4 - 4.jpg" alt="Package 4 - photo 4" loading="lazy" decoding="async">
+        <img src="upload-2-thumbs/thumbs/pkg-4-5.jpg" data-full="upload-1-images/images/pkg-4-5.jpg" data-filename="Pkg 4 - 5.jpg" alt="Package 4 - photo 5" loading="lazy" decoding="async">
       </div>
       <label>
         <input type="radio" name="pkg" data-name="Package 4" data-price="135000">
@@ -732,9 +821,9 @@ input:focus, textarea:focus {
     <!-- Package 5 -->
     <div class="item">
       <div class="gallery">
-        <img src="../A/upload-2-thumbs/thumbs/pkg-5-1.jpg" data-full="../A/upload-1-images/images/pkg-5-1.jpg" alt="Package 5 - photo 1" loading="lazy" decoding="async">
-        <img src="../A/upload-2-thumbs/thumbs/pkg-5-2.jpg" data-full="../A/upload-1-images/images/pkg-5-2.jpg" alt="Package 5 - photo 2" loading="lazy" decoding="async">
-        <img src="../A/upload-2-thumbs/thumbs/pkg-5-3.jpg" data-full="../A/upload-1-images/images/pkg-5-3.jpg" alt="Package 5 - photo 3" loading="lazy" decoding="async">
+        <img src="upload-2-thumbs/thumbs/pkg-5-1.jpg" data-full="upload-1-images/images/pkg-5-1.jpg" data-filename="Pkg 5 - 1.jpg" alt="Package 5 - photo 1" loading="lazy" decoding="async">
+        <img src="upload-2-thumbs/thumbs/pkg-5-2.jpg" data-full="upload-1-images/images/pkg-5-2.jpg" data-filename="Pkg 5 - 2.jpg" alt="Package 5 - photo 2" loading="lazy" decoding="async">
+        <img src="upload-2-thumbs/thumbs/pkg-5-3.jpg" data-full="upload-1-images/images/pkg-5-3.jpg" data-filename="Pkg 5 - 3.jpg" alt="Package 5 - photo 3" loading="lazy" decoding="async">
       </div>
       <label>
         <input type="radio" name="pkg" data-name="Package 5" data-price="145000">
@@ -746,10 +835,10 @@ input:focus, textarea:focus {
     <!-- Package 6 -->
     <div class="item">
       <div class="gallery">
-        <img src="../A/upload-2-thumbs/thumbs/pkg-6-1.jpg" data-full="../A/upload-1-images/images/pkg-6-1.jpg" alt="Package 6 - photo 1" loading="lazy" decoding="async">
-        <img src="../A/upload-2-thumbs/thumbs/pkg-6-2.jpg" data-full="../A/upload-1-images/images/pkg-6-2.jpg" alt="Package 6 - photo 2" loading="lazy" decoding="async">
-        <img src="../A/upload-2-thumbs/thumbs/pkg-6-3.jpg" data-full="../A/upload-1-images/images/pkg-6-3.jpg" alt="Package 6 - photo 3" loading="lazy" decoding="async">
-        <img src="../A/upload-2-thumbs/thumbs/pkg-6-4.jpg" data-full="../A/upload-1-images/images/pkg-6-4.jpg" alt="Package 6 - photo 4" loading="lazy" decoding="async">
+        <img src="upload-2-thumbs/thumbs/pkg-6-1.jpg" data-full="upload-1-images/images/pkg-6-1.jpg" data-filename="Pkg 6 - 1.jpg" alt="Package 6 - photo 1" loading="lazy" decoding="async">
+        <img src="upload-2-thumbs/thumbs/pkg-6-2.jpg" data-full="upload-1-images/images/pkg-6-2.jpg" data-filename="Pkg 6 - 2.jpg" alt="Package 6 - photo 2" loading="lazy" decoding="async">
+        <img src="upload-2-thumbs/thumbs/pkg-6-3.jpg" data-full="upload-1-images/images/pkg-6-3.jpg" data-filename="Pkg 6 - 3.jpg" alt="Package 6 - photo 3" loading="lazy" decoding="async">
+        <img src="upload-2-thumbs/thumbs/pkg-6-4.jpg" data-full="upload-1-images/images/pkg-6-4.jpg" data-filename="Pkg 6 - 4.jpg" alt="Package 6 - photo 4" loading="lazy" decoding="async">
       </div>
       <label>
         <input type="radio" name="pkg" data-name="Package 6" data-price="160000">
@@ -761,9 +850,9 @@ input:focus, textarea:focus {
     <!-- Package 7 -->
     <div class="item">
       <div class="gallery">
-        <img src="../A/upload-2-thumbs/thumbs/pkg-7-2.jpg" data-full="../A/upload-1-images/images/pkg-7-2.jpg" alt="Package 7 - photo 2" loading="lazy" decoding="async">
-        <img src="../A/upload-2-thumbs/thumbs/pkg-7-3.jpg" data-full="../A/upload-1-images/images/pkg-7-3.jpg" alt="Package 7 - photo 3" loading="lazy" decoding="async">
-        <img src="../A/upload-2-thumbs/thumbs/pkg-7-4.jpg" data-full="../A/upload-1-images/images/pkg-7-4.jpg" alt="Package 7 - photo 4" loading="lazy" decoding="async">
+        <img src="upload-2-thumbs/thumbs/pkg-7-1.jpg" data-full="upload-1-images/images/pkg-7-1.jpg" data-filename="Pkg 7 - 1.jpg" alt="Package 7 - photo 1" loading="lazy" decoding="async">
+        <img src="upload-2-thumbs/thumbs/pkg-7-2.jpg" data-full="upload-1-images/images/pkg-7-2.jpg" data-filename="Pkg 7 - 2.jpg" alt="Package 7 - photo 2" loading="lazy" decoding="async">
+        <img src="upload-2-thumbs/thumbs/pkg-7-3.jpg" data-full="upload-1-images/images/pkg-7-3.jpg" data-filename="Pkg 7 - 3.jpg" alt="Package 7 - photo 3" loading="lazy" decoding="async">
       </div>
       <label>
         <input type="radio" name="pkg" data-name="Package 7" data-price="170000">
@@ -775,10 +864,10 @@ input:focus, textarea:focus {
     <!-- Package 8 -->
     <div class="item">
       <div class="gallery">
-        <img src="../A/upload-2-thumbs/thumbs/pkg-8-1.jpg" data-full="../A/upload-1-images/images/pkg-8-1.jpg" alt="Package 8 - photo 1" loading="lazy" decoding="async">
-        <img src="../A/upload-2-thumbs/thumbs/pkg-8-2.jpg" data-full="../A/upload-1-images/images/pkg-8-2.jpg" alt="Package 8 - photo 2" loading="lazy" decoding="async">
-        <img src="../A/upload-2-thumbs/thumbs/pkg-8-3.jpg" data-full="../A/upload-1-images/images/pkg-8-3.jpg" alt="Package 8 - photo 3" loading="lazy" decoding="async">
-        <img src="../A/upload-2-thumbs/thumbs/pkg-8-4.jpg" data-full="../A/upload-1-images/images/pkg-8-4.jpg" alt="Package 8 - photo 4" loading="lazy" decoding="async">
+        <img src="upload-2-thumbs/thumbs/pkg-8-1.jpg" data-full="upload-1-images/images/pkg-8-1.jpg" data-filename="Pkg 8 - 1.jpg" alt="Package 8 - photo 1" loading="lazy" decoding="async">
+        <img src="upload-2-thumbs/thumbs/pkg-8-2.jpg" data-full="upload-1-images/images/pkg-8-2.jpg" data-filename="Pkg 8 - 2.jpg" alt="Package 8 - photo 2" loading="lazy" decoding="async">
+        <img src="upload-2-thumbs/thumbs/pkg-8-3.jpg" data-full="upload-1-images/images/pkg-8-3.jpg" data-filename="Pkg 8 - 3.jpg" alt="Package 8 - photo 3" loading="lazy" decoding="async">
+        <img src="upload-2-thumbs/thumbs/pkg-8-4.jpg" data-full="upload-1-images/images/pkg-8-4.jpg" data-filename="Pkg 8 - 4.jpg" alt="Package 8 - photo 4" loading="lazy" decoding="async">
       </div>
       <label>
         <input type="radio" name="pkg" data-name="Package 8" data-price="180000">
@@ -790,9 +879,9 @@ input:focus, textarea:focus {
     <!-- Package 9 -->
     <div class="item">
       <div class="gallery">
-        <img src="../A/upload-2-thumbs/thumbs/pkg-9-2.jpg" data-full="../A/upload-1-images/images/pkg-9-2.jpg" alt="Package 9 - photo 2" loading="lazy" decoding="async">
-        <img src="../A/upload-2-thumbs/thumbs/pkg-9-3.jpg" data-full="../A/upload-1-images/images/pkg-9-3.jpg" alt="Package 9 - photo 3" loading="lazy" decoding="async">
-        <img src="../A/upload-2-thumbs/thumbs/pkg-9-4.jpg" data-full="../A/upload-1-images/images/pkg-9-4.jpg" alt="Package 9 - photo 4" loading="lazy" decoding="async">
+        <img src="upload-2-thumbs/thumbs/pkg-9-1.jpg" data-full="upload-1-images/images/pkg-9-1.jpg" data-filename="Pkg 9 - 1.jpg" alt="Package 9 - photo 1" loading="lazy" decoding="async">
+        <img src="upload-2-thumbs/thumbs/pkg-9-2.jpg" data-full="upload-1-images/images/pkg-9-2.jpg" data-filename="Pkg 9 - 2.jpg" alt="Package 9 - photo 2" loading="lazy" decoding="async">
+        <img src="upload-2-thumbs/thumbs/pkg-9-3.jpg" data-full="upload-1-images/images/pkg-9-3.jpg" data-filename="Pkg 9 - 3.jpg" alt="Package 9 - photo 3" loading="lazy" decoding="async">
       </div>
       <label>
         <input type="radio" name="pkg" data-name="Package 9" data-price="200000">
@@ -804,10 +893,10 @@ input:focus, textarea:focus {
     <!-- Package 10 -->
     <div class="item">
       <div class="gallery">
-        <img src="../A/upload-2-thumbs/thumbs/pkg-10-1.jpg" data-full="../A/upload-1-images/images/pkg-10-1.jpg" alt="Package 10 - photo 1" loading="lazy" decoding="async">
-        <img src="../A/upload-2-thumbs/thumbs/pkg-10-2.jpg" data-full="../A/upload-1-images/images/pkg-10-2.jpg" alt="Package 10 - photo 2" loading="lazy" decoding="async">
-        <img src="../A/upload-2-thumbs/thumbs/pkg-10-3.jpg" data-full="../A/upload-1-images/images/pkg-10-3.jpg" alt="Package 10 - photo 3" loading="lazy" decoding="async">
-        <img src="../A/upload-2-thumbs/thumbs/pkg-10-4.jpg" data-full="../A/upload-1-images/images/pkg-10-4.jpg" alt="Package 10 - photo 4" loading="lazy" decoding="async">
+        <img src="upload-2-thumbs/thumbs/pkg-10-1.jpg" data-full="upload-1-images/images/pkg-10-1.jpg" data-filename="Pkg 10 - 1.jpg" alt="Package 10 - photo 1" loading="lazy" decoding="async">
+        <img src="upload-2-thumbs/thumbs/pkg-10-2.jpg" data-full="upload-1-images/images/pkg-10-2.jpg" data-filename="Pkg 10 - 2.jpg" alt="Package 10 - photo 2" loading="lazy" decoding="async">
+        <img src="upload-2-thumbs/thumbs/pkg-10-3.jpg" data-full="upload-1-images/images/pkg-10-3.jpg" data-filename="Pkg 10 - 3.jpg" alt="Package 10 - photo 3" loading="lazy" decoding="async">
+        <img src="upload-2-thumbs/thumbs/pkg-10-4.jpg" data-full="upload-1-images/images/pkg-10-4.jpg" data-filename="Pkg 10 - 4.jpg" alt="Package 10 - photo 4" loading="lazy" decoding="async">
       </div>
       <label>
         <input type="radio" name="pkg" data-name="Package 10" data-price="220000">
@@ -819,10 +908,10 @@ input:focus, textarea:focus {
     <!-- Package 11 -->
     <div class="item">
       <div class="gallery">
-        <img src="../A/upload-2-thumbs/thumbs/pkg-11-1.jpg" data-full="../A/upload-1-images/images/pkg-11-1.jpg" alt="Package 11 - photo 1" loading="lazy" decoding="async">
-        <img src="../A/upload-2-thumbs/thumbs/pkg-11-2.jpg" data-full="../A/upload-1-images/images/pkg-11-2.jpg" alt="Package 11 - photo 2" loading="lazy" decoding="async">
-        <img src="../A/upload-2-thumbs/thumbs/pkg-11-3.jpg" data-full="../A/upload-1-images/images/pkg-11-3.jpg" alt="Package 11 - photo 3" loading="lazy" decoding="async">
-        <img src="../A/upload-2-thumbs/thumbs/pkg-11-4.jpg" data-full="../A/upload-1-images/images/pkg-11-4.jpg" alt="Package 11 - photo 4" loading="lazy" decoding="async">
+        <img src="upload-2-thumbs/thumbs/pkg-11-1.jpg" data-full="upload-1-images/images/pkg-11-1.jpg" data-filename="Pkg 11 - 1.jpg" alt="Package 11 - photo 1" loading="lazy" decoding="async">
+        <img src="upload-2-thumbs/thumbs/pkg-11-2.jpg" data-full="upload-1-images/images/pkg-11-2.jpg" data-filename="Pkg 11 - 2.jpg" alt="Package 11 - photo 2" loading="lazy" decoding="async">
+        <img src="upload-2-thumbs/thumbs/pkg-11-3.jpg" data-full="upload-1-images/images/pkg-11-3.jpg" data-filename="Pkg 11 - 3.jpg" alt="Package 11 - photo 3" loading="lazy" decoding="async">
+        <img src="upload-2-thumbs/thumbs/pkg-11-4.jpg" data-full="upload-1-images/images/pkg-11-4.jpg" data-filename="Pkg 11 - 4.jpg" alt="Package 11 - photo 4" loading="lazy" decoding="async">
       </div>
       <label>
         <input type="radio" name="pkg" data-name="Package 11" data-price="240000">
@@ -834,10 +923,10 @@ input:focus, textarea:focus {
     <!-- Package 12 -->
     <div class="item">
       <div class="gallery">
-        <img src="../A/upload-2-thumbs/thumbs/pkg-12-1.jpg" data-full="../A/upload-1-images/images/pkg-12-1.jpg" alt="Package 12 - photo 1" loading="lazy" decoding="async">
-        <img src="../A/upload-2-thumbs/thumbs/pkg-12-2.jpg" data-full="../A/upload-1-images/images/pkg-12-2.jpg" alt="Package 12 - photo 2" loading="lazy" decoding="async">
-        <img src="../A/upload-2-thumbs/thumbs/pkg-12-3.jpg" data-full="../A/upload-1-images/images/pkg-12-3.jpg" alt="Package 12 - photo 3" loading="lazy" decoding="async">
-        <img src="../A/upload-2-thumbs/thumbs/pkg-12-4.jpg" data-full="../A/upload-1-images/images/pkg-12-4.jpg" alt="Package 12 - photo 4" loading="lazy" decoding="async">
+        <img src="upload-2-thumbs/thumbs/pkg-12-1.jpg" data-full="upload-1-images/images/pkg-12-1.jpg" data-filename="Pkg 12 - 1.jpg" alt="Package 12 - photo 1" loading="lazy" decoding="async">
+        <img src="upload-2-thumbs/thumbs/pkg-12-2.jpg" data-full="upload-1-images/images/pkg-12-2.jpg" data-filename="Pkg 12 - 2.jpg" alt="Package 12 - photo 2" loading="lazy" decoding="async">
+        <img src="upload-2-thumbs/thumbs/pkg-12-3.jpg" data-full="upload-1-images/images/pkg-12-3.jpg" data-filename="Pkg 12 - 3.jpg" alt="Package 12 - photo 3" loading="lazy" decoding="async">
+        <img src="upload-2-thumbs/thumbs/pkg-12-4.jpg" data-full="upload-1-images/images/pkg-12-4.jpg" data-filename="Pkg 12 - 4.jpg" alt="Package 12 - photo 4" loading="lazy" decoding="async">
       </div>
       <label>
         <input type="radio" name="pkg" data-name="Package 12" data-price="280000">
@@ -849,8 +938,8 @@ input:focus, textarea:focus {
     <!-- Package 13 -->
     <div class="item">
       <div class="gallery">
-        <img src="../A/upload-2-thumbs/thumbs/pkg-13-1.jpg" data-full="../A/upload-1-images/images/pkg-13-1.jpg" alt="Package 13 - photo 1" loading="lazy" decoding="async">
-        <img src="../A/upload-2-thumbs/thumbs/pkg-13-2.jpg" data-full="../A/upload-1-images/images/pkg-13-2.jpg" alt="Package 13 - photo 2" loading="lazy" decoding="async">
+        <img src="upload-2-thumbs/thumbs/pkg-13-1.jpg" data-full="upload-1-images/images/pkg-13-1.jpg" data-filename="Pkg 13 - 1.jpg" alt="Package 13 - photo 1" loading="lazy" decoding="async">
+        <img src="upload-2-thumbs/thumbs/pkg-13-2.jpg" data-full="upload-1-images/images/pkg-13-2.jpg" data-filename="Pkg 13 - 2.jpg" alt="Package 13 - photo 2" loading="lazy" decoding="async">
       </div>
       <label>
         <input type="radio" name="pkg" data-name="Package 13" data-price="300000">
@@ -867,7 +956,7 @@ input:focus, textarea:focus {
       <label>
         <input type="radio" name="cake" data-name="Two tier cake" data-price="4500">
         <b>Two tier cake</b>
-        <small>First tier real, lower dummy, fondant</small>
+        <small>Top tier real cake, bottom dummy tier, fondant icing</small>
         <span class="price">&#8377;4,500</span>
       </label>
     </div>
@@ -875,7 +964,7 @@ input:focus, textarea:focus {
       <label>
         <input type="radio" name="cake" data-name="Three tier cake" data-price="6000">
         <b>Three tier cake</b>
-        <small>First tier real, lower two dummy, fondant</small>
+        <small>Top tier real cake, bottom two dummy layers, fondant icing</small>
         <span class="price">&#8377;6,000</span>
       </label>
     </div>
@@ -885,9 +974,9 @@ input:focus, textarea:focus {
   <div class="grid">
     <div class="item">
       <label>
-        <input type="checkbox" data-name="Flower confetti" data-price="10000">
-        <b>Flower confetti</b>
-        <small>Flower petals shot from a pressurised cannon</small>
+        <input type="checkbox" data-name="Flower Confetti" data-price="10000">
+        <b>Flower Confetti</b>
+        <small>Fresh rose petals shot from a cannon during entry or cake cutting</small>
         <span class="price">&#8377;10,000</span>
       </label>
     </div>
@@ -895,15 +984,15 @@ input:focus, textarea:focus {
       <label>
         <input type="checkbox" data-name="Cold spark fountain" data-price="15000">
         <b>Cold spark fountain</b>
-        <small>Fireworks machine for indoor use</small>
+        <small>Indoor-safe fire sparkler fountains (no heat, no smoke)</small>
         <span class="price">&#8377;15,000</span>
       </label>
     </div>
     <div class="item">
       <label>
         <input type="checkbox" data-name="Confetti plus cold spark combo" data-price="25000">
-        <b>Flower Confetti plus Cold Spark Fountain combo</b>
-        <small>Combined offer</small>
+        <b>Confetti + Cold spark combo</b>
+        <small>Combined flower confetti cannon and cold spark fountains</small>
         <span class="price">&#8377;25,000</span>
       </label>
     </div>
@@ -911,7 +1000,7 @@ input:focus, textarea:focus {
       <label>
         <input type="checkbox" data-name="Extra cold spark shots" data-price="500">
         <b>Extra cold spark shots</b>
-        <small>Per shot, per machine</small>
+        <small>Per extra shot, per machine</small>
         <span class="price">&#8377;500 / shot</span>
       </label>
       <div class="qty">Qty <input type="number" min="1" value="1" class="qty-input" inputmode="numeric" aria-label="Quantity"></div>
@@ -920,7 +1009,7 @@ input:focus, textarea:focus {
       <label>
         <input type="checkbox" data-name="Cool fire" data-price="5000">
         <b>Cool fire</b>
-        <small>Smoke and smell, requires hall approval</small>
+        <small>Low-heat flame effects (not recommended; may produce minor smoke and odour, and require prior hall approval).</small>
         <span class="price">&#8377;5,000</span>
       </label>
     </div>
@@ -928,7 +1017,7 @@ input:focus, textarea:focus {
       <label>
         <input type="checkbox" data-name="Dry ice fog stage" data-price="15000">
         <b>Dry ice fog &mdash; stage</b>
-        <small>From both sides of stage</small>
+        <small>Low-lying white cloud fog from both sides of the stage</small>
         <span class="price">&#8377;15,000</span>
       </label>
     </div>
@@ -936,7 +1025,7 @@ input:focus, textarea:focus {
       <label>
         <input type="checkbox" data-name="Dry ice fog ramp" data-price="15000">
         <b>Dry ice fog &mdash; ramp</b>
-        <small>For the ramp</small>
+        <small>Low-lying cloud fog along the ramp onto stage</small>
         <span class="price">&#8377;15,000</span>
       </label>
     </div>
@@ -948,6 +1037,7 @@ input:focus, textarea:focus {
       <label>
         <input type="radio" name="pathway" data-name="Standard pathway stands" data-price="15000">
         <b>Standard pathway stands</b>
+        <small>Flower stands along the walkway aisle</small>
         <span class="price">&#8377;15,000</span>
       </label>
     </div>
@@ -955,6 +1045,7 @@ input:focus, textarea:focus {
       <label>
         <input type="radio" name="pathway" data-name="Premium pathway light stands" data-price="30000">
         <b>Premium pathway light stands</b>
+        <small>Pillar stands with flowers along the aisle with lights or candles</small>
         <span class="price">&#8377;30,000</span>
       </label>
     </div>
@@ -962,6 +1053,7 @@ input:focus, textarea:focus {
       <label>
         <input type="checkbox" data-name="Premium entrance arch" data-price="15000">
         <b>Premium entrance arch</b>
+        <small>Bigger, heavy-decorated entrance arch at the hall door</small>
         <span class="price">&#8377;15,000</span>
       </label>
     </div>
@@ -969,6 +1061,7 @@ input:focus, textarea:focus {
       <label>
         <input type="checkbox" data-name="Side curtain for main hall" data-price="30000">
         <b>Side curtain for main hall</b>
+        <small>Full wall-drapes for plain hall walls</small>
         <span class="price">&#8377;30,000</span>
       </label>
     </div>
@@ -976,7 +1069,7 @@ input:focus, textarea:focus {
       <label>
         <input type="checkbox" data-name="Ambient lighting in hall" data-price="35000">
         <b>Ambient lighting in hall</b>
-        <small>With dedicated power source</small>
+        <small>Color mood ambiance lights in hall with additional power support as required.</small>
         <span class="price">&#8377;35,000</span>
       </label>
     </div>
@@ -984,6 +1077,7 @@ input:focus, textarea:focus {
       <label>
         <input type="checkbox" data-name="Premium wedding signage board" data-price="7500">
         <b>Premium signage board</b>
+        <small>Large custom-designed welcome board featuring the couple names/photo</small>
         <span class="price">&#8377;7,500</span>
       </label>
     </div>
@@ -991,7 +1085,7 @@ input:focus, textarea:focus {
       <label>
         <input type="checkbox" data-name="Ramp onto stage with flowers" data-price="30000">
         <b>Ramp onto stage with flowers</b>
-        <small>20 ft x 8 ft</small>
+        <small>20 ft x 8 ft walkway ramp onto stage with flowers along both sides</small>
         <span class="price">&#8377;30,000</span>
       </label>
     </div>
@@ -1004,15 +1098,15 @@ input:focus, textarea:focus {
       <label>
         <input type="radio" name="fam" data-name="Premium family table" data-price="25000">
         <b>Premium family table</b>
-        <small>S or round shape, golden chairs, crockery, floral d&eacute;cor</small>
+        <small>Curved or round VIP table, 12 gold chairs, dinnerware, and table centrepieces</small>
         <span class="price">&#8377;25,000</span>
       </label>
     </div>
     <div class="item">
       <label>
-        <input type="radio" name="fam" data-name="Family table on hall rectangular tables" data-price="10000">
+        <input type="radio" name="fam" data-name="Family table on hall tables" data-price="10000">
         <b>Family table on hall tables</b>
-        <small>12 acrylic chairs, crockery, floral d&eacute;cor</small>
+        <small>Setup on hall tables, 12 acrylic chairs, dinnerware, and table centrepieces</small>
         <span class="price">&#8377;10,000</span>
       </label>
     </div>
@@ -1041,7 +1135,7 @@ input:focus, textarea:focus {
       <label>
         <input type="checkbox" data-name="Normal security" data-price="1200">
         <b>Normal security</b>
-        <small>Standard uniform, minimum 2</small>
+        <small>Security guards in uniform for parking and entrance (minimum 2)</small>
         <span class="price">&#8377;1,200 / person</span>
       </label>
       <div class="qty">Qty <input type="number" min="2" value="2" class="qty-input" inputmode="numeric" aria-label="Quantity"></div>
@@ -1049,8 +1143,8 @@ input:focus, textarea:focus {
     <div class="item">
       <label>
         <input type="checkbox" data-name="Tall men security" data-price="1500">
-        <b>Tall men security</b>
-        <small>Suit, above 6 ft, minimum 2</small>
+        <b>Tall men security / Bouncers</b>
+        <small>Security in black suits, above 6 ft tall (minimum 2)</small>
         <span class="price">&#8377;1,500 / person</span>
       </label>
       <div class="qty">Qty <input type="number" min="2" value="2" class="qty-input" inputmode="numeric" aria-label="Quantity"></div>
@@ -1064,7 +1158,7 @@ input:focus, textarea:focus {
       <label>
         <input type="radio" name="band" data-name="Standard band" data-price="25000" data-extra="ta">
         <b>Standard band</b>
-        <small>Prefixed songs, keyboard, rhythm pad, violin, instrumental</small>
+        <small>Fixed song list: keyboard, rhythm pad, violin (instrumental) plus sound system</small>
         <span class="price">&#8377;25,000 + TA</span>
       </label>
     </div>
@@ -1072,7 +1166,7 @@ input:focus, textarea:focus {
       <label>
         <input type="radio" name="band" data-name="Premium band" data-price="40000" data-extra="ta">
         <b>Premium band</b>
-        <small>Interactive, keyboard, rhythm pad, violin, instrumental</small>
+        <small>Interactive performance: keyboard, rhythm pad, violin (instrumental) plus sound system</small>
         <span class="price">&#8377;40,000 + TA</span>
       </label>
     </div>
@@ -1080,7 +1174,7 @@ input:focus, textarea:focus {
       <label>
         <input type="radio" name="band" data-name="Band with vocalist" data-price="40000" data-extra="ta">
         <b>Band with vocalist</b>
-        <small>Keyboard, violin, 4 vocalists, English devotional</small>
+        <small>Keyboard, violin, and 4 singers (English devotional &amp; worship) plus sound system</small>
         <span class="price">&#8377;40,000 + TA</span>
       </label>
     </div>
@@ -1088,20 +1182,20 @@ input:focus, textarea:focus {
       <label>
         <input type="checkbox" data-name="Professional anchor or MC" data-price="10000" data-extra="fr">
         <b>Professional anchor / MC</b>
-        <small>Starting rate based on artist</small>
+        <small>Stage host for reception, entries, and guest announcements</small>
         <span class="price">from &#8377;10,000</span>
       </label>
     </div>
   </div>
 
   <h2>9 &middot; Wedding cars</h2>
-  <p class="sub">80 km / 8 hrs allowance</p>
+  <p class="sub">Includes driver, fuel for 80 km / 8 hours</p>
   <div class="grid">
     <div class="item">
       <label>
         <input type="checkbox" data-name="Mercedes E / BMW 5 / Audi A6" data-price="10500">
         <b>Mercedes E / BMW 5 / Audi A6</b>
-        <small>White, BMW also dark green</small>
+        <small>White luxury sedan (BMW also available in dark green)</small>
         <span class="price">&#8377;10,500</span>
       </label>
     </div>
@@ -1109,15 +1203,15 @@ input:focus, textarea:focus {
       <label>
         <input type="checkbox" data-name="Jaguar XF" data-price="12500">
         <b>Jaguar XF</b>
-        <small>White</small>
+        <small>White luxury sedan</small>
         <span class="price">&#8377;12,500</span>
       </label>
     </div>
     <div class="item">
       <label>
         <input type="checkbox" data-name="BMW 5 Series new model" data-price="18500">
-        <b>BMW 5 Series (new model)</b>
-        <small>White</small>
+        <b>BMW 5 Series (New model)</b>
+        <small>White latest model sedan</small>
         <span class="price">&#8377;18,500</span>
       </label>
     </div>
@@ -1125,7 +1219,7 @@ input:focus, textarea:focus {
       <label>
         <input type="checkbox" data-name="Mercedes S Class" data-price="20500">
         <b>Mercedes S Class</b>
-        <small>White</small>
+        <small>White flagship VIP sedan</small>
         <span class="price">&#8377;20,500</span>
       </label>
     </div>
@@ -1133,7 +1227,7 @@ input:focus, textarea:focus {
       <label>
         <input type="checkbox" data-name="Land Rover Defender" data-price="45000">
         <b>Land Rover Defender</b>
-        <small>Black or white</small>
+        <small>Black or white luxury SUV</small>
         <span class="price">&#8377;45,000</span>
       </label>
     </div>
@@ -1154,15 +1248,15 @@ input:focus, textarea:focus {
     <div class="policy-card info">
       <b class="title">&#10024; Also Available on Request (Priced on discussion)</b>
       <ul class="policy-bullets">
-        <li>Table &amp; Chair covers for existing tables &amp; chairs @ venue</li>
-        <li>Pagoda or marquee tent for beverage / welcome juice counter</li>
-        <li>Custom raised wooden platform for live band setups</li>
+        <li>Table &amp; chair covers for venue's existing furniture</li>
+        <li>Pagoda or tent for welcome juice / mocktail counter</li>
+        <li>Custom raised wooden stage platform for live band/choir</li>
       </ul>
     </div>
 
     <div class="policy-card validity">
       <b class="title">&#128197; Rate Validity &amp; Cost Policy</b>
-      <div>Quoted prices are <strong>valid for 6 months</strong> from quote date. Rates may be revised after 6 months or in case of market cost increases.</div>
+      <div>Quoted prices are valid for 6 months from the date of quotation and are subject to revision based on market conditions and fluctuations in associated costs.</div>
     </div>
 
     <div class="policy-card payment">
@@ -1172,6 +1266,11 @@ input:focus, textarea:focus {
         <li><strong>Pre-Event:</strong> 50% paid 1 day before the function.</li>
         <li><strong>Final Payment:</strong> Remaining balance paid the day after the function.</li>
       </ul>
+    </div>
+
+    <div class="policy-card cancellation">
+      <b class="title">&#128683; Cancellation Policy</b>
+      <div>Cancellations made within 30 days of the scheduled event date are non-refundable.</div>
     </div>
   </div>
 </div>
@@ -1186,7 +1285,7 @@ input:focus, textarea:focus {
   <input type="text" id="nm" placeholder="Your name" autocomplete="name">
   <input type="tel" id="ph" placeholder="Phone or WhatsApp" autocomplete="tel">
   <input type="date" id="dt" aria-label="Wedding date">
-  <input type="text" id="vn" placeholder="Hall / venue and location">
+  <input type="text" id="vn" placeholder="Church / hall and location">
   <textarea id="msg" rows="2" placeholder="Anything else we should know?"></textarea>
 
   <a class="btn" id="go" href="https://wa.me/919846116300" target="_blank" rel="noopener noreferrer">Send my selection on WhatsApp</a>
@@ -1196,11 +1295,19 @@ input:focus, textarea:focus {
 </aside>
 </main>
 
+<footer>
+  <div class="orn" aria-hidden="true">&#10022;</div>
+  Ivory Events &middot; Wedding Planning &amp; Event Management
+</footer>
+
 <!-- Photo viewer overlay -->
 <div id="ivoryStackOverlay" class="ivory-stack-overlay" role="dialog" aria-modal="true" aria-label="Package photos">
   <div class="ivory-stack-container">
     <div class="ivory-stack-header">
-      <div id="ivoryStackTitle" class="ivory-stack-title">Package Photos</div>
+      <div class="ivory-stack-title-box">
+        <span class="ivory-stack-instruction">Click to choose stage</span>
+        <div id="ivoryStackTitle" class="ivory-stack-title">Package Photos</div>
+      </div>
       <button type="button" id="ivoryStackClose" class="ivory-stack-close" aria-label="Close photos">&times;</button>
     </div>
     <div id="ivoryStackImages" class="ivory-stack-images"></div>
@@ -1277,7 +1384,14 @@ input:focus, textarea:focus {
       var extra = input.getAttribute('data-extra');
       if (extra === 'ta') hasTA = true;
       if (extra === 'fr') hasFR = true;
-      rows.push({ name: input.getAttribute('data-name'), qty: qty, subtotal: sub });
+
+      var displayName = input.getAttribute('data-name');
+      var selectedStage = input.getAttribute('data-selected-stage');
+      if (selectedStage) {
+        displayName += " (" + selectedStage + ")";
+      }
+
+      rows.push({ name: displayName, qty: qty, subtotal: sub });
     });
 
     return { rows: rows, total: total, hasTA: hasTA, hasFR: hasFR };
@@ -1342,6 +1456,7 @@ input:focus, textarea:focus {
     radio.addEventListener('click', function () {
       if (lastCheckedRadio[this.name] === this) {
         this.checked = false;
+        this.removeAttribute('data-selected-stage');
         lastCheckedRadio[this.name] = null;
       } else {
         lastCheckedRadio[this.name] = this;
@@ -1389,7 +1504,10 @@ input:focus, textarea:focus {
     stackImages.innerHTML = '';
   }
 
-  function openStackView(gallery, clicked, pkgName) {
+  function openStackView(gallery, clicked, pkgName, card) {
+    var radio = card ? card.querySelector('input[type="radio"]') : null;
+    var currentSelectedStage = radio ? radio.getAttribute('data-selected-stage') : null;
+
     var scrollY = window.pageYOffset || document.documentElement.scrollTop || 0;
     var rect = clicked.getBoundingClientRect();
     var top = scrollY + Math.max(rect.top - 90, 0);
@@ -1397,11 +1515,49 @@ input:focus, textarea:focus {
 
     stackImages.innerHTML = '';
     stackTitle.textContent = pkgName;
+
     each(gallery.querySelectorAll('img'), function (img) {
+      var stageCard = document.createElement('div');
+      stageCard.className = 'ivory-stage-card';
+
+      var filename = img.getAttribute('data-filename') || (img.alt || 'Stage design');
+      stageCard.setAttribute('data-filename', filename);
+
+      if (currentSelectedStage && currentSelectedStage === filename) {
+        stageCard.classList.add('selected-stage');
+      }
+
       var big = document.createElement('img');
       big.src = img.getAttribute('data-full') || img.src;
       big.alt = img.alt || pkgName;
-      stackImages.appendChild(big);
+
+      var tag = document.createElement('span');
+      tag.className = 'ivory-stage-tag';
+      tag.textContent = filename + ' (Click to select)';
+
+      stageCard.appendChild(big);
+      stageCard.appendChild(tag);
+
+      stageCard.addEventListener('click', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+
+        if (radio) {
+          radio.checked = true;
+          radio.setAttribute('data-selected-stage', filename);
+          lastCheckedRadio[radio.name] = radio;
+        }
+
+        each(stackImages.querySelectorAll('.ivory-stage-card'), function (c) {
+          c.classList.remove('selected-stage');
+        });
+        stageCard.classList.add('selected-stage');
+
+        render();
+        closeStackView();
+      });
+
+      stackImages.appendChild(stageCard);
     });
 
     overlay.style.paddingTop = top + 'px';
@@ -1414,61 +1570,23 @@ input:focus, textarea:focus {
     var card = gallery.closest('.item');
     var nameEl = card ? card.querySelector('label b') : null;
     var pkgName = nameEl ? nameEl.textContent : 'Package photos';
-    gallery.addEventListener('click', function (e) {
-      var img = e.target.closest ? e.target.closest('img') : null;
-      if (!img) return;
-      e.preventDefault();
-      e.stopPropagation();
-      openStackView(gallery, img, pkgName);
-    });
-    gallery.addEventListener('keydown', function (e) {
-      var img = e.target;
-      if (img && img.tagName === 'IMG' && (e.key === 'Enter' || e.key === ' ')) {
+
+    each(gallery.querySelectorAll('img'), function (img) {
+      img.setAttribute('tabindex', '0');
+      img.setAttribute('role', 'button');
+      img.addEventListener('click', function (e) {
         e.preventDefault();
-        openStackView(gallery, img, pkgName);
-      }
+        e.stopPropagation();
+        openStackView(gallery, img, pkgName, card);
+      });
+      img.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          openStackView(gallery, img, pkgName, card);
+        }
+      });
     });
   });
-
-  /* Keep package photos in step with folder A: pull each package's gallery from A/packages.html.
-     If that page can't be fetched (e.g. opened as a local file), the photos already in this page stay. */
-  function syncGalleriesFromA() {
-    if (!window.fetch || !window.DOMParser) return;
-    fetch('../A/packages.html', { cache: 'no-cache' })
-      .then(function (r) { if (!r.ok) throw new Error('A not found'); return r.text(); })
-      .then(function (html) {
-        var doc = new DOMParser().parseFromString(html, 'text/html');
-        var aGalleries = {};
-        each(doc.querySelectorAll('.item'), function (item) {
-          var g = item.querySelector('.gallery');
-          var b = item.querySelector('label b');
-          if (g && b) aGalleries[b.textContent.trim()] = g;
-        });
-        each(document.querySelectorAll('.item'), function (item) {
-          var g = item.querySelector('.gallery');
-          var b = item.querySelector('label b');
-          var src = g && b ? aGalleries[b.textContent.trim()] : null;
-          if (!src) return;
-          var imgs = src.querySelectorAll('img');
-          if (!imgs.length) return;
-          g.innerHTML = '';
-          each(imgs, function (img) {
-            var c = document.createElement('img');
-            c.src = '../A/' + img.getAttribute('src');
-            var full = img.getAttribute('data-full');
-            if (full) c.setAttribute('data-full', '../A/' + full);
-            c.alt = img.alt;
-            c.loading = 'lazy';
-            c.decoding = 'async';
-            c.setAttribute('tabindex', '0');
-            c.setAttribute('role', 'button');
-            g.appendChild(c);
-          });
-        });
-      })
-      .catch(function () {});
-  }
-  syncGalleriesFromA();
 
   stackClose.addEventListener('click', closeStackView);
   stackDone.addEventListener('click', closeStackView);
