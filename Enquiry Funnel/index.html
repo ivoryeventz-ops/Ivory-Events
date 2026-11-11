@@ -69,6 +69,44 @@ tr.past td{opacity:.6}
 tr.today td{background:color-mix(in srgb,var(--accent) 12%,transparent)}
 .empty{padding:24px;text-align:center;color:var(--muted)}
 .foot{color:var(--muted);font-size:12px;margin-top:16px}
+
+/* clickable rows + work detail window */
+#rows tr{cursor:pointer}
+#rows tr:hover td{background:color-mix(in srgb,var(--accent) 7%,transparent)}
+#rows tr:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
+.ov{position:fixed;inset:0;background:rgba(0,0,0,.5);display:flex;align-items:flex-start;justify-content:center;padding:24px 12px;overflow-y:auto;z-index:50}
+.ov[hidden]{display:none}
+.modal{background:var(--surface);border:1px solid var(--line);border-radius:14px;width:100%;max-width:720px;padding:20px 18px 22px;position:relative;margin:auto 0}
+.modal .x{position:absolute;top:10px;right:10px;width:36px;height:36px;border:1px solid var(--line);background:var(--surface);border-radius:50%;font-size:20px;line-height:1;cursor:pointer}
+.modal h2{font-size:22px;margin:0 40px 4px 0;letter-spacing:-.01em}
+.modal h3{font-size:12px;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin:22px 0 10px;display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.modal .meta{color:var(--muted);font-size:14px;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.muted{color:var(--muted);font-size:14px}
+.qlist{display:grid;gap:8px}
+.qrow{display:flex;justify-content:space-between;align-items:center;gap:10px;border:1px solid var(--line);border-radius:10px;padding:10px 12px;text-decoration:none;color:var(--ink);background:var(--bg)}
+.qrow:hover{border-color:var(--accent)}
+.qrow b{font-variant-numeric:tabular-nums}
+.qrow .qs{font-size:12px;color:var(--muted)}
+.qrow .go{color:var(--accent);font-size:13px;white-space:nowrap}
+.tag{display:inline-block;font-size:11px;font-weight:700;padding:1px 8px;border-radius:999px;background:var(--accent);color:var(--surface);margin-left:6px;vertical-align:middle}
+.vlist{display:grid;gap:10px}
+.vrow{display:grid;grid-template-columns:210px 1fr;gap:10px;align-items:start;border:1px solid var(--line);border-radius:10px;padding:10px 12px;background:var(--bg)}
+.vrow.on{border-color:var(--confirmed);background:color-mix(in srgb,var(--confirmed) 10%,var(--bg))}
+.vtick{display:flex;gap:10px;align-items:center;cursor:pointer;font-weight:600;min-height:36px}
+.vtick input{width:22px;height:22px;accent-color:var(--confirmed);flex:none;cursor:pointer}
+.vrow textarea{width:100%;min-height:44px;resize:vertical;border:1px solid var(--line);border-radius:8px;padding:8px 10px;background:var(--surface);font:inherit;color:var(--ink)}
+@media(max-width:560px){.vrow{grid-template-columns:1fr}}
+.vcount{font-weight:600;color:var(--ink);text-transform:none;letter-spacing:0;font-size:13px}
+.savestate{font-size:12px;color:var(--muted);min-height:18px;margin-top:8px}
+.savestate.err{color:var(--cancelled);font-weight:600}
+.notice{border:1px dashed var(--line);border-radius:10px;padding:10px 12px;font-size:13px;color:var(--muted);margin-bottom:10px}
+.notice.warn{border-color:var(--pending);color:var(--ink)}
+details.more{margin-top:12px}
+details.more summary,details.setup summary{cursor:pointer;font-size:13px;color:var(--accent);font-weight:600}
+details.setup{margin-top:16px;border-top:1px dashed var(--line);padding-top:10px}
+.setup label{display:block;font-size:12px;color:var(--muted);margin:10px 0 4px}
+.setup input{width:100%;border:1px solid var(--line);border-radius:8px;padding:8px 10px;background:var(--surface)}
+.setup button,.retry{margin-top:10px;border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:7px 14px;cursor:pointer;font-weight:600}
 </style>
 </head>
 <body>
@@ -119,7 +157,14 @@ tr.today td{background:color-mix(in srgb,var(--accent) 12%,transparent)}
     <div id="empty" class="empty" hidden>No matching enquiries.</div>
   </section>
 
-  <p class="foot">Source: the Enquiry Funnel Google Sheet (Sheet1). Data is in <code>data.json</code>; rebuild with <code>python3 build.py</code> after refreshing it.</p>
+  <p class="foot">Source: the Enquiry Funnel Google Sheet (Sheet1). Data is in <code>data.json</code>; rebuild with <code>python3 build.py</code> after refreshing it. Tap any row to see its quotes and, once confirmed, its outside vendors.</p>
+</div>
+
+<div class="ov" id="ov" hidden>
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="mTitle">
+    <button class="x" id="mClose" aria-label="Close">&times;</button>
+    <div id="mBody"></div>
+  </div>
 </div>
 
 <script>
@@ -212,7 +257,7 @@ function renderTable(rows){
   });
   $("rows").innerHTML=rows.map(r=>{
     const cls=r.date<TODAY?"past":(r.date===TODAY?"today":"");
-    return `<tr class="${cls}"><td>${fmtDate(r.date)}</td><td>${esc(r.name)}</td><td class="wrapcell">${esc(r.venue)}</td>
+    return `<tr class="${cls}" data-i="${DATA.indexOf(r)}" tabindex="0" role="button" aria-label="Open ${esc(r.name)}"><td>${fmtDate(r.date)}</td><td>${esc(r.name)}</td><td class="wrapcell">${esc(r.venue)}</td>
       <td><span class="badge" style="background:${COLORS[r.status]||"var(--nostatus)"}">${r.status}</span></td>
       <td>${esc(r.decorator)}</td></tr>`;
   }).join("");
@@ -235,6 +280,249 @@ $("theme").onclick=()=>{
   const dark = r.dataset.theme==="dark" || (!r.dataset.theme && matchMedia("(prefers-color-scheme:dark)").matches);
   r.dataset.theme = dark ? "light" : "dark";
 };
+/* ================= Work details: quotes sent + outside vendors ================= */
+const Q_REPO="ivoryeventz-ops/Ivory-Packages", Q_BRANCH="main", Q_SITE="https://ivory-packages.pages.dev";
+
+// Outside vendors: used ONLY inside this app. Each is picked from the client's latest quote by matching its wording.
+const VENDORS=[
+  {name:"Garland and Bouquet", re:/garland|bouquet/i},
+  {name:"Wedding cake",        re:/\bcake\b(?!\s*cutting)/i},
+  {name:"Confetti",            re:/confetti/i},
+  {name:"Cold Spark",          re:/spark/i},
+  {name:"Dry Ice",             re:/dry\s*ice|\bfog\b/i},
+  {name:"Ambiance lighting",   re:/ambian[ct]e/i},
+  {name:"Parking Security",    re:/parking/i},
+  {name:"Live Band",           re:/live\s*band/i},
+  {name:"Wedding Car",         re:/wedding\s*car(?!\s*decor)|\b(mercedes|bmw|audi)\b/i},
+  {name:"Generator",           re:/generator/i},
+  {name:"Pagoda",              re:/pagoda/i},
+  {name:"Table & Chair covers",re:/(table|chair)s?\s*covers?/i}
+];
+const MONTHS={january:1,february:2,march:3,april:4,may:5,june:6,july:7,august:8,september:9,october:10,november:11,december:12};
+const pad=n=>String(n).padStart(2,"0");
+function isoFromText(t){
+  const m=/(\d{1,2})\s+([A-Za-z]+)\s+(\d{4})/.exec(t||""); if(!m) return null;
+  const mo=MONTHS[m[2].toLowerCase()]; return mo ? m[3]+"-"+pad(mo)+"-"+pad(+m[1]) : null;
+}
+function isoFromQuoteNo(n){ return "20"+n.slice(0,2)+"-"+n.slice(2,4)+"-"+n.slice(4,6); }
+const fmtShort = iso => new Date(iso+"T00:00:00").toLocaleDateString("en-GB",{day:"numeric",month:"short",year:"numeric"});
+
+/* ---- quotes ---- */
+async function getTree(){
+  try{
+    const c=JSON.parse(sessionStorage.getItem("ivoryQTree")||"null");
+    if(c && Date.now()-c.t<5*60e3) return c.tree;
+  }catch(e){}
+  const r=await fetch(`https://api.github.com/repos/${Q_REPO}/git/trees/${Q_BRANCH}?recursive=1`);
+  if(!r.ok) throw new Error("GitHub answered "+r.status);
+  const j=await r.json(), tree={};
+  (j.tree||[]).forEach(x=>{
+    const m=/^([^/]+)\/(\d{6})\.html$/.exec(x.path);
+    if(m) (tree[m[1]] ||= []).push(m[2]);
+  });
+  try{ sessionStorage.setItem("ivoryQTree",JSON.stringify({t:Date.now(),tree})); }catch(e){}
+  return tree;
+}
+const quoteCache=new Map();
+async function fetchQuote(folder,no){
+  const k=folder+"/"+no;
+  if(quoteCache.has(k)) return quoteCache.get(k);
+  const r=await fetch(`https://raw.githubusercontent.com/${Q_REPO}/${Q_BRANCH}/${encodeURIComponent(folder)}/${no}.html`);
+  if(!r.ok) throw new Error("Quote "+no+" not readable");
+  const doc=new DOMParser().parseFromString(await r.text(),"text/html");
+  let date=null, venue="";
+  doc.querySelectorAll(".info-item").forEach(it=>{
+    const l=(it.querySelector(".info-label")||{}).textContent||"", v=((it.querySelector(".info-value")||{}).textContent||"").trim();
+    if(/^date$/i.test(l.trim())) date=isoFromText(v);
+    if(/^venue$/i.test(l.trim())) venue=v;
+  });
+  doc.querySelectorAll("script,style").forEach(n=>n.remove());
+  let text=(doc.body?doc.body.textContent:"").replace(/\s+/g," ");
+  const cut=text.search(/Complimentary Wedding Management/i);   // the free-services section is not outside vendors
+  if(cut>0) text=text.slice(0,cut);
+  const q={folder,no,date,venue,text};
+  quoteCache.set(k,q); return q;
+}
+function foldersFor(name,tree){
+  const full=" "+name.toLowerCase().replace(/[^a-z0-9]+/g," ").trim()+" ";
+  return Object.keys(tree).filter(f=>full.includes(" "+f.toLowerCase().replace(/[^a-z0-9]+/g," ").trim()+" "));
+}
+async function quotesForWork(w){
+  const tree=await getTree(), jobs=[];
+  foldersFor(w.name,tree).forEach(f=>tree[f].forEach(no=>jobs.push(fetchQuote(f,no))));
+  const got=(await Promise.allSettled(jobs)).filter(x=>x.status==="fulfilled").map(x=>x.value);
+  // two different clients can share a first name: drop quotes written for another event date
+  return got.filter(q=>!q.date||q.date===w.date).sort((a,b)=>b.no.localeCompare(a.no));
+}
+
+/* ---- vendor saving: shared Google Sheet via Apps Script, else this device only ---- */
+const LS_CFG="ivoryVendorCfg", LS_LOCAL="ivoryVendorsLocal";
+function cfg(){ try{return JSON.parse(localStorage.getItem(LS_CFG))||{};}catch(e){return {};} }
+const remoteOn=()=>{const c=cfg();return !!(c.url&&c.key);};
+let VS={};                 // saved vendor state: {workKey:{vendor:{details,booked}}}
+const pending={};          // changes not yet saved
+const wkey=w=>w.date+"|"+w.name;
+async function loadVendorState(){
+  if(remoteOn()){
+    const c=cfg();
+    const r=await fetch(c.url+(c.url.includes("?")?"&":"?")+"action=list&key="+encodeURIComponent(c.key));
+    const j=await r.json();
+    if(!j.ok) throw new Error(j.error||"The server refused");
+    const o={};
+    (j.rows||[]).forEach(x=>{(o[x.workKey] ||= {})[x.vendor]={details:x.details||"",booked:x.booked===true};});
+    return o;
+  }
+  try{return JSON.parse(localStorage.getItem(LS_LOCAL))||{};}catch(e){return {};}
+}
+function setSave(kind,msg){
+  const el=$("saveState"); if(!el) return;
+  el.className="savestate"+(kind==="err"?" err":"");
+  el.innerHTML = kind==="saving" ? "Saving…"
+    : kind==="saved" ? "Saved ✓ (shared with Anila)"
+    : kind==="local" ? "Saved on this device only — set up shared saving below so Anila sees it too"
+    : "Not saved: "+esc(msg||"no connection")+' <button class="retry" id="retry" type="button">Try again</button>';
+}
+async function sendPending(){
+  const keys=Object.keys(pending); if(!keys.length) return;
+  setSave("saving");
+  const c=cfg();
+  try{
+    for(const k of keys){
+      const p=pending[k];
+      const r=await fetch(c.url,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},
+        body:JSON.stringify({action:"save",key:c.key,workKey:p.workKey,vendor:p.vendor,fields:p.fields})});
+      const j=await r.json(); if(!j.ok) throw new Error(j.error||"The server refused");
+      if(pending[k]===p) delete pending[k];
+    }
+    setSave("saved");
+  }catch(e){ setSave("err",e.message); }
+}
+function saveVendor(wk,vendor,fields){
+  const row=((VS[wk] ||= {})[vendor] ||= {details:"",booked:false});
+  Object.assign(row,fields);
+  if(!remoteOn()){
+    try{localStorage.setItem(LS_LOCAL,JSON.stringify(VS));}catch(e){}
+    setSave("local"); return;
+  }
+  const k=wk+"::"+vendor, p=(pending[k] ||= {workKey:wk,vendor,fields:{}});
+  Object.assign(p.fields,fields);
+  sendPending();
+}
+
+/* ---- the window ---- */
+let seq=0, cur=null;
+function closeWork(){
+  if(document.activeElement && document.activeElement.blur) document.activeElement.blur(); // flush an unfinished text box
+  $("ov").hidden=true; document.body.style.overflow=""; seq++; cur=null;
+}
+function savedAny(wk,name){ const s=(VS[wk]||{})[name]; return !!(s&&(s.booked||(s.details||"").trim())); }
+function vendorRow(wk,v){
+  const s=(VS[wk]||{})[v.name]||{details:"",booked:false};
+  return `<div class="vrow ${s.booked?"on":""}" data-v="${esc(v.name)}">
+    <label class="vtick"><input type="checkbox" ${s.booked?"checked":""}><span>${esc(v.name)}</span></label>
+    <textarea rows="2" placeholder="Name and details" aria-label="${esc(v.name)}: name and details">${esc(s.details||"")}</textarea></div>`;
+}
+function countText(wk){
+  const shown=[...document.querySelectorAll("#mVend .vrow")].map(r=>r.dataset.v);
+  const b=shown.filter(n=>((VS[wk]||{})[n]||{}).booked).length;
+  return b+" of "+shown.length+" booked";
+}
+function renderVendors(w,quotes,verr){
+  const box=$("mVend"); if(!box) return;
+  const wk=wkey(w);
+  if(verr){
+    box.innerHTML=`<h3>Outside vendors</h3><div class="notice warn">Couldn't load the saved vendors (${esc(verr.message)}). Nothing was changed.
+      <br><button class="retry" id="vreload" type="button">Try again</button></div>${setupHtml()}`;
+    return;
+  }
+  const text=quotes.length?quotes[0].text:"";
+  const inQuote=VENDORS.filter(v=>text&&v.re.test(text) || savedAny(wk,v.name));
+  const main=quotes.length?inQuote:VENDORS, other=VENDORS.filter(v=>!main.includes(v));
+  let note="";
+  if(!quotes.length) note=`<div class="notice">No quote was found for this work, so every vendor is listed.</div>`;
+  else if(!main.length) note=`<div class="notice">None of these vendors appear in the latest quote (#${quotes[0].no}).</div>`;
+  else note=`<div class="notice">Picked from the latest quote (#${quotes[0].no}).</div>`;
+  box.innerHTML=`<h3>Outside vendors <span class="vcount" id="vcount"></span></h3>${note}
+    <div class="vlist" id="vlist">${main.map(v=>vendorRow(wk,v)).join("")}</div>
+    ${other.length?`<details class="more"><summary>Other vendors, not in this quote (${other.length})</summary><div class="vlist" style="margin-top:10px">${other.map(v=>vendorRow(wk,v)).join("")}</div></details>`:""}
+    <div class="savestate" id="saveState"></div>${setupHtml()}`;
+  $("vcount").textContent=countText(wk);
+  if(!remoteOn()) setSave("local");
+}
+function setupHtml(){
+  const c=cfg();
+  return `<details class="setup" ${remoteOn()?"":"open"}><summary>Shared saving ${remoteOn()?"(on)":"(not set up)"}</summary>
+    <label for="cfgUrl">Web app address</label><input id="cfgUrl" type="url" placeholder="https://script.google.com/macros/s/…/exec" value="${esc(c.url||"")}">
+    <label for="cfgKey">Secret word</label><input id="cfgKey" type="password" autocomplete="off" value="${esc(c.key||"")}">
+    <button id="cfgSave" type="button">Save on this device</button>
+    <p class="muted" style="margin:8px 0 0">Do this once on each phone or computer (yours and Anila's). Ticks and notes are then stored in one shared Google Sheet.</p></details>`;
+}
+function renderQuotes(w,quotes,err){
+  const box=$("mQuotes");
+  if(err){ box.innerHTML=`<div class="notice warn">Couldn't load the quotes (${esc(err.message)}). <button class="retry" id="qreload" type="button">Try again</button></div>`; return; }
+  if(!quotes.length){ box.innerHTML=`<div class="muted">No quote has been sent to ${esc(w.name)} for this date yet.</div>`; return; }
+  box.innerHTML=`<div class="qlist">`+quotes.map((q,i)=>{
+    const href=`${Q_SITE}/${encodeURIComponent(q.folder)}/${q.no}`;
+    return `<a class="qrow" href="${href}" target="_blank" rel="noopener"><span><b>Quote #${q.no}</b>${i===0?'<span class="tag">Latest</span>':""}
+      <span class="qs"><br>Sent ${fmtShort(isoFromQuoteNo(q.no))}${q.venue?" · "+esc(q.venue):""}</span></span><span class="go">Open ›</span></a>`;
+  }).join("")+`</div>`;
+}
+async function openWork(i){
+  const w=DATA[i], my=++seq; cur=w;
+  $("ov").hidden=false; document.body.style.overflow="hidden";
+  const confirmed=w.status==="Confirmed";
+  $("mBody").innerHTML=`<h2 id="mTitle">${esc(w.name)}</h2>
+    <div class="meta"><span>${fmtDate(w.date)}</span>${w.venue?`<span>· ${esc(w.venue)}</span>`:""}
+      <span class="badge" style="background:${COLORS[w.status]||"var(--nostatus)"}">${esc(w.status)}</span>${w.decorator?`<span>· ${esc(w.decorator)}</span>`:""}</div>
+    <h3>Quotes sent</h3><div id="mQuotes" class="muted">Loading quotes…</div>
+    ${confirmed?`<div id="mVend"><h3>Outside vendors</h3><div class="muted">Loading…</div></div>`:""}`;
+  let quotes=[], qerr=null;
+  try{ quotes=await quotesForWork(w); }catch(e){ qerr=e; }
+  if(my!==seq) return;
+  renderQuotes(w,quotes,qerr);
+  if(!confirmed) return;
+  let verr=null;
+  try{ VS=await loadVendorState(); }catch(e){ verr=e; }
+  if(my!==seq) return;
+  renderVendors(w,quotes,verr);
+}
+
+document.addEventListener("click",e=>{
+  const t=e.target;
+  if(t.id==="mClose"||t.id==="ov") return closeWork();
+  if(t.id==="retry") return sendPending();
+  if(t.id==="qreload"||t.id==="vreload"){ const i=DATA.indexOf(cur); if(i>=0) openWork(i); return; }
+  if(t.id==="cfgSave"){
+    const url=$("cfgUrl").value.trim(), key=$("cfgKey").value.trim();
+    try{ localStorage.setItem(LS_CFG,JSON.stringify(url&&key?{url,key}:{})); }catch(err){}
+    const i=DATA.indexOf(cur); if(i>=0) openWork(i); return;
+  }
+  const tr=t.closest&&t.closest("#rows tr[data-i]");
+  if(tr) openWork(+tr.dataset.i);
+});
+document.addEventListener("keydown",e=>{
+  if(e.key==="Escape"&&!$("ov").hidden) closeWork();
+  if((e.key==="Enter"||e.key===" ")&&e.target.matches&&e.target.matches("#rows tr[data-i]")){ e.preventDefault(); openWork(+e.target.dataset.i); }
+});
+// vendor ticks and text boxes
+document.addEventListener("change",e=>{
+  const row=e.target.closest&&e.target.closest("#mVend .vrow"); if(!row||!cur) return;
+  const wk=wkey(cur), name=row.dataset.v;
+  if(e.target.type==="checkbox"){
+    row.classList.toggle("on",e.target.checked);
+    saveVendor(wk,name,{booked:e.target.checked});
+    $("vcount").textContent=countText(wk);
+  }else{
+    clearTimeout(row._t);
+    saveVendor(wk,name,{details:e.target.value});
+  }
+});
+document.addEventListener("input",e=>{
+  const row=e.target.closest&&e.target.closest("#mVend .vrow"); if(!row||!cur||e.target.type==="checkbox") return;
+  const wk=wkey(cur), name=row.dataset.v, val=e.target.value;
+  clearTimeout(row._t); row._t=setTimeout(()=>saveVendor(wk,name,{details:val}),900);
+});
+
 render();
 </script>
 </body>
