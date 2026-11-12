@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ivory Events &mdash; Wedding Planning &amp; Event Management</title>
+<meta name="description" content="Ivory Events: wedding planning, d&eacute;cor and event management across Kerala since 2011.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Ivory Events">
+<meta property="og:url" content="https://ivory-events.pages.dev/E/">
+<meta property="og:title" content="Ivory Events | Wedding Planning &amp; Event Management">
+<meta property="og:description" content="Ivory Events: wedding planning, d&eacute;cor and event management across Kerala since 2011.">
+<meta property="og:image" content="https://ivory-events.pages.dev/E/logo.png">
+<meta property="og:image:secure_url" content="https://ivory-events.pages.dev/E/logo.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="300">
+<meta property="og:image:height" content="300">
+<meta property="og:image:alt" content="Ivory Events logo">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Ivory Events | Wedding Planning &amp; Event Management">
+<meta name="twitter:description" content="Ivory Events: wedding planning, d&eacute;cor and event management across Kerala since 2011.">
+<meta name="twitter:image" content="https://ivory-events.pages.dev/E/logo.png">
+<link rel="icon" href="logo.png" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root { --w: 820px; }
+
+:root {
+  --bg: #faf8f4;
+  --card: #ffffff;
+  --ink: #2a2623;
+  --mute: #6b625b;
+  --gold: #b08d57;
+  --gold-hover: #9a7846;
+  --gold-deep: #8f6f3d;
+  --gold-tint: #f6f1e8;
+  --gold-soft: #e6d6b8;
+  --line: #e9e2d6;
+  --on: #ffffff;
+  --serif: 'Cormorant Garamond', 'Georgia', serif;
+  --sans: 'Montserrat', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --shadow: 0 4px 18px rgba(60, 45, 20, 0.05);
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  position: relative;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--sans);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Header */
+.site-header {
+  text-align: center;
+  padding: 2.25rem 1rem 1.6rem;
+  background: linear-gradient(180deg, #ffffff 0%, #fdfbf7 100%);
+  border-bottom: 1px solid var(--line);
+}
+.logo {
+  width: 84px;
+  height: 84px;
+  border-radius: 50%;
+  display: block;
+  margin: 0 auto 1rem;
+  box-shadow: 0 0 0 3px #fff, 0 0 0 4px var(--gold-soft);
+}
+.header-badge {
+  display: inline-block;
+  background: var(--gold-tint);
+  color: var(--gold-deep);
+  padding: 0.3rem 1.1rem;
+  border-radius: 20px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  margin-bottom: 0.8rem;
+  border: 1px solid var(--gold-soft);
+}
+.site-header h1 {
+  font-family: var(--serif);
+  margin: 0;
+  font-size: clamp(2rem, 5.5vw, 2.8rem);
+  line-height: 1.15;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: var(--ink);
+}
+.site-header p {
+  margin: 0.6rem auto 0;
+  max-width: 560px;
+  color: var(--mute);
+  font-size: 0.92rem;
+}
+.orn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+  margin: 1rem auto 0;
+  color: var(--gold);
+  font-size: 0.8rem;
+  letter-spacing: 0.4em;
+}
+.orn::before, .orn::after {
+  content: "";
+  height: 1px;
+  width: 56px;
+  background: linear-gradient(90deg, transparent, var(--gold-soft));
+}
+.orn::after { transform: scaleX(-1); }
+
+/* Quick navigation */
+.ivory-nav {
+  max-width: var(--w, 1100px);
+  margin: 1.5rem auto 0;
+  padding: 0 1rem;
+}
+.nav-inner {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 1rem 1rem 1.1rem;
+  text-align: center;
+  box-shadow: var(--shadow);
+}
+.nav-label {
+  font-family: var(--serif);
+  text-transform: uppercase;
+  letter-spacing: 0.28em;
+  font-size: 0.8rem;
+  color: var(--gold-deep);
+  font-weight: 700;
+  margin: 0 0 0.75rem;
+}
+.nav-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+}
+.nav-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.6rem 1.25rem;
+  border-radius: 999px;
+  border: 1px solid var(--gold-soft);
+  background: #fff;
+  color: var(--gold-deep);
+  text-decoration: none;
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+.nav-link.active {
+  background: var(--gold);
+  border-color: var(--gold);
+  color: var(--on);
+  box-shadow: 0 4px 12px rgba(176, 141, 87, 0.28);
+}
+@media (hover: hover) {
+  .nav-link:not(.active):hover {
+    background: var(--gold-tint);
+    border-color: var(--gold);
+    transform: translateY(-1px);
+  }
+}
+@media (max-width: 520px) {
+  .nav-link { padding: 0.55rem 1rem; font-size: 0.76rem; }
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  border-radius: 8px;
+  padding: 0.95rem;
+  background-color: var(--gold);
+  color: var(--on);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.92rem;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+  margin-top: 8px;
+  border: none;
+  box-shadow: 0 5px 14px rgba(176, 141, 87, 0.28);
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+@media (hover: hover) {
+  .btn:hover {
+    background-color: var(--gold-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 18px rgba(176, 141, 87, 0.34);
+  }
+}
+
+footer {
+  text-align: center;
+  padding: 2rem 1rem 2.5rem;
+  color: var(--mute);
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+}
+footer .orn { margin-bottom: 0.9rem; }
+
+main { max-width: var(--w); margin: 0 auto; padding: 1.5rem 1rem 1rem; }
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--gold);
+  border-radius: 12px;
+  padding: 1.6rem 1.6rem 1.5rem;
+  margin-bottom: 1.1rem;
+  box-shadow: var(--shadow);
+}
+.card h2 {
+  font-family: var(--serif);
+  font-size: 1.55rem;
+  font-weight: 600;
+  margin: 0 0 0.5rem;
+  color: var(--ink);
+}
+.card p { margin: 0 0 0.6rem; color: var(--mute); font-size: 0.94rem; }
+.card p:last-child { margin-bottom: 0; }
+.tick-list {
+  list-style: none;
+  padding: 0;
+  margin: 0.6rem 0 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 0.55rem 1rem;
+}
+.tick-list li {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  font-size: 0.92rem;
+  color: var(--mute);
+}
+.tick-list li::before { content: "\2714"; color: var(--gold); font-size: 0.8rem; font-weight: bold; }
+.explore a { color: var(--gold-deep); font-weight: 600; text-decoration: none; border-bottom: 1px solid var(--gold-soft); }
+.explore a:hover { border-bottom-color: var(--gold); }
+
+</style>
+</head>
+<body>
+<header class="site-header">
+  <img class="logo" src="logo.png" alt="Ivory Events logo">
+  <span class="header-badge">Since 2011</span>
+  <h1>Ivory Events</h1>
+  <p>Wedding Planning &amp; Event Management since 2011</p>
+  <div class="orn" aria-hidden="true">&#10022;</div>
+</header>
+<nav class="ivory-nav" aria-label="Quick navigation">
+  <div class="nav-inner">
+    <div class="nav-label">Quick Navigation</div>
+    <div class="nav-links">
+      <a href="index.html" class="nav-link active" aria-current="page">Intro</a>
+      <a href="reviews.html" class="nav-link">Reviews</a>
+      <a href="gallery.html" class="nav-link">Gallery</a>
+      <a href="packages.html" class="nav-link">Packages</a>
+      <a href="checklist.html" class="nav-link">Service Checklist</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+  <div class="card">
+    <h2>Welcome</h2>
+    <p>A wedding is more than an event. It is a moment that brings families together. We take care of the planning and coordination so that you can focus on being present and enjoying your celebration.</p>
+  </div>
+
+  <div class="card">
+    <h2>Our Experience</h2>
+    <p>Since 2011, we have created and coordinated weddings across Kerala, bringing wedding planning, d&eacute;cor and event management together under one team.</p>
+  </div>
+
+  <div class="card">
+    <h2>NRI Wedding Support</h2>
+    <p>Planning a Kerala wedding from abroad? We act as your on-the-ground team, coordinating vendors and overseeing the arrangements so you can plan with confidence.</p>
+  </div>
+
+  <div class="card">
+    <h2>What We Do</h2>
+    <ul class="tick-list">
+      <li>Wedding planning</li>
+      <li>D&eacute;cor</li>
+      <li>Vendor coordination</li>
+      <li>Ceremony management</li>
+      <li>Reception management</li>
+      <li>On-the-day coordination</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>Our Promise</h2>
+    <p>A wedding brings people together. We handle the details so your family can celebrate and make memories.</p>
+  </div>
+
+  <div class="card explore">
+    <h2>Explore</h2>
+    <p><a href="reviews.html">Reviews</a> &mdash; client feedback from families who trusted us.</p>
+    <p><a href="gallery.html">Gallery</a> &mdash; selected weddings and events.</p>
+    <p><a href="packages.html">Packages</a> &mdash; d&eacute;cor pricing packages with stage design options, plus separately listed optional services.</p>
+    <p><a href="checklist.html">Service Checklist</a> &mdash; tick additional services beyond the packages, such as entertainment, catering and photography, and send your list to us on WhatsApp.</p>
+  </div>
+</main>
+
+<footer>
+  <div class="orn" aria-hidden="true">&#10022;</div>
+  Ivory Events &middot; Wedding Planning &amp; Event Management
+</footer>
+</body>
+</html>
