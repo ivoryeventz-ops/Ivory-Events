@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
 <title>Ivory Events - Navin</title>
 <meta name="description" content="Ivory Events wedding planning and decor - 14 December 2026, Kozhencherry">
 <meta property="og:type" content="website">
@@ -87,8 +88,6 @@ section.block{scroll-margin-top:64px;padding-bottom:1.25rem}
 .tick-list{list-style:none;padding:0;margin:.6rem 0 0;display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:.55rem 1rem}
 .tick-list li{display:flex;align-items:baseline;gap:.6rem;font-size:.92rem;color:var(--mute)}
 .tick-list li::before{content:"\2714";color:var(--gold);font-size:.8rem;font-weight:bold}
-.explore a{color:var(--gold-deep);font-weight:600;text-decoration:none;border-bottom:1px solid var(--gold-soft);cursor:pointer}
-.explore a:hover{border-bottom-color:var(--gold)}
 
 .feature-card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:2.75rem 2rem;box-shadow:var(--shadow);display:flex;flex-direction:column;align-items:center;text-align:center}
 .feature-title{font-family:var(--serif);font-size:clamp(1.6rem,5vw,2.2rem);font-weight:600;line-height:1.2;margin:0 0 1.25rem}
@@ -115,24 +114,16 @@ footer .orn{margin-bottom:.9rem}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
 </head>
-<body data-default="q261115">
+<body data-default="intro" data-client="1">
 <div class="topbar">
-  <div class="brand"><img src="../logo.png" alt=""><b>Ivory Events</b><div class="for">Prepared for <strong>Navin</strong><br>14 December 2026 &middot; Kozhencherry</div></div>
+  <div class="brand"><img src="../logo.png" alt=""><b>Ivory Events</b><div class="for" id="brandFor"></div></div>
   <div class="tabs" role="tablist" aria-label="Pages">
-    <button type="button" class="tab" role="tab" data-tab="q261115" title="Quote prepared on 15 November 2026">15 Nov 2026<span class="badge">Latest</span></button>
-    <button type="button" class="tab" role="tab" data-tab="q261114" title="Quote prepared on 14 November 2026">14 Nov 2026</button>
     <button type="button" class="tab" role="tab" data-tab="intro">Intro</button>
     <button type="button" class="tab" role="tab" data-tab="packages">Packages</button>
     <button type="button" class="tab" role="tab" data-tab="checklist">Service Checklist</button>
   </div>
 </div>
 <div class="panels">
-  <section class="panel" id="panel-q261115" data-tab="q261115" role="tabpanel">
-    <iframe title="Quote prepared on 15 November 2026" data-src="../packages/Navin/261115.html"></iframe>
-  </section>
-  <section class="panel" id="panel-q261114" data-tab="q261114" role="tabpanel">
-    <iframe title="Quote prepared on 14 November 2026" data-src="../packages/Navin/261114.html"></iframe>
-  </section>
   <section class="panel" id="panel-intro" data-tab="intro" role="tabpanel">
     <header class="site-header">
       <img class="logo" src="../logo.png" alt="Ivory Events logo">
@@ -141,13 +132,13 @@ footer .orn{margin-bottom:.9rem}
       <p>Wedding Planning &amp; Event Management since 2011</p>
       <div class="orn" aria-hidden="true">&#10022;</div>
     </header>
-    <div class="client-card">
+    <div class="client-card" id="clientCard" hidden>
       <div class="client-inner">
         <p class="client-label">Prepared for you</p>
         <div class="info-grid">
-          <div class="info-item"><div class="info-label">Name</div><div class="info-value">Navin</div></div>
-          <div class="info-item"><div class="info-label">Date</div><div class="info-value">14 December 2026</div></div>
-          <div class="info-item"><div class="info-label">Venue</div><div class="info-value">Kozhencherry</div></div>
+          <div class="info-item"><div class="info-label">Name</div><div class="info-value" id="cName"></div></div>
+          <div class="info-item"><div class="info-label">Date</div><div class="info-value" id="cDate"></div></div>
+          <div class="info-item"><div class="info-label">Venue</div><div class="info-value" id="cVenue"></div></div>
         </div>
       </div>
     </div>
@@ -184,13 +175,6 @@ footer .orn{margin-bottom:.9rem}
         <div class="card">
           <h2>Our Promise</h2>
           <p>A wedding brings people together. We handle the details so your family can celebrate and make memories.</p>
-        </div>
-        <div class="card explore">
-          <h2>Explore</h2>
-          <p><a href="#" data-go="sec-reviews">Reviews</a> &mdash; client feedback from families who trusted us.</p>
-          <p><a href="#" data-go="sec-gallery">Gallery</a> &mdash; selected weddings and events.</p>
-          <p><a href="#" data-open-tab="packages">Packages</a> &mdash; d&eacute;cor pricing packages with stage design options, plus separately listed optional services.</p>
-          <p><a href="#" data-open-tab="checklist">Service Checklist</a> &mdash; tick additional services beyond the packages, such as entertainment, catering and photography, and send your list to us on WhatsApp.</p>
         </div>
       </section>
 
@@ -256,10 +240,13 @@ footer .orn{margin-bottom:.9rem}
 </div>
 <script>
 (function () {
-  var DEFAULT = document.body.getAttribute('data-default');
-  var tabs = [].slice.call(document.querySelectorAll('.tab'));
+  var body = document.body;
+  var DEFAULT = body.getAttribute('data-default');
+  var CLIENT = body.getAttribute('data-client') === '1';
+  var tabsEl = document.querySelector('.tabs');
+  var panelsEl = document.querySelector('.panels');
+  var tabs = [];
   var panels = {};
-  [].forEach.call(document.querySelectorAll('.panel'), function (p) { panels[p.getAttribute('data-tab')] = p; });
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   function show(id, push) {
@@ -275,8 +262,13 @@ footer .orn{margin-bottom:.9rem}
     if (f) { f.src = f.getAttribute('data-src'); f.removeAttribute('data-src'); }
     if (push !== false) { try { history.replaceState(null, '', '#' + id); } catch (e) {} }
   }
+  function registerTab(t) {
+    tabs.push(t);
+    t.addEventListener('click', function () { show(t.getAttribute('data-tab')); });
+  }
+  [].forEach.call(document.querySelectorAll('.tab'), registerTab);
+  [].forEach.call(document.querySelectorAll('.panel'), function (p) { panels[p.getAttribute('data-tab')] = p; });
 
-  tabs.forEach(function (t) { t.addEventListener('click', function () { show(t.getAttribute('data-tab')); }); });
   [].forEach.call(document.querySelectorAll('[data-open-tab]'), function (a) {
     a.addEventListener('click', function (e) { e.preventDefault(); show(a.getAttribute('data-open-tab')); });
   });
@@ -308,8 +300,66 @@ footer .orn{margin-bottom:.9rem}
   }
   mark('sec-intro');
 
-  var h = location.hash.slice(1);
-  show(panels[h] ? h : DEFAULT, false);
+  /* Client page: name/date/venue and the quote tabs come from data.json next to this page.
+     The Quote Builder app edits data.json, so the same link keeps gaining tabs. */
+  function fmt(iso, long) {
+    var p = String(iso || '').split('-');
+    if (p.length !== 3) return iso || '';
+    var d = new Date(+p[0], +p[1] - 1, +p[2]);
+    return d.toLocaleDateString('en-GB', long ? { day: 'numeric', month: 'long', year: 'numeric' } : { day: 'numeric', month: 'short', year: 'numeric' });
+  }
+  function el(tag, cls, txt) { var n = document.createElement(tag); if (cls) n.className = cls; if (txt) n.textContent = txt; return n; }
+
+  function loadClient(done) {
+    if (!CLIENT) { done(); return; }
+    fetch('data.json?t=' + Date.now(), { cache: 'no-store' })
+      .then(function (r) { if (!r.ok) throw new Error('data'); return r.json(); })
+      .then(function (d) {
+        document.getElementById('cName').textContent = d.name || '';
+        document.getElementById('cDate').textContent = fmt(d.wedding_date, true);
+        document.getElementById('cVenue').textContent = d.venue || '';
+        document.getElementById('clientCard').hidden = false;
+        var bf = document.getElementById('brandFor');
+        bf.appendChild(document.createTextNode('Prepared for '));
+        bf.appendChild(el('strong', '', d.name || ''));
+        bf.appendChild(document.createElement('br'));
+        bf.appendChild(document.createTextNode(fmt(d.wedding_date, true) + ' · ' + (d.venue || '')));
+
+        var qs = (d.quotes || []).slice().sort(function (a, b) {
+          if (a.created !== b.created) return a.created < b.created ? 1 : -1;
+          return a.id < b.id ? 1 : -1;
+        });
+        var perDate = {}, seen = {};
+        qs.forEach(function (q) { perDate[q.created] = (perDate[q.created] || 0) + 1; });
+        var first = tabsEl.firstChild;
+        qs.forEach(function (q, i) {
+          var tid = 'q' + q.id;
+          var label = fmt(q.created, false);
+          if (perDate[q.created] > 1) {
+            seen[q.created] = (seen[q.created] || 0) + 1;
+            label += ' (' + (perDate[q.created] - seen[q.created] + 1) + ')';
+          }
+          var b = el('button', 'tab', label);
+          b.type = 'button'; b.setAttribute('role', 'tab'); b.setAttribute('data-tab', tid);
+          b.title = 'Quote prepared on ' + fmt(q.created, true);
+          if (i === 0) b.appendChild(el('span', 'badge', 'Latest'));
+          tabsEl.insertBefore(b, first);
+          registerTab(b);
+          var p = el('section', 'panel'); p.id = 'panel-' + tid; p.setAttribute('data-tab', tid); p.setAttribute('role', 'tabpanel');
+          var f = el('iframe'); f.title = 'Quote prepared on ' + fmt(q.created, true);
+          f.setAttribute('data-src', '../packages/' + encodeURIComponent(d.folder) + '/' + encodeURIComponent(q.id) + '.html');
+          p.appendChild(f); panelsEl.appendChild(p); panels[tid] = p;
+          if (i === 0) DEFAULT = tid;
+        });
+        done();
+      })
+      .catch(function () { done(); });
+  }
+
+  loadClient(function () {
+    var h = location.hash.slice(1);
+    show(panels[h] ? h : DEFAULT, false);
+  });
 })();
 </script>
 </body>

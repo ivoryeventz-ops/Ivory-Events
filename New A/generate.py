@@ -7,16 +7,17 @@ Run from anywhere:
 
 Inputs
     ../A/packages.html, ../A/checklist.html     the existing pages (kept as they are)
-    clients/<Client>.json                       name, wedding_date, venue
-    quotes/<Client>/<YYMMDD>.json               one file per quote (YYMMDD = date created)
+    <Client>/data.json                          name, wedding_date (ISO), venue, quotes[{id, created}]
+    quotes/<Client>/<YYMMDD>.json               optional spec-driven quotes (test client only)
     templates/quote.css, complimentary.html     Abraham quote theme (standing style rule)
 
 Outputs
     parts/packages.html, parts/checklist.html   embed-ready copies of the A pages
     index.html                                  generic page (Intro / Packages / Checklist)
-    <Client>/index.html                         the ONE link for that client: newest quote tab
-                                                first, older quotes (by date) next, then Intro,
-                                                Packages, Checklist
+    client-shell.html                           template the Quote Builder app copies for new clients
+    <Client>/index.html                         the ONE link for that client; reads data.json, so
+                                                newest quote tab first, older ones (by date) next,
+                                                then Intro, Packages, Checklist
     packages/<Client>/<YYMMDD>.html             standalone copy of every quote
 """
 import datetime
@@ -247,8 +248,6 @@ section.block{scroll-margin-top:64px;padding-bottom:1.25rem}
 .tick-list{list-style:none;padding:0;margin:.6rem 0 0;display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:.55rem 1rem}
 .tick-list li{display:flex;align-items:baseline;gap:.6rem;font-size:.92rem;color:var(--mute)}
 .tick-list li::before{content:"\2714";color:var(--gold);font-size:.8rem;font-weight:bold}
-.explore a{color:var(--gold-deep);font-weight:600;text-decoration:none;border-bottom:1px solid var(--gold-soft);cursor:pointer}
-.explore a:hover{border-bottom-color:var(--gold)}
 
 .feature-card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:2.75rem 2rem;box-shadow:var(--shadow);display:flex;flex-direction:column;align-items:center;text-align:center}
 .feature-title{font-family:var(--serif);font-size:clamp(1.6rem,5vw,2.2rem);font-weight:600;line-height:1.2;margin:0 0 1.25rem}
@@ -284,10 +283,13 @@ GOOGLE_G = '''<svg class="g-logo" viewBox="0 0 24 24" xmlns="http://www.w3.org/2
 
 PAGE_JS = r"""
 (function () {
-  var DEFAULT = document.body.getAttribute('data-default');
-  var tabs = [].slice.call(document.querySelectorAll('.tab'));
+  var body = document.body;
+  var DEFAULT = body.getAttribute('data-default');
+  var CLIENT = body.getAttribute('data-client') === '1';
+  var tabsEl = document.querySelector('.tabs');
+  var panelsEl = document.querySelector('.panels');
+  var tabs = [];
   var panels = {};
-  [].forEach.call(document.querySelectorAll('.panel'), function (p) { panels[p.getAttribute('data-tab')] = p; });
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   function show(id, push) {
@@ -303,8 +305,13 @@ PAGE_JS = r"""
     if (f) { f.src = f.getAttribute('data-src'); f.removeAttribute('data-src'); }
     if (push !== false) { try { history.replaceState(null, '', '#' + id); } catch (e) {} }
   }
+  function registerTab(t) {
+    tabs.push(t);
+    t.addEventListener('click', function () { show(t.getAttribute('data-tab')); });
+  }
+  [].forEach.call(document.querySelectorAll('.tab'), registerTab);
+  [].forEach.call(document.querySelectorAll('.panel'), function (p) { panels[p.getAttribute('data-tab')] = p; });
 
-  tabs.forEach(function (t) { t.addEventListener('click', function () { show(t.getAttribute('data-tab')); }); });
   [].forEach.call(document.querySelectorAll('[data-open-tab]'), function (a) {
     a.addEventListener('click', function (e) { e.preventDefault(); show(a.getAttribute('data-open-tab')); });
   });
@@ -336,23 +343,81 @@ PAGE_JS = r"""
   }
   mark('sec-intro');
 
-  var h = location.hash.slice(1);
-  show(panels[h] ? h : DEFAULT, false);
+  /* Client page: name/date/venue and the quote tabs come from data.json next to this page.
+     The Quote Builder app edits data.json, so the same link keeps gaining tabs. */
+  function fmt(iso, long) {
+    var p = String(iso || '').split('-');
+    if (p.length !== 3) return iso || '';
+    var d = new Date(+p[0], +p[1] - 1, +p[2]);
+    return d.toLocaleDateString('en-GB', long ? { day: 'numeric', month: 'long', year: 'numeric' } : { day: 'numeric', month: 'short', year: 'numeric' });
+  }
+  function el(tag, cls, txt) { var n = document.createElement(tag); if (cls) n.className = cls; if (txt) n.textContent = txt; return n; }
+
+  function loadClient(done) {
+    if (!CLIENT) { done(); return; }
+    fetch('data.json?t=' + Date.now(), { cache: 'no-store' })
+      .then(function (r) { if (!r.ok) throw new Error('data'); return r.json(); })
+      .then(function (d) {
+        document.getElementById('cName').textContent = d.name || '';
+        document.getElementById('cDate').textContent = fmt(d.wedding_date, true);
+        document.getElementById('cVenue').textContent = d.venue || '';
+        document.getElementById('clientCard').hidden = false;
+        var bf = document.getElementById('brandFor');
+        bf.appendChild(document.createTextNode('Prepared for '));
+        bf.appendChild(el('strong', '', d.name || ''));
+        bf.appendChild(document.createElement('br'));
+        bf.appendChild(document.createTextNode(fmt(d.wedding_date, true) + ' · ' + (d.venue || '')));
+
+        var qs = (d.quotes || []).slice().sort(function (a, b) {
+          if (a.created !== b.created) return a.created < b.created ? 1 : -1;
+          return a.id < b.id ? 1 : -1;
+        });
+        var perDate = {}, seen = {};
+        qs.forEach(function (q) { perDate[q.created] = (perDate[q.created] || 0) + 1; });
+        var first = tabsEl.firstChild;
+        qs.forEach(function (q, i) {
+          var tid = 'q' + q.id;
+          var label = fmt(q.created, false);
+          if (perDate[q.created] > 1) {
+            seen[q.created] = (seen[q.created] || 0) + 1;
+            label += ' (' + (perDate[q.created] - seen[q.created] + 1) + ')';
+          }
+          var b = el('button', 'tab', label);
+          b.type = 'button'; b.setAttribute('role', 'tab'); b.setAttribute('data-tab', tid);
+          b.title = 'Quote prepared on ' + fmt(q.created, true);
+          if (i === 0) b.appendChild(el('span', 'badge', 'Latest'));
+          tabsEl.insertBefore(b, first);
+          registerTab(b);
+          var p = el('section', 'panel'); p.id = 'panel-' + tid; p.setAttribute('data-tab', tid); p.setAttribute('role', 'tabpanel');
+          var f = el('iframe'); f.title = 'Quote prepared on ' + fmt(q.created, true);
+          f.setAttribute('data-src', '../packages/' + encodeURIComponent(d.folder) + '/' + encodeURIComponent(q.id) + '.html');
+          p.appendChild(f); panelsEl.appendChild(p); panels[tid] = p;
+          if (i === 0) DEFAULT = tid;
+        });
+        done();
+      })
+      .catch(function () { done(); });
+  }
+
+  loadClient(function () {
+    var h = location.hash.slice(1);
+    show(panels[h] ? h : DEFAULT, false);
+  });
 })();
 """
 
 
-def intro_panel(client):
+def intro_panel(dynamic):
     client_card = ""
-    if client:
-        client_card = f'''
-    <div class="client-card">
+    if dynamic:
+        client_card = '''
+    <div class="client-card" id="clientCard" hidden>
       <div class="client-inner">
         <p class="client-label">Prepared for you</p>
         <div class="info-grid">
-          <div class="info-item"><div class="info-label">Name</div><div class="info-value">{esc(client["name"])}</div></div>
-          <div class="info-item"><div class="info-label">Date</div><div class="info-value">{esc(client["wedding_date"])}</div></div>
-          <div class="info-item"><div class="info-label">Venue</div><div class="info-value">{esc(client["venue"])}</div></div>
+          <div class="info-item"><div class="info-label">Name</div><div class="info-value" id="cName"></div></div>
+          <div class="info-item"><div class="info-label">Date</div><div class="info-value" id="cDate"></div></div>
+          <div class="info-item"><div class="info-label">Venue</div><div class="info-value" id="cVenue"></div></div>
         </div>
       </div>
     </div>'''
@@ -397,13 +462,6 @@ def intro_panel(client):
         <div class="card">
           <h2>Our Promise</h2>
           <p>A wedding brings people together. We handle the details so your family can celebrate and make memories.</p>
-        </div>
-        <div class="card explore">
-          <h2>Explore</h2>
-          <p><a href="#" data-go="sec-reviews">Reviews</a> &mdash; client feedback from families who trusted us.</p>
-          <p><a href="#" data-go="sec-gallery">Gallery</a> &mdash; selected weddings and events.</p>
-          <p><a href="#" data-open-tab="packages">Packages</a> &mdash; d&eacute;cor pricing packages with stage design options, plus separately listed optional services.</p>
-          <p><a href="#" data-open-tab="checklist">Service Checklist</a> &mdash; tick additional services beyond the packages, such as entertainment, catering and photography, and send your list to us on WhatsApp.</p>
         </div>
       </section>
 
@@ -458,55 +516,44 @@ def intro_panel(client):
 '''
 
 
-def build_page(client, quotes, prefix):
-    """quotes: list of specs. Newest first in the tab bar; newest is the default tab."""
-    quotes = sorted(quotes, key=lambda q: (q["created"], q["id"]), reverse=True)
-    tab_btns, panels, default = [], [], "intro"
-    for i, q in enumerate(quotes):
-        tid = f"q{q['id']}"
-        if i == 0:
-            default = tid
-        badge = '<span class="badge">Latest</span>' if i == 0 else ""
-        tab_btns.append(
-            f'<button type="button" class="tab" role="tab" data-tab="{tid}" '
-            f'title="Quote prepared on {long_date(q["created"])}">{short_date(q["created"])}{badge}</button>')
-        panels.append(
-            f'  <section class="panel" id="panel-{tid}" data-tab="{tid}" role="tabpanel">\n'
-            f'    <iframe title="Quote prepared on {long_date(q["created"])}" '
-            f'data-src="{prefix}packages/{client["folder"]}/{q["id"]}.html"></iframe>\n  </section>\n')
-    tab_btns.append('<button type="button" class="tab" role="tab" data-tab="intro">Intro</button>')
-    panels.append(intro_panel(client).replace("__PREFIX__", prefix))
-    tab_btns.append('<button type="button" class="tab" role="tab" data-tab="packages">Packages</button>')
-    panels.append(f'  <section class="panel" id="panel-packages" data-tab="packages" role="tabpanel">\n'
-                  f'    <iframe title="Packages" data-src="{prefix}parts/packages.html"></iframe>\n  </section>\n')
-    tab_btns.append('<button type="button" class="tab" role="tab" data-tab="checklist">Service Checklist</button>')
-    panels.append(f'  <section class="panel" id="panel-checklist" data-tab="checklist" role="tabpanel">\n'
-                  f'    <iframe title="Service Checklist" data-src="{prefix}parts/checklist.html"></iframe>\n  </section>\n')
-
+def build_page(mode):
+    """mode 'root' = generic page; mode 'client' = shell template (tokens in the head, data.json fills the rest).
+    A client page always opens on its newest quote tab; with no quotes yet it opens on Intro."""
+    client = mode == "client"
+    prefix = "../" if client else ""
+    tab_btns = ['<button type="button" class="tab" role="tab" data-tab="intro">Intro</button>',
+                '<button type="button" class="tab" role="tab" data-tab="packages">Packages</button>',
+                '<button type="button" class="tab" role="tab" data-tab="checklist">Service Checklist</button>']
+    panels = [intro_panel(client).replace("__PREFIX__", prefix),
+              f'  <section class="panel" id="panel-packages" data-tab="packages" role="tabpanel">\n'
+              f'    <iframe title="Packages" data-src="{prefix}parts/packages.html"></iframe>\n  </section>\n',
+              f'  <section class="panel" id="panel-checklist" data-tab="checklist" role="tabpanel">\n'
+              f'    <iframe title="Service Checklist" data-src="{prefix}parts/checklist.html"></iframe>\n  </section>\n']
     if client:
-        title = f"Ivory Events - {client['name']}"
-        og_desc = f"Ivory Events wedding planning and decor - {client['wedding_date']}, {client['venue']}"
-        url = f"{SITE}/{client['folder']}/"
-        for_html = (f'<div class="for">Prepared for <strong>{esc(client["name"])}</strong><br>'
-                    f'{esc(client["wedding_date"])} &middot; {esc(client["venue"])}</div>')
+        title = "Ivory Events - __NAME__"
+        og_desc = "Ivory Events wedding planning and decor - __WEDDING_DATE__, __VENUE__"
+        url = f"{SITE}/__FOLDER__/"
+        for_html = '<div class="for" id="brandFor"></div>'
     else:
         title = "Ivory Events | Wedding Planning & Event Management"
         og_desc = "Ivory Events: wedding planning, décor and event management across Kerala since 2011."
         url = f"{SITE}/"
         for_html = ""
+    t, d = html.escape(title, quote=False).replace("&amp;", "&amp;"), html.escape(og_desc)
 
-    return f'''<!DOCTYPE html>
+    return f"""<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>{html.escape(title, quote=False)}</title>
-<meta name="description" content="{html.escape(og_desc)}">
+<meta name="robots" content="noindex">
+<title>{t}</title>
+<meta name="description" content="{d}">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Ivory Events">
 <meta property="og:url" content="{url}">
 <meta property="og:title" content="{html.escape(title)}">
-<meta property="og:description" content="{html.escape(og_desc)}">
+<meta property="og:description" content="{d}">
 <meta property="og:image" content="{SITE}/logo.png">
 <meta property="og:image:type" content="image/png">
 <meta property="og:image:width" content="300">
@@ -514,7 +561,7 @@ def build_page(client, quotes, prefix):
 <meta property="og:image:alt" content="Ivory Events logo">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="{html.escape(title)}">
-<meta name="twitter:description" content="{html.escape(og_desc)}">
+<meta name="twitter:description" content="{d}">
 <meta name="twitter:image" content="{SITE}/logo.png">
 <link rel="icon" href="{prefix}logo.png" type="image/png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -522,7 +569,7 @@ def build_page(client, quotes, prefix):
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>{PAGE_CSS}</style>
 </head>
-<body data-default="{default}">
+<body data-default="intro" data-client="{1 if client else 0}">
 <div class="topbar">
   <div class="brand"><img src="{prefix}logo.png" alt=""><b>Ivory Events</b>{for_html}</div>
   <div class="tabs" role="tablist" aria-label="Pages">
@@ -534,26 +581,38 @@ def build_page(client, quotes, prefix):
 <script>{PAGE_JS}</script>
 </body>
 </html>
-'''
+"""
+
+
+def render_shell(template, data):
+    """Same token substitution the Quote Builder app does when it creates a client page."""
+    return (template.replace("__NAME__", esc(data["name"]))
+            .replace("__WEDDING_DATE__", long_date(data["wedding_date"]))
+            .replace("__VENUE__", esc(data["venue"]))
+            .replace("__FOLDER__", data["folder"]))
 
 
 # ---------------------------------------------------------------- main
-def load_quotes(folder):
-    qdir = ROOT / "quotes" / folder
-    return [json.loads(p.read_text(encoding="utf-8")) for p in sorted(qdir.glob("*.json"))]
-
-
-def build_client(path):
-    client = json.loads(path.read_text(encoding="utf-8"))
-    quotes = load_quotes(client["folder"])
-    outdir = ROOT / "packages" / client["folder"]
-    outdir.mkdir(parents=True, exist_ok=True)
-    for q in quotes:
-        (outdir / f"{q['id']}.html").write_text(build_quote(client, q), encoding="utf-8")
-    cdir = ROOT / client["folder"]
-    cdir.mkdir(exist_ok=True)
-    (cdir / "index.html").write_text(build_page(client, quotes, "../"), encoding="utf-8")
-    print(f"{client['folder']}: {len(quotes)} quote(s) -> newest tab first")
+def build_client(folder, template):
+    cdir = ROOT / folder
+    dpath = cdir / "data.json"
+    data = json.loads(dpath.read_text(encoding="utf-8"))
+    data["folder"] = folder
+    # optional spec-driven quotes (used for the Navin test); app-made quotes are plain html files
+    specs = sorted((ROOT / "quotes" / folder).glob("*.json")) if (ROOT / "quotes" / folder).exists() else []
+    if specs:
+        client = {"name": data["name"], "wedding_date": long_date(data["wedding_date"]), "venue": data["venue"]}
+        outdir = ROOT / "packages" / folder
+        outdir.mkdir(parents=True, exist_ok=True)
+        known = {q["id"] for q in data.get("quotes", [])}
+        for p in specs:
+            q = json.loads(p.read_text(encoding="utf-8"))
+            (outdir / f"{q['id']}.html").write_text(build_quote(client, q), encoding="utf-8")
+            if q["id"] not in known:
+                data.setdefault("quotes", []).append({"id": q["id"], "created": q["created"]})
+    dpath.write_text(json.dumps(data, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    (cdir / "index.html").write_text(render_shell(template, data), encoding="utf-8")
+    print(f"{folder}: {len(data.get('quotes', []))} quote(s)")
 
 
 def main():
@@ -561,11 +620,13 @@ def main():
     if not only:
         for n in ("packages", "checklist"):
             build_part(n)
-        (ROOT / "index.html").write_text(build_page(None, [], ""), encoding="utf-8")
-    for p in sorted((ROOT / "clients").glob("*.json")):
-        if only and p.stem != only:
+        (ROOT / "index.html").write_text(build_page("root"), encoding="utf-8")
+    template = build_page("client")
+    (ROOT / "client-shell.html").write_text(template, encoding="utf-8")
+    for p in sorted(ROOT.glob("*/data.json")):
+        if only and p.parent.name != only:
             continue
-        build_client(p)
+        build_client(p.parent.name, template)
 
 
 if __name__ == "__main__":

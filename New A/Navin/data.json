@@ -1,0 +1,16 @@
+{
+  "folder": "Navin",
+  "name": "Navin",
+  "wedding_date": "2026-12-14",
+  "venue": "Kozhencherry",
+  "quotes": [
+    {
+      "id": "261114",
+      "created": "2026-11-14"
+    },
+    {
+      "id": "261115",
+      "created": "2026-11-15"
+    }
+  ]
+}
