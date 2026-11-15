@@ -1,0 +1,43 @@
+{
+  "id": "261114",
+  "created": "2026-11-14",
+  "stage_image": "stage.jpg",
+  "stage_inclusions": [
+    "Stage Decoration including",
+    "White flex on stage",
+    "Sofa",
+    "Welcome drink for couple",
+    "Candles - 3",
+    "Floral Settings on stage",
+    "Lights on stage",
+    "Centre carpet along the aisle",
+    "Entrance Arch for hall - Artificial flowers",
+    "Wedding signage board on wooden easel stand",
+    "Wedding Car Decoration - Fresh flowers",
+    "Welcome Girls - 2 No.s"
+  ],
+  "decor_options": [
+    ["Decor without top hanging", 120000],
+    ["Decor with top hanging above sofa space - 4ft x 8ft", 135000],
+    ["Decor with top hanging 4 feet from backdrop - 4ft x 28ft", 145000],
+    ["Decor with full top hanging above stage - 12ft x 28ft", 160000]
+  ],
+  "other_items": [
+    {"name": "Two tier cake", "subs": ["1st tier real cake with below tier dummy", "Fondant covering on both tiers"], "price": 4500},
+    {"name": "Greeting Garland - 2 No.s + Greeting Bouquet - 2 No.s for Groom", "subs": ["Fresh flowers", "Gypsophila / Baby's breath flowers"], "price": 5000},
+    {"name": "Standard Pathway stands in hall", "price": 15000},
+    {"name": "Centre steps for stage", "price": 5000},
+    {"name": "Premium entrance arch with photo signboard on first floor", "price": 15000},
+    {"name": "Ambiance lighting in hall", "subs": ["With dedicated power source", "Sharpee"], "price": 35000},
+    {"name": "Stair Decor - One side only", "price": 5000},
+    {"name": "Round tables in hall - 10 No.s", "subs": ["Designer fabric cloth cover for round tables", "Table centrepiece on round tables", "Tiffany chairs - theatre style in front - 60 No.s"], "price": 23000},
+    {"name": "Ambiance lighting outside the hall", "subs": ["Pixel LED lights on trees and plants at the entrance of the hall", "Higher capacity generator including additional fuel"], "price": 20000},
+    {"name": "Generator", "price": 8000},
+    {"name": "Church Decoration - Artificial flowers", "subs": ["Entrance Arch for church - Artificial flowers", "Aisle stands in church - Fresh flowers - Gold stands", "Two stands on either side of bride & groom - Fresh flowers"], "price": 30000},
+    {"name": "Platform for Live Band", "price": 5000}
+  ],
+  "additional_items": [
+    {"name": "Parking security - normal - 3 Persons", "price": 3750},
+    {"name": "Live Band", "subs": ["Standard Live Band - 3 Instruments (Fixed Song List)", "Keyboard", "Violin", "Drum Set"], "note": "Optional - add this to any total above", "price": 25000}
+  ]
+}
