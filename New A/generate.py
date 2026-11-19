@@ -7,7 +7,8 @@ Run from anywhere:
 
 Inputs
     ../A/packages.html, ../A/checklist.html     the existing pages (kept as they are)
-    <Client>/data.json                          name, wedding_date (ISO), venue, quotes[{id, created}]
+    <Client>/data.json                          name, wedding_date (ISO), venue, quotes[{id, created, url?}],
+                                                timeline{url}, payment{url} (the last two are optional extra tabs)
     quotes/<Client>/<YYMMDD>.json               optional spec-driven quotes (test client only)
     templates/quote.css, complimentary.html     Abraham quote theme (standing style rule)
 
@@ -390,9 +391,23 @@ PAGE_JS = r"""
           registerTab(b);
           var p = el('section', 'panel'); p.id = 'panel-' + tid; p.setAttribute('data-tab', tid); p.setAttribute('role', 'tabpanel');
           var f = el('iframe'); f.title = 'Quote prepared on ' + fmt(q.created, true);
-          f.setAttribute('data-src', '../packages/' + encodeURIComponent(d.folder) + '/' + encodeURIComponent(q.id) + '.html');
+          f.setAttribute('data-src', q.url || ('../packages/' + encodeURIComponent(d.folder) + '/' + encodeURIComponent(q.id) + '.html'));
           p.appendChild(f); panelsEl.appendChild(p); panels[tid] = p;
           if (i === 0) DEFAULT = tid;
+        });
+        /* After the quotes: Wedding Timeline, then Payment. Each appears only once it has been added to data.json
+           (the Enquiries app does that, one item at a time, after Navin confirms it). */
+        [['timeline', 'Wedding Timeline'], ['payment', 'Payment']].forEach(function (k) {
+          var x = d[k[0]];
+          if (!x || !x.url) return;
+          var b = el('button', 'tab', k[1]);
+          b.type = 'button'; b.setAttribute('role', 'tab'); b.setAttribute('data-tab', k[0]);
+          tabsEl.insertBefore(b, first);
+          registerTab(b);
+          var p = el('section', 'panel'); p.id = 'panel-' + k[0]; p.setAttribute('data-tab', k[0]); p.setAttribute('role', 'tabpanel');
+          var f = el('iframe'); f.title = k[1];
+          f.setAttribute('data-src', x.url);
+          p.appendChild(f); panelsEl.appendChild(p); panels[k[0]] = p;
         });
         done();
       })
