@@ -321,7 +321,7 @@ footer .orn{margin-bottom:.9rem}
         });
         var perDate = {}, seen = {};
         qs.forEach(function (q) { perDate[q.created] = (perDate[q.created] || 0) + 1; });
-        var first = tabsEl.firstChild;
+        var first = tabsEl.firstChild, latestBtn = null;
         qs.forEach(function (q, i) {
           var tid = 'q' + q.id;
           var label = fmt(q.created, false);
@@ -339,16 +339,17 @@ footer .orn{margin-bottom:.9rem}
           var f = el('iframe'); f.title = 'Quote prepared on ' + fmt(q.created, true);
           f.setAttribute('data-src', q.url || ('../packages/' + encodeURIComponent(d.folder) + '/' + encodeURIComponent(q.id) + '.html'));
           p.appendChild(f); panelsEl.appendChild(p); panels[tid] = p;
-          if (i === 0) DEFAULT = tid;
+          if (i === 0) { DEFAULT = tid; latestBtn = b; }
         });
-        /* After the quotes: Wedding Timeline, then Payment. Each appears only once it has been added to data.json
+        /* In front of the latest quote: Wedding Timeline, and in front of that, Payment. Each appears only once it has been added to data.json
            (the Enquiries app does that, one item at a time, after Navin confirms it). */
+        var ref = latestBtn || first;
         [['timeline', 'Wedding Timeline'], ['payment', 'Payment']].forEach(function (k) {
           var x = d[k[0]];
           if (!x || !x.url) return;
           var b = el('button', 'tab', k[1]);
           b.type = 'button'; b.setAttribute('role', 'tab'); b.setAttribute('data-tab', k[0]);
-          tabsEl.insertBefore(b, first);
+          tabsEl.insertBefore(b, ref); ref = b;
           registerTab(b);
           var p = el('section', 'panel'); p.id = 'panel-' + k[0]; p.setAttribute('data-tab', k[0]); p.setAttribute('role', 'tabpanel');
           var f = el('iframe'); f.title = k[1];
