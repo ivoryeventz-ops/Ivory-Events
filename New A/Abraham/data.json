@@ -1,0 +1,23 @@
+{
+  "folder": "Abraham",
+  "name": "Abraham",
+  "wedding_date": "2026-12-28",
+  "venue": "Kozhencherry",
+  "quotes": [
+    {
+      "id": "261114",
+      "created": "2026-11-14",
+      "url": "https://ivory-packages.pages.dev/Abraham/261114"
+    },
+    {
+      "id": "261110",
+      "created": "2026-11-10",
+      "url": "https://ivory-packages.pages.dev/Abraham/261110"
+    },
+    {
+      "id": "261109",
+      "created": "2026-11-09",
+      "url": "https://ivory-packages.pages.dev/Abraham/261109"
+    }
+  ]
+}
