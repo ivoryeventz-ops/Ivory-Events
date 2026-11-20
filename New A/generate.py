@@ -70,16 +70,30 @@ EMBED_JS = (
 )
 
 
-def build_part(name):
-    src = (A_DIR / f"{name}.html").read_text(encoding="utf-8")
-    src = src.replace("<head>", '<head>\n<base href="/A/">', 1)
+# Event types offered when a new enquiry is entered in the Enquiries app.
+#   key -> (label, source folder of the package/checklist pages, parts sub-folder, wording swap)
+# Christian keeps the original parts/ files (built from ../A). The others live in parts/<key>/.
+# Pentecost uses the P items inside the same New A look; Hindu reception uses the E items, worded "Reception".
+TYPES = {
+    "christian": ("Wedding - Christian", "A", "", None),
+    "pentecost": ("Wedding - Pentecost", "P", "pentecost", None),
+    "engagement": ("Engagement", "E", "engagement", None),
+    "hindu": ("Reception - Hindu", "E", "hindu", ("Engagement Package", "Reception Package")),
+}
+
+
+def build_part(name, src_folder="A", sub="", swap=None):
+    src = (ROOT.parent / src_folder / f"{name}.html").read_text(encoding="utf-8")
+    if swap:
+        src = src.replace(swap[0], swap[1])
+    src = src.replace("<head>", f'<head>\n<base href="/{src_folder}/">', 1)
     src = src.replace("</head>", EMBED_CSS + "\n</head>", 1)
     for page, tab in (("packages", "packages"), ("checklist", "checklist"), ("index", "intro"),
                       ("reviews", "intro"), ("gallery", "intro")):
         src = src.replace(f'href="{page}.html"', f'href="#" data-tab="{tab}"')
     src = src.replace("</body>", EMBED_JS + "\n</body>", 1)
-    out = ROOT / "parts" / f"{name}.html"
-    out.parent.mkdir(exist_ok=True)
+    out = ROOT / "parts" / sub / f"{name}.html"
+    out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(src, encoding="utf-8")
 
 
@@ -359,6 +373,12 @@ PAGE_JS = r"""
     fetch('data.json?t=' + Date.now(), { cache: 'no-store' })
       .then(function (r) { if (!r.ok) throw new Error('data'); return r.json(); })
       .then(function (d) {
+        /* event type picks which Packages / Checklist pages load (none = Christian wedding, the original) */
+        var PT = { pentecost: 'pentecost/', engagement: 'engagement/', hindu: 'hindu/' }[d.type] || '';
+        ['packages', 'checklist'].forEach(function (k) {
+          var fr = panels[k] && panels[k].querySelector('iframe[data-src]');
+          if (fr) fr.setAttribute('data-src', '../parts/' + PT + k + '.html');
+        });
         document.getElementById('cName').textContent = d.name || '';
         document.getElementById('cDate').textContent = fmt(d.wedding_date, true);
         document.getElementById('cVenue').textContent = d.venue || '';
@@ -634,8 +654,9 @@ def build_client(folder, template):
 def main():
     only = sys.argv[1] if len(sys.argv) > 1 else None
     if not only:
-        for n in ("packages", "checklist"):
-            build_part(n)
+        for _key, (_label, _src, _sub, _swap) in TYPES.items():
+            for n in ("packages", "checklist"):
+                build_part(n, _src, _sub, _swap)
         (ROOT / "index.html").write_text(build_page("root"), encoding="utf-8")
     template = build_page("client")
     (ROOT / "client-shell.html").write_text(template, encoding="utf-8")
