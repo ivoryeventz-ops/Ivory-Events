@@ -4,5 +4,11 @@
   "wedding_date": "2026-11-25",
   "venue": "SC",
   "type": "christian",
-  "quotes": []
+  "quotes": [
+    {
+      "id": "261120",
+      "created": "2026-11-20",
+      "url": "https://ivory-packages.pages.dev/Jerrin/261120"
+    }
+  ]
 }
