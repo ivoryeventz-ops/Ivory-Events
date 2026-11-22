@@ -25,5 +25,9 @@
       "created": "2026-10-31",
       "url": "https://ivory-packages.pages.dev/Jerrin/261031"
     }
-  ]
+  ],
+  "payment": {
+    "url": "https://ivory-packages.pages.dev/Jerrin/payment",
+    "added": "2026-11-22"
+  }
 }
