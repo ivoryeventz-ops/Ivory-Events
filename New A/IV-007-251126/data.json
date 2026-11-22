@@ -29,5 +29,9 @@
   "payment": {
     "url": "https://ivory-packages.pages.dev/IV-007-251126/payment",
     "added": "2026-11-22"
+  },
+  "timeline": {
+    "url": "https://ivory-wedding-timeline.pages.dev/IV-007-251126/timeline",
+    "added": "2026-11-22"
   }
 }
