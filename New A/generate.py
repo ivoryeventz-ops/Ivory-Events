@@ -286,6 +286,7 @@ section.block{scroll-margin-top:64px;padding-bottom:1.25rem}
 .to-top:hover{text-decoration:underline}
 footer{text-align:center;padding:2rem 1rem 2.5rem;color:var(--mute);font-size:.78rem;letter-spacing:.06em}
 footer .orn{margin-bottom:.9rem}
+.social{display:flex;justify-content:center;gap:1.4rem;margin:0 0 .9rem;flex-wrap:wrap}.social a{color:var(--gold-deep);text-decoration:none;font-weight:600;letter-spacing:.1em;text-transform:uppercase;font-size:.74rem;display:inline-flex;align-items:center;gap:.45rem;padding:.35rem .5rem}.social a:hover{text-decoration:underline}.social svg{width:1.15rem;height:1.15rem;fill:currentColor}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 """
 
@@ -546,6 +547,10 @@ def intro_panel(dynamic):
     </main>
     <footer>
       <div class="orn" aria-hidden="true">&#10022;</div>
+      <div class="social">
+        <a href="https://www.instagram.com/ivoryeventsweddings" target="_blank" rel="noopener noreferrer" aria-label="Ivory Events on Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 7.2A4.8 4.8 0 1 0 12 16.8 4.8 4.8 0 0 0 12 7.2zm0 7.9a3.1 3.1 0 1 1 0-6.2 3.1 3.1 0 0 1 0 6.2zM17.3 6a1.1 1.1 0 1 0 0 2.2 1.1 1.1 0 0 0 0-2.2zM12 2.2c-3.2 0-3.6 0-4.8.1-1.3.1-2.1.3-2.9.6a5.8 5.8 0 0 0-2.1 1.4A5.8 5.8 0 0 0 .8 6.4c-.3.8-.5 1.6-.6 2.9C.1 10.4.1 10.8.1 12s0 1.6.1 2.8c.1 1.3.3 2.1.6 2.9.3.8.7 1.5 1.4 2.1.6.7 1.3 1.1 2.1 1.4.8.3 1.6.5 2.9.6 1.2.1 1.6.1 4.8.1s3.6 0 4.8-.1c1.3-.1 2.1-.3 2.9-.6a5.8 5.8 0 0 0 2.1-1.4 5.8 5.8 0 0 0 1.4-2.1c.3-.8.5-1.6.6-2.9.1-1.2.1-1.6.1-4.8s0-3.6-.1-4.8c-.1-1.3-.3-2.1-.6-2.9a5.8 5.8 0 0 0-1.4-2.1A5.8 5.8 0 0 0 19.6 .9c-.8-.3-1.6-.5-2.9-.6C15.6.2 15.2.2 12 .2zm0 1.7c3.1 0 3.5 0 4.7.1 1.1.1 1.7.2 2.1.4.5.2.9.4 1.3.9.4.4.7.8.9 1.3.2.4.3 1 .4 2.1.1 1.2.1 1.6.1 4.7s0 3.5-.1 4.7c-.1 1.1-.2 1.7-.4 2.1-.2.5-.4.9-.9 1.3-.4.4-.8.7-1.3.9-.4.2-1 .3-2.1.4-1.2.1-1.6.1-4.7.1s-3.5 0-4.7-.1c-1.1-.1-1.7-.2-2.1-.4-.5-.2-.9-.4-1.3-.9-.4-.4-.7-.8-.9-1.3-.2-.4-.3-1-.4-2.1C1.9 15.5 1.9 15.1 1.9 12s0-3.5.1-4.7c.1-1.1.2-1.7.4-2.1.2-.5.4-.9.9-1.3.4-.4.8-.7 1.3-.9.4-.2 1-.3 2.1-.4C8.5 1.9 8.9 1.9 12 1.9z"/></svg><span>Instagram</span></a>
+        <a href="https://www.facebook.com/ivoryevents" target="_blank" rel="noopener noreferrer" aria-label="Ivory Events on Facebook"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M24 12a12 12 0 1 0-13.9 11.9v-8.4H7.1V12h3V9.4c0-3 1.8-4.7 4.5-4.7 1.3 0 2.7.2 2.7.2v3h-1.5c-1.5 0-2 .9-2 1.9V12h3.4l-.5 3.5h-2.9v8.4A12 12 0 0 0 24 12z"/></svg><span>Facebook</span></a>
+      </div>
       Ivory Events &middot; Wedding Planning &amp; Event Management
     </footer>
   </section>
