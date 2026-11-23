@@ -4,6 +4,12 @@
   "wedding_date": "2026-12-30",
   "venue": "Kozhencherry",
   "type": "christian",
-  "quotes": [],
+  "quotes": [
+    {
+      "id": "261123",
+      "created": "2026-11-23",
+      "url": "https://ivory-packages.pages.dev/IV-012-301226/261123"
+    }
+  ],
   "code": "IV-012-301226"
 }
