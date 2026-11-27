@@ -40,7 +40,7 @@
     var groups = [];
     var inc = all('.inclusions-highlight li').map(function (li) { return { name: clean(li.textContent), sub: '' }; })
       .filter(function (x) { return x.name; });
-    if (inc.length) groups.push({ title: 'Stage decoration', items: inc });
+    if (inc.length) groups.push({ title: 'Stage decoration', items: inc, bundle: true });
     var title = '', cur = null;
     all('main h2, main .item').forEach(function (n) {
       if (n.tagName === 'H2') { title = clean(n.textContent.replace(/^\s*\d+\s*\u00b7\s*/, '')); cur = null; return; }
@@ -64,15 +64,25 @@
     css.textContent = '.lv .item{padding:.8rem 1rem}.lv .item label{display:grid;grid-template-columns:auto 1fr;column-gap:.75rem;align-items:start;cursor:pointer}' +
       '.lv .item input{position:static;margin:.2rem 0 0;width:1.15rem;height:1.15rem;grid-row:span 2;accent-color:#b08d57}.lv .item b,.lv .item small{grid-column:2;padding:0;margin:0}' +
       '.lv .item.selected{border-color:#b08d57;box-shadow:0 0 0 2px #b08d57}.lv h2 .num{margin-right:.2rem}' +
+      '.lv-bundle{background:#fff;border:1px solid #e9e2d6;border-left:3px solid #b08d57;border-radius:12px;padding:.9rem 1.1rem 1rem;margin-bottom:1rem}.lv-bundle p{margin:0 0 .6rem;font-size:.85rem;color:#6b625b}' +
+      '.lv-bundle ul{list-style:none;margin:0;padding:0}.lv-bundle li{position:relative;padding:.22rem 0 .22rem 1.5rem;font-size:.93rem}.lv-bundle li::before{content:"\\2022";position:absolute;left:.3rem;color:#b08d57;font-weight:700}' +
       '.ivory-stack-overlay{display:none!important}';
     document.head.appendChild(css);
     main.innerHTML = '';
     main.classList.add('lv');
     var left = el('div'), aside = el('aside');
-    left.appendChild(el('div', 'intro-box', 'Tick the stage decoration items and services you would like, then send us your list on WhatsApp.'));
-    var boxes = [];
+    left.appendChild(el('div', 'intro-box', 'See what comes with stage decoration, tick any additional services you would like, then send us your list on WhatsApp.'));
+    var boxes = [], bundled = '';
     groups.forEach(function (g, gi) {
       var h = el('h2'); h.appendChild(el('span', 'num', (gi + 1) + ' \u00b7 ')); h.appendChild(document.createTextNode(g.title)); left.appendChild(h);
+      if (g.bundle) {   // comes as one bundle: listed for information, nothing to tick
+        var box = el('div', 'lv-bundle'), ul = el('ul');
+        box.appendChild(el('p', '', 'All of these come together as one stage decoration service.'));
+        g.items.forEach(function (it) { ul.appendChild(el('li', '', it.name)); });
+        box.appendChild(ul); left.appendChild(box);
+        bundled = g.title;
+        return;
+      }
       var grid = el('div', 'grid');
       g.items.forEach(function (it) {
         var card = el('div', 'item'), lab = el('label'), cb = el('input');
@@ -112,8 +122,9 @@
         if (x.g !== last) { parts.push((parts.length ? '\n' : '') + x.g + ':'); last = x.g; }
         parts.push('\u2022 ' + x.name);
       });
-      if (!sel.length) lines.appendChild(el('li', 'empty', 'Nothing selected yet'));
-      count.textContent = sel.length + (sel.length === 1 ? ' item selected' : ' items selected');
+      if (bundled) { var first = el('li', '', bundled); lines.insertBefore(first, lines.firstChild); parts.unshift('\u2022 ' + bundled + (parts.length ? '\n' : '')); }
+      if (!sel.length && !bundled) lines.appendChild(el('li', 'empty', 'Nothing selected yet'));
+      count.textContent = sel.length + (sel.length === 1 ? ' additional service selected' : ' additional services selected');
       if (sel.length) warn.textContent = '';
       var v = function (k) { return fields[k].value.trim(); };
       var text = 'Hello Ivory Events, this is my list for the wedding.\n\nName: ' + (v('nm') || '-') + '\nPhone: ' + (v('ph') || '-') + '\nDate: ' + (v('dt') || '-') + '\nVenue: ' + (v('vn') || '-') + '\n\n' + parts.join('\n') + (v('msg') ? '\n\nNotes: ' + v('msg') : '');
@@ -125,7 +136,7 @@
         render();
       });
     });
-    go.addEventListener('click', function (e) { if (!picked().length) { e.preventDefault(); warn.textContent = 'Please tick at least one item first.'; } });
+    go.addEventListener('click', function (e) { if (!bundled && !picked().length) { e.preventDefault(); warn.textContent = 'Please tick at least one item first.'; } });
     clear.addEventListener('click', function () { boxes.forEach(function (x) { if (!x.fixed) x.cb.checked = false; }); render(); });
     render();
   }
