@@ -88,6 +88,8 @@ def build_part(name, src_folder="A", sub="", swap=None):
         src = src.replace(swap[0], swap[1])
     src = src.replace("<head>", f'<head>\n<base href="/{src_folder}/">', 1)
     src = src.replace("</head>", EMBED_CSS + "\n</head>", 1)
+    if name == "packages":   # tick-list view (no photos, no rates) for clients switched to it
+        src = src.replace("</head>", '<script src="/New%20A/parts/listview.js"></script>\n</head>', 1)
     for page, tab in (("packages", "packages"), ("checklist", "checklist"), ("index", "intro"),
                       ("reviews", "intro"), ("gallery", "intro")):
         src = src.replace(f'href="{page}.html"', f'href="#" data-tab="{tab}"')
