@@ -4,5 +4,11 @@
   "wedding_date": "2027-01-17",
   "venue": "BBC",
   "type": "engagement",
-  "quotes": []
+  "quotes": [
+    {
+      "id": "261120",
+      "created": "2026-11-20",
+      "url": "https://ivory-packages.pages.dev/IV-039-170127/261120"
+    }
+  ]
 }
