@@ -3,7 +3,13 @@
   "name": "Shreya",
   "wedding_date": "2026-12-26",
   "venue": "Maniyattu - Evening",
-  "quotes": [],
+  "quotes": [
+    {
+      "id": "261127",
+      "created": "2026-11-27",
+      "url": "https://ivory-packages.pages.dev/IV-009-261226/261127"
+    }
+  ],
   "code": "IV-009-261226",
   "type": "engagement"
 }
