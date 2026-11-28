@@ -87,10 +87,20 @@ def titled(name):
     return [("Engagement Package", name + " Package")]
 
 
+# Pentecost: the P pages, with this stage decoration list in place of the P one.
+P_INCLUSIONS = ['White flex or carpet on stage', 'Sofa', 'Welcome drink for couple', 'Single layer fresh cream cake', 'Fresh leaves on stage', 'Stage floral settings artificial', 'Stage lights and facelights', 'Stage sound system', 'Centre carpet along aisle', 'Hall entrance arch artificial', 'Wedding car decoration fresh', 'Greeting bouquet - 2 nos. - fresh flowers', 'Wedding signage board', '2 welcome hostesses']
+PENTECOST_INCLUSIONS = ['White flex or carpet on stage', 'Table for Pastors', 'Chairs for Pastors', 'Podium', 'Sofa', 'Single layer fresh cream cake', 'Fresh leaves on stage', 'Stage floral settings artificial', 'Stage lights and facelights', 'Centre carpet along aisle', 'Hall entrance arch artificial', 'Wedding car decoration fresh', 'Greeting bouquet - 2 nos. - fresh flowers', 'Wedding signage board', '2 welcome hostesses']
+
+
+def li_lines(items):
+    return "".join(f"      <li>{i}</li>\n" for i in items)
+
+
 TYPES = {
     "marthoma": ("Marthoma", "A", "", []),
     "orthodox": ("Orthodox", "A", "", []),
-    "pentecost": ("Pentecost", "P", "pentecost", []),
+    "pentecost": ("Pentecost", "P", "pentecost",
+                  [(li_lines(P_INCLUSIONS), li_lines(PENTECOST_INCLUSIONS))]),
     "csi": ("CSI", "A", "", []),
     "engagement": ("Engagement", "E", "engagement", []),
     "mylanchi": ("Maduramveppu / Mylanchi", "E", "mylanchi", titled("Maduramveppu / Mylanchi")),
