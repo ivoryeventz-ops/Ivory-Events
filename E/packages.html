@@ -1594,7 +1594,7 @@ input:focus, textarea:focus { outline: none; border-color: var(--gold); backgrou
 /* Package rates for wedding dates from 1 April 2027. Applies only inside a client link, using that client's wedding date. */
 (function () {
   if (window.parent === window) return;
-  var RATES = [80000, 115000, 125000, 140000, 150000, 165000, 180000, 195000, 210000, 225000, 255000, 285000, 315000];
+  var RATES = [75000, 110000, 120000, 135000, 145000, 160000, 175000, 190000, 205000, 220000, 250000, 280000, 310000];   /* Rs 5,000 below the wedding rates */
   var url;
   try { url = new URL('data.json', window.parent.location.href); } catch (e) { return; }
   fetch(url.href + '?t=' + Date.now(), { cache: 'no-store' }).then(function (r) { return r.ok ? r.json() : null; }).then(function (d) {
