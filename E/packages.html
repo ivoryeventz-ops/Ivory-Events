@@ -1590,5 +1590,25 @@ input:focus, textarea:focus { outline: none; border-color: var(--gold); backgrou
   render();
 })();
 </script>
+<script>
+/* Package rates for wedding dates from 1 April 2027. Applies only inside a client link, using that client's wedding date. */
+(function () {
+  if (window.parent === window) return;
+  var RATES = [80000, 115000, 125000, 140000, 150000, 165000, 180000, 195000, 210000, 225000, 255000, 285000, 315000];
+  var url;
+  try { url = new URL('data.json', window.parent.location.href); } catch (e) { return; }
+  fetch(url.href + '?t=' + Date.now(), { cache: 'no-store' }).then(function (r) { return r.ok ? r.json() : null; }).then(function (d) {
+    if (!d || !(d.wedding_date >= '2027-04-01')) return;
+    RATES.forEach(function (v, i) {
+      var el = document.querySelector('input[data-name="Package ' + (i + 1) + '"]');
+      if (!el) return;
+      el.setAttribute('data-price', v);
+      el.closest('.item').querySelector('.price').textContent = '\u20B9' + v.toLocaleString('en-IN');
+    });
+    var on = document.querySelector('.item input:checked');
+    if (on) on.dispatchEvent(new Event('change', { bubbles: true }));
+  }).catch(function () {});
+})();
+</script>
 </body>
 </html>

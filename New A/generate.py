@@ -111,6 +111,28 @@ TYPES = {
 }
 
 
+# Extra client sites. Each has its own general page, client-shell.html and client folders, and works like New A.
+# The Packages / Checklist pages are shared from New A/parts/, so changing a client's event type never changes their link.
+#   folder -> the parts sub-folder its general page shows
+EXTRA_SITES = {"New E": "engagement", "New P": "pentecost"}
+PARTS_URL = "/New%20A/parts/"
+
+
+def build_site(folder):
+    default = EXTRA_SITES[folder] + "/"
+    out = ROOT.parent / folder
+    out.mkdir(exist_ok=True)
+    (out / "logo.png").write_bytes((ROOT / "logo.png").read_bytes())
+    for mode, fname in (("root", "index.html"), ("client", "client-shell.html")):
+        page = build_page(mode).replace(SITE, SITE.replace("New%20A", folder.replace(" ", "%20")))
+        prefix = "../" if mode == "client" else ""
+        for part in ("packages", "checklist"):
+            page = page.replace(f'data-src="{prefix}parts/{part}.html"', f'data-src="{PARTS_URL}{default}{part}.html"')
+        page = page.replace("fr.setAttribute('data-src', '../parts/' + PT + k + '.html');",
+                            f"fr.setAttribute('data-src', '{PARTS_URL}' + (d.type ? PT : '{default}') + k + '.html');")
+        (out / fname).write_text(page, encoding="utf-8")
+
+
 def build_part(name, src_folder="A", sub="", swaps=()):
     src = (ROOT.parent / src_folder / f"{name}.html").read_text(encoding="utf-8")
     for old, new in swaps:
@@ -694,11 +716,15 @@ def main():
             for n in ("packages", "checklist"):
                 build_part(n, _src, _sub, _swaps)
         (ROOT / "index.html").write_text(build_page("root"), encoding="utf-8")
+        for site in EXTRA_SITES:
+            build_site(site)
     template = build_page("client")
     (ROOT / "client-shell.html").write_text(template, encoding="utf-8")
     for p in sorted(ROOT.glob("*/data.json")):
         if only and p.parent.name != only:
             continue
+        if "moved_to" in json.loads(p.read_text(encoding="utf-8")):
+            continue                      # an old link that now redirects: leave its page alone
         build_client(p.parent.name, template)
 
 
