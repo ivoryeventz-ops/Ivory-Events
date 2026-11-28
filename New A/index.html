@@ -310,8 +310,8 @@ footer .orn{margin-bottom:.9rem}
     fetch('data.json?t=' + Date.now(), { cache: 'no-store' })
       .then(function (r) { if (!r.ok) throw new Error('data'); return r.json(); })
       .then(function (d) {
-        /* event type picks which Packages / Checklist pages load (none = Christian wedding, the original) */
-        var PT = { pentecost: 'pentecost/', engagement: 'engagement/', hindu: 'hindu/' }[d.type] || '';
+        /* event type picks which Packages / Checklist pages load (none, Marthoma, Orthodox or CSI = the original pages) */
+        var PT = { pentecost: 'pentecost/', engagement: 'engagement/', mylanchi: 'mylanchi/', creception: 'hindu/', hindumandap: 'hindumandap/', hindu: 'hindu/' }[d.type] || '';
         ['packages', 'checklist'].forEach(function (k) {
           var fr = panels[k] && panels[k].querySelector('iframe[data-src]');
           if (fr) fr.setAttribute('data-src', '../parts/' + PT + k + '.html');

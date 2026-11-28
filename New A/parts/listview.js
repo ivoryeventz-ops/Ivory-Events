@@ -38,7 +38,13 @@
 
   function read() {
     var groups = [];
-    var inc = all('.inclusions-highlight li').map(function (li) { return { name: clean(li.textContent), sub: '' }; })
+    var inc = all('.inclusions-highlight > ul > li').map(function (li) {
+      var own = li.cloneNode(true);
+      if (own.querySelector('ul')) {   // an item with its own list (pooja items) is shown as it is written
+        return { name: clean(own.textContent), sub: '', html: own };
+      }
+      return { name: clean(own.textContent), sub: '' };
+    })
       .filter(function (x) { return x.name; });
     if (inc.length) groups.push({ title: 'Stage decoration', items: inc, bundle: true });
     var title = '', cur = null;
@@ -66,6 +72,7 @@
       '.lv .item.selected{border-color:#b08d57;box-shadow:0 0 0 2px #b08d57}.lv h2 .num{margin-right:.2rem}' +
       '.lv-bundle{background:#fff;border:1px solid #e9e2d6;border-left:3px solid #b08d57;border-radius:12px;padding:.9rem 1.1rem 1rem;margin-bottom:1rem}.lv-bundle p{margin:0 0 .6rem;font-size:.85rem;color:#6b625b}' +
       '.lv-bundle ul{list-style:none;margin:0;padding:0}.lv-bundle li{position:relative;padding:.22rem 0 .22rem 1.5rem;font-size:.93rem}.lv-bundle li::before{content:"\\2022";position:absolute;left:.3rem;color:#b08d57;font-weight:700}' +
+      '.lv-bundle li ul{margin-top:.2rem}' +
       '.ivory-stack-overlay{display:none!important}';
     document.head.appendChild(css);
     main.innerHTML = '';
@@ -78,7 +85,7 @@
       if (g.bundle) {   // comes as one bundle: listed for information, nothing to tick
         var box = el('div', 'lv-bundle'), ul = el('ul');
         box.appendChild(el('p', '', 'All of these come together as one stage decoration service.'));
-        g.items.forEach(function (it) { ul.appendChild(el('li', '', it.name)); });
+        g.items.forEach(function (it) { ul.appendChild(it.html ? it.html : el('li', '', it.name)); });
         box.appendChild(ul); left.appendChild(box);
         bundled = g.title;
         return;

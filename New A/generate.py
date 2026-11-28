@@ -71,21 +71,40 @@ EMBED_JS = (
 
 
 # Event types offered when a new enquiry is entered in the Enquiries app.
-#   key -> (label, source folder of the package/checklist pages, parts sub-folder, wording swap)
-# Christian keeps the original parts/ files (built from ../A). The others live in parts/<key>/.
-# Pentecost uses the P items inside the same New A look; Hindu reception uses the E items, worded "Reception".
+#   key -> (label, source folder of the package/checklist pages, parts sub-folder, wording swaps)
+# Marthoma, Orthodox and CSI use the original parts/ files (built from ../A), as does the older "christian" type.
+# The others live in parts/<sub>/. Pentecost uses the P items inside the same New A look. The rest use the E items;
+# both receptions share one folder, and Hindu - Mandap also gets the pooja items after Sofa.
+POOJA_ITEMS = ["Vilakku 5", "Para", "Nellu", "Kindi", "Korandi", "Thorthu", "Vazha ila", "Vetta, paak, coin",
+               "Thalam", "Ashtamangalyam, tulsi", "Kai villaku", "Peedom", "Mandap", "Fruit thalam",
+               "Ganapathy orukkam items (aval, malar, sharkara, sambrani, kalabam, panineer, rose petals or arali)"]
+POOJA_HTML = ("      <li>Sofa</li>\n      <li>Pooja items:\n        <ul>\n"
+              + "".join(f"          <li>{i}</li>\n" for i in POOJA_ITEMS)
+              + "        </ul>\n        (<strong>Without</strong> Chotta/Thenginpukola)\n      </li>\n")
+
+
+def titled(name):
+    return [("Engagement Package", name + " Package")]
+
+
 TYPES = {
-    "christian": ("Wedding - Christian", "A", "", None),
-    "pentecost": ("Wedding - Pentecost", "P", "pentecost", None),
-    "engagement": ("Engagement", "E", "engagement", None),
-    "hindu": ("Reception - Hindu", "E", "hindu", ("Engagement Package", "Reception Package")),
+    "marthoma": ("Marthoma", "A", "", []),
+    "orthodox": ("Orthodox", "A", "", []),
+    "pentecost": ("Pentecost", "P", "pentecost", []),
+    "csi": ("CSI", "A", "", []),
+    "engagement": ("Engagement", "E", "engagement", []),
+    "mylanchi": ("Maduramveppu / Mylanchi", "E", "mylanchi", titled("Maduramveppu / Mylanchi")),
+    "creception": ("Christian - Reception", "E", "hindu", titled("Reception")),
+    "hindumandap": ("Hindu - Mandap", "E", "hindumandap",
+                    titled("Hindu Mandap") + [("      <li>Sofa</li>\n", POOJA_HTML)]),
+    "hindu": ("Hindu - Reception", "E", "hindu", titled("Reception")),
 }
 
 
-def build_part(name, src_folder="A", sub="", swap=None):
+def build_part(name, src_folder="A", sub="", swaps=()):
     src = (ROOT.parent / src_folder / f"{name}.html").read_text(encoding="utf-8")
-    if swap:
-        src = src.replace(swap[0], swap[1])
+    for old, new in swaps:
+        src = src.replace(old, new)
     src = src.replace("<head>", f'<head>\n<base href="/{src_folder}/">', 1)
     src = src.replace("</head>", EMBED_CSS + "\n</head>", 1)
     if name == "packages":   # tick-list view (no photos, no rates) for clients switched to it
@@ -376,8 +395,8 @@ PAGE_JS = r"""
     fetch('data.json?t=' + Date.now(), { cache: 'no-store' })
       .then(function (r) { if (!r.ok) throw new Error('data'); return r.json(); })
       .then(function (d) {
-        /* event type picks which Packages / Checklist pages load (none = Christian wedding, the original) */
-        var PT = { pentecost: 'pentecost/', engagement: 'engagement/', hindu: 'hindu/' }[d.type] || '';
+        /* event type picks which Packages / Checklist pages load (none, Marthoma, Orthodox or CSI = the original pages) */
+        var PT = { pentecost: 'pentecost/', engagement: 'engagement/', mylanchi: 'mylanchi/', creception: 'hindu/', hindumandap: 'hindumandap/', hindu: 'hindu/' }[d.type] || '';
         ['packages', 'checklist'].forEach(function (k) {
           var fr = panels[k] && panels[k].querySelector('iframe[data-src]');
           if (fr) fr.setAttribute('data-src', '../parts/' + PT + k + '.html');
@@ -661,9 +680,9 @@ def build_client(folder, template):
 def main():
     only = sys.argv[1] if len(sys.argv) > 1 else None
     if not only:
-        for _key, (_label, _src, _sub, _swap) in TYPES.items():
+        for _key, (_label, _src, _sub, _swaps) in TYPES.items():
             for n in ("packages", "checklist"):
-                build_part(n, _src, _sub, _swap)
+                build_part(n, _src, _sub, _swaps)
         (ROOT / "index.html").write_text(build_page("root"), encoding="utf-8")
     template = build_page("client")
     (ROOT / "client-shell.html").write_text(template, encoding="utf-8")
